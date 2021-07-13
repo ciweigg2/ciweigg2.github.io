@@ -714,8 +714,8 @@
           <span class="token key atrule">predicates</span><span class="token punctuation">:</span>
           <span class="token punctuation">-</span> After=2018<span class="token punctuation">-</span>01<span class="token punctuation">-</span>20T06<span class="token punctuation">:</span>06<span class="token punctuation">:</span>06+08<span class="token punctuation">:</span>00<span class="token punctuation">[</span>Asia/Shanghai<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Spring 是通过 ZonedDateTime 来对时间进行的对比，ZonedDateTime 是 Java 8 中日期时间功能里，用于表示带时区的日期与时间信息的类，ZonedDateTime 支持通过时区来设置时间，中国的时区是：Asia/Shanghai。</p>
-<p>After Route Predicate 是指在这个时间之后的请求都转发到目标地址。上面的示例是指，请求时间在 2018年1月20日6点6分6秒之后的所有请求都转发到地址<a href="http://ityouknow.com。+08:00是指时间和UTC时间相差八个小时，时间地区为Asia/Shanghai。">http://ityouknow.com。+08:00是指时间和UTC时间相差八个小时，时间地区为Asia/Shanghai。</a></p>
-<p>添加完路由规则之后，访问地址<a href="http://localhost:8080会自动转发到http://ityouknow.com。">http://localhost:8080会自动转发到http://ityouknow.com。</a></p>
+<p>After Route Predicate 是指在这个时间之后的请求都转发到目标地址。上面的示例是指，请求时间在 2018年1月20日6点6分6秒之后的所有请求都转发到地址<a href="http://ityouknow.com。+08:00是指时间和UTC时间相差八个小时，时间地区为Asia/Shanghai。" target="_blank" rel="noopener">http://ityouknow.com。+08:00是指时间和UTC时间相差八个小时，时间地区为Asia/Shanghai。</a></p>
+<p>添加完路由规则之后，访问地址<a href="http://localhost:8080会自动转发到http://ityouknow.com。" target="_blank" rel="noopener">http://localhost:8080会自动转发到http://ityouknow.com。</a></p>
 <p>Before Route Predicate 刚好相反，在某个时间之前的请求的请求都进行转发。我们把上面路由规则中的 After 改为 Before，如下spring:<br>  cloud:<br>    gateway:<br>      routes:<br>        - id: after_ id: after_route<br>          uri: <a href="http://ityouknow.com" target="_blank" rel="noopener">http://ityouknow.com</a><br>          predicates:<br>          - Before=2018-01-20T06:06:06+08:00[Asia/Shanghai]</p>
 <pre><code>
 就表示在这个时间之前可以进行路由，在这时间之后停止路由，修改完之后重启项目再次访问地址http://localhost:8080，页面会报 404 没有找到地址。
@@ -1465,7 +1465,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">340.3k</span>&nbsp;字
+                class="white-color">340.6k</span>&nbsp;字
             
             
             
