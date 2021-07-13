@@ -1,0 +1,2167 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="hexo-theme-butterfly主题安装呀, 如果没有你">
+    <meta name="description" content="快速开始hexo-theme-butterfly是基于Molunerfinn的hexo-theme-melody的基础上进行开发的。文档也是在hexo-theme-melody的文档基础上修改。因为一些配置变更导致与原主题配置上有部分区别。">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>hexo-theme-butterfly主题安装呀 | 如果没有你</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper head-container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">如果没有你</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/about">
+          
+          <i class="fas fa-user-circle" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>关于</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="https://ciweigg2.github.io/ciwei-resume/">
+          
+          <i class="fas fa-trophy" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>简历</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-list" style="zoom: 0.6;"></i>
+      
+      <span>娱乐</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/musics">
+          
+          <i class="fas fa-music" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>音乐</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/movies">
+          
+          <i class="fas fa-film" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>电影</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/books">
+          
+          <i class="fas fa-book" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>图书</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/galleries">
+          
+          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>相册</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="https://ciweigg2.github.io/alicdn/">
+          
+          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>免费图床</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/books">
+          
+          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>书单</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/games">
+          
+          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>游戏</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">如果没有你</div>
+        <div class="logo-desc">
+            
+            躺在你学校的操场看星空 教室里的灯还亮着你没走 记得 我写给你的情书 都什么年代了 到现在我还在写着 总有一天总有一年会发现 有人默默的陪在你的身边
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>   
+				
+                  <a href="/about " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-user-circle" style="position: absolute;left:50px" ></i>
+			      
+		          <span>关于</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="https://ciweigg2.github.io/ciwei-resume/ " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-trophy" style="position: absolute;left:50px" ></i>
+			      
+		          <span>简历</span>
+                  </a>
+                </li>
+               
+            </ul>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+				<i class="fas fa-fw fa-link"></i>
+			
+			Contact
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			Friends
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-list"></i>
+			
+			娱乐
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>   
+				
+                  <a href="/musics " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-music" style="position: absolute;left:50px" ></i>
+			      
+		          <span>音乐</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="/movies " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-film" style="position: absolute;left:50px" ></i>
+			      
+		          <span>电影</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="/books " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-book" style="position: absolute;left:50px" ></i>
+			      
+		          <span>图书</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="/galleries " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
+			      
+		          <span>相册</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="https://ciweigg2.github.io/alicdn/ " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
+			      
+		          <span>免费图床</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="/books " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
+			      
+		          <span>书单</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="/games " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
+			      
+		          <span>游戏</span>
+                  </a>
+                </li>
+               
+            </ul>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://ciwei3.cn-sh2.ufileos.com/150.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        hexo-theme-butterfly主题安装呀
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/hexo/">
+                                <span class="chip bg-color">hexo</span>
+                            </a>
+                        
+                            <a href="/tags/butterfly/">
+                                <span class="chip bg-color">butterfly</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/综合/" class="post-category">
+                                综合
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-07-04
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        5.5k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        23 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h1><p><code>hexo-theme-butterfly</code>是基于<a href="https://github.com/Molunerfinn" target="_blank" rel="noopener">Molunerfinn</a>的<a href="https://github.com/Molunerfinn/hexo-theme-melody" target="_blank" rel="noopener">hexo-theme-melody</a>的基础上进行开发的。<br>文档也是在<a href="https://molunerfinn.com/hexo-theme-melody-doc/" target="_blank" rel="noopener">hexo-theme-melody</a>的文档基础上修改。因为一些配置变更导致与原主题配置上有部分区别。故如果安装<code>hexo-theme-butterfly</code>主题，请参考这篇文档。</p>
+<h2 id="主题安装和升级"><a href="#主题安装和升级" class="headerlink" title="主题安装和升级"></a>主题安装和升级</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>在你的博客根目录里</p>
+<pre><code>git clone -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/Butterfly</code></pre><p>如果想要安装比较新的dev分支，可以</p>
+<a id="more"></a>
+
+<pre><code>git clone -b dev https://github.com/jerryc127/hexo-theme-butterfly.git themes/Butterfly</code></pre><h3 id="应用主题"><a href="#应用主题" class="headerlink" title="应用主题"></a>应用主题</h3><p>修改站点配置文件<code>_config.yml</code>，把主题改为<code>Butterfly</code></p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">theme</span><span class="token punctuation">:</span> Butterfly<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<blockquote>
+<p>如果你没有 pug 以及 stylus 的渲染器，请下载安装： <code>npm install hexo-renderer-jade hexo-renderer-stylus --save</code> or <code>yarn add hexo-renderer-jade hexo-renderer-stylus</code></p>
+</blockquote>
+<h3 id="平滑升级"><a href="#平滑升级" class="headerlink" title="平滑升级"></a>平滑升级</h3><p>为了主题的平滑升级, <code>Butterfly</code> 使用了 <a href="https://hexo.io/docs/data-files.html" target="_blank" rel="noopener">data files</a>特性。</p>
+<p>推荐把主题默认的配置文件<code>_config.yml</code>复制到 Hexo 工作目录下的<code>source/_data/butterfly.yml</code>，如果<code>source/_data</code>的目录不存在那就创建一个。</p>
+<blockquote>
+<p>注意，如果你创建了<code>butterfly.yml</code>, 它将会替换主题默认配置文件<code>_config.yml</code>里的配置项 (<strong>不是合并而是替换</strong>), 之后你就只需要通过<code>git pull</code>的方式就可以平滑地升级 <code>theme-melody</code>了。</p>
+</blockquote>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h2 id="配置文件说明"><a href="#配置文件说明" class="headerlink" title="配置文件说明"></a>配置文件说明</h2><ul>
+<li>站点配置文件<code>_config.yml</code>是 hexo 工作目录下的主配置文件</li>
+<li><code>butterfly.yml</code> 是 <code>Butterfly</code> 的配置文件。它需要你手动将主题目录下的<code>_config.yml</code>文件复制到 hexo 工作目录的<code>source/_data/butterfly.yml</code>中。如果文件或者文件夹不存在，需要手动创建。</li>
+</ul>
+<h2 id="语言"><a href="#语言" class="headerlink" title="语言"></a>语言</h2><p>修改站点配置文件 <code>_config.yml</code></p>
+<p>默认语言是 en</p>
+<p>主题支持三种语言</p>
+<ul>
+<li>default(en)</li>
+<li>zh-CN (简体中文)</li>
+<li>zh-TW (繁体中文)</li>
+</ul>
+<h2 id="自定义主题色"><a href="#自定义主题色" class="headerlink" title="自定义主题色"></a>自定义主题色</h2><p>可以修改大部分UI颜色</p>
+<p>配置<code>butterfly.yml</code>，比如：</p>
+<blockquote>
+<p>颜色值必须被双引号包裹，就像<code>"#000"</code>而不是<code>#000</code>。否则将会在构建的时候报错！</p>
+</blockquote>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">theme_color</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">main</span><span class="token punctuation">:</span> "<span class="token comment" spellcheck="true">#9370DB"</span>
+  <span class="token key atrule">paginator</span><span class="token punctuation">:</span> "<span class="token comment" spellcheck="true">#7A7FF1"</span>
+  <span class="token key atrule">button_hover</span><span class="token punctuation">:</span> "<span class="token comment" spellcheck="true">#FF7242"</span>
+  <span class="token key atrule">text_selection</span><span class="token punctuation">:</span> "<span class="token comment" spellcheck="true">#69c46d"</span>
+  <span class="token key atrule">link_color</span><span class="token punctuation">:</span> "<span class="token comment" spellcheck="true">#858585"</span>
+  <span class="token key atrule">hr_color</span><span class="token punctuation">:</span> "<span class="token comment" spellcheck="true">#A4D8FA"</span>
+  <span class="token key atrule">read-mode-bg_color</span><span class="token punctuation">:</span> '<span class="token comment" spellcheck="true">#FAF9DE'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="/images/hexo-theme-butterfly-doc-color_1.png" alt=""><br><img src="/images/hexo-theme-butterfly-doc-color_2.png" alt=""></p>
+<h2 id="代码高亮主题"><a href="#代码高亮主题" class="headerlink" title="代码高亮主题"></a>代码高亮主题</h2><p><code>Butterfly</code> 支持了 <a href="https://github.com/equinusocio/material-theme" target="_blank" rel="noopener">Material Theme</a>全部 5 种代码高亮样式：</p>
+<ul>
+<li>default</li>
+<li>darker</li>
+<li>pale night</li>
+<li>light</li>
+<li>ocean</li>
+</ul>
+<p>配置<code>butterfly.yml</code></p>
+<pre class="line-numbers language-yaml"><code class="language-yaml">highlight_c<span class="token punctuation">-</span>code<span class="token punctuation">-</span>default.png)
+
+<span class="token punctuation">></span> darker
+
+<span class="token tag">![](/images/hexo-theme-butterfly-doc-code-darker.png)</span>
+
+<span class="token punctuation">></span> pale night
+
+<span class="token tag">![](/images/hexo-theme-butterfly-doc-code-pale-night.png)</span>
+
+<span class="token punctuation">></span> light
+
+<span class="token tag">![](/images/hexo-theme-butterfly-doc-code-light.png)</span>
+
+<span class="token punctuation">></span> ocean
+
+<span class="token tag">![](/images/hexo-theme-butterfly-doc-highlight-ocean.png)</span>
+
+<span class="token comment" spellcheck="true">## 代码复制</span>
+
+主题支持代码复制功能
+
+配置`butterfly.yml`
+
+```yaml
+<span class="token key atrule">highlight_copy</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="/images/hexo-theme-butterfly-doc-code-copy.png" alt=""></p>
+<h2 id="代码换行"><a href="#代码换行" class="headerlink" title="代码换行"></a>代码换行</h2><p>在默认情况下，<code>hexo-highlight</code>在编译的时候不会实现代码自动换行。如果你不希望在代码块的区域里有横向滚动条的话，那么你可以考虑开启这个功能。</p>
+<p>配置<code>butterfly.yml</code></p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">code_word_wrap</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>然后找到你站点的 Hexo 配置文件<code>_config.yml</code>，将<code>line_number</code>改成<code>false</code>:</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">highlight</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">line_number</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+  <span class="token key atrule">auto_detect</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+  tab_replace<span class="token punctuation">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>设置<code>code_word_wrap</code>之前:</p>
+</blockquote>
+<p><img src="/images/hexo-theme-butterfly-doc-code-word-wrap-before.png" alt=""></p>
+<blockquote>
+<p>设置<code>code_word_wrap</code>之后:</p>
+</blockquote>
+<p><img src="/images/hexo-theme-butterfly-doc-code-word-wrap-after.png" alt=""></p>
+<h2 id="社交图标"><a href="#社交图标" class="headerlink" title="社交图标"></a>社交图标</h2><p>Butterfly支持 <a href="https://fontawesome.com/v4.7.0/" target="_blank" rel="noopener">font-awesome v4</a>和 <a href="https://fontawesome.com/icons?from=io" target="_blank" rel="noopener">font-awesome v5</a>. 如需开启<a href="https://fontawesome.com/icons?from=io" target="_blank" rel="noopener">font-awesome v5</a>,需要在<code>Butterfly.yml</code>上开启</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml">cdn<span class="token punctuation">:</span>some@latest/css/font<span class="token punctuation">-</span>awesome.min.css
+    <span class="token key atrule">fontawesomeV5</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//use.fontawesome.com/releases/v5.8.1/css/all.css<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>无论V4还是V5,书写格式都是一样的<code>图标名：url</code></p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">social</span><span class="token punctuation">:</span>
+  fa fa<span class="token punctuation">-</span><span class="token key atrule">github</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//github.com/jerryc127
+  fa fa<span class="token punctuation">-</span><span class="token key atrule">rss</span><span class="token punctuation">:</span> /atom.xml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>图标可以去网上寻找哟</p>
+<h2 id="导航菜单"><a href="#导航菜单" class="headerlink" title="导航菜单"></a>导航菜单</h2><p>配置<code>butterfly.yml</code></p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">menu</span><span class="token punctuation">:</span>
+  <span class="token key atrule">首页</span><span class="token punctuation">:</span> /<span class="token punctuation">|</span><span class="token punctuation">|</span>fa fa<span class="token punctuation">-</span>home
+  <span class="token key atrule">时间轴</span><span class="token punctuation">:</span> /archives/<span class="token punctuation">|</span><span class="token punctuation">|</span>fa fa<span class="token punctuation">-</span>archive
+  <span class="token key atrule">标签</span><span class="token punctuation">:</span> /tags/<span class="token punctuation">|</span><span class="token punctuation">|</span>fa fa<span class="token punctuation">-</span>tags
+  <span class="token key atrule">分类</span><span class="token punctuation">:</span> /categories/<span class="token punctuation">|</span><span class="token punctuation">|</span>fa fa<span class="token punctuation">-</span>folder<span class="token punctuation">-</span>open
+  <span class="token key atrule">留言板</span><span class="token punctuation">:</span> /messageboard/<span class="token punctuation">|</span><span class="token punctuation">|</span>fa fa<span class="token punctuation">-</span>coffee
+  <span class="token key atrule">友链</span><span class="token punctuation">:</span> /link/<span class="token punctuation">|</span><span class="token punctuation">|</span>fa fa<span class="token punctuation">-</span>link
+  <span class="token key atrule">关于</span><span class="token punctuation">:</span> /about/<span class="token punctuation">|</span><span class="token punctuation">|</span>fa fa<span class="token punctuation">-</span>heart<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>必须是 <code>/xxx/</code>，后面<code>||</code>分开，然后写图标名。菜单名称可自己修改。</p>
+</blockquote>
+<p><img src="/images/hexo-theme-butterfly-doc-menu.png" alt=""></p>
+<h2 id="主页文章节选-自动节选和文章页description"><a href="#主页文章节选-自动节选和文章页description" class="headerlink" title="主页文章节选(自动节选和文章页description)"></a>主页文章节选(自动节选和文章页description)</h2><p>因为主题UI的关系，<code>主页文章节选</code>只支持<code>自动节选</code>和<code>文章页description</code>。优先选择<code>自动节选</code>。</p>
+<p>在<code>butterfly.yml</code>里可以开启<code>auto_excerpt</code>的选项，你的文章将会在自动截取部分显示在主页。（默认显示150个字）。</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">auto_excerpt</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">length</span><span class="token punctuation">:</span> <span class="token number">150</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>如果没有开启<code>自动节选</code>，则会显示文章页front-matter里面设置的<code>description</code>。</p>
+<p><img src="/images/hexo-theme-butterfly-doc-post-description.png" alt=""></p>
+<blockquote>
+<p>注意：如果开启了自动节选功能，代码块的显示将有可能不正常。</p>
+</blockquote>
+<h2 id="顶部图"><a href="#顶部图" class="headerlink" title="顶部图"></a>顶部图</h2><p><code>顶部图</code>有2种配置：具体url 和（留空，true和false，三个效果一样）</p>
+<h3 id="page页"><a href="#page页" class="headerlink" title="page页"></a>page页</h3><h4 id="当具体url时"><a href="#当具体url时" class="headerlink" title="当具体url时"></a>当具体url时</h4><p>主页的顶部图可以在<code>Butterfly.yml</code>设置<code>top_img</code></p>
+<p>archives页的顶部图可以在<code>Butterfly.yml</code>设置<code>archive_img</code></p>
+<p>其他<code>page</code>页的顶部图可以在各自的md页面设置<code>front-matter</code>中的<code>top_img</code></p>
+<blockquote>
+<p>除<code>主页</code>外，其他页面如果没有设置各自的<code>top_img</code>，则会显示与主页同样的<code>top_img</code>图片</p>
+</blockquote>
+<h4 id="当顶部图留空，true和false"><a href="#当顶部图留空，true和false" class="headerlink" title="当顶部图留空，true和false"></a>当顶部图留空，true和false</h4><p>主页会显示纯颜色的顶部图</p>
+<p>其他page的顶部图没有设置时，也会显示纯颜色的顶部图</p>
+<h3 id="post页"><a href="#post页" class="headerlink" title="post页"></a>post页</h3><p><code>post</code>页的顶部图会优先显示各自<code>front-matter</code>中的<code>top_img</code>,如果没有设置，则会缩略图（即各自``front-matter<code>中的</code>cover<code>)，如果没有则会显示默认的post顶部图,可在</code>Butterfly.yml<code>设置</code>post_img`</p>
+<h2 id="文章相关项"><a href="#文章相关项" class="headerlink" title="文章相关项"></a>文章相关项</h2><p>这个选项是用来显示文章的相关信息的。</p>
+<p>配置<code>butterfly.yml</code></p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">post_meta</span><span class="token punctuation">:</span>
+  <span class="token key atrule">date_type</span><span class="token punctuation">:</span> both <span class="token comment" spellcheck="true">#or created or updated 文章日期是创建日或者更新日或都显示</span>
+  <span class="token key atrule">categories</span><span class="token punctuation">:</span> <span class="token boolean important">true </span><span class="token comment" spellcheck="true"># or false 是否显示分类</span>
+  <span class="token key atrule">tags</span><span class="token punctuation">:</span> <span class="token boolean important">true </span><span class="token comment" spellcheck="true"># or false 是否显示标签</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在文章顶部的资料，</p>
+<p><code>date_type</code>: 可设置文章日期显示创建日期(<code>created</code>)或者更新日期(<code>updated</code>)或者两种都显示(<code>both</code>)</p>
+<p><code>categories</code> 是否显示分类</p>
+<p><img src="/images/hexo-theme-butterfly-doc-post-info.png" alt=""></p>
+<p><code>tags</code>是否显示标签</p>
+<p><img src="/images/hexo-theme-butterfly-doc-post-tag.png" alt=""></p>
+<h2 id="文章版权"><a href="#文章版权" class="headerlink" title="文章版权"></a>文章版权</h2><p>为你的博客文章展示文章版权和许可协议。</p>
+<p>配置<code>butterfly.yml</code></p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">post_copyright</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">license</span><span class="token punctuation">:</span> CC BY<span class="token punctuation">-</span>NC<span class="token punctuation">-</span>SA 4.0
+  <span class="token key atrule">license_url</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//creativecommons.org/licenses/by<span class="token punctuation">-</span>nc<span class="token punctuation">-</span>sa/4.0/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="/images/hexo-theme-butterfly-doc-post-copyright.png" alt=""></p>
+<h2 id="文章打赏"><a href="#文章打赏" class="headerlink" title="文章打赏"></a>文章打赏</h2><p>在你每篇文章的结尾，可以添加打赏按钮。相关二维码可以自行配置</p>
+<p>配置<code>butterfly.yml</code></p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">reward</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">QR_code</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">itemlist</span><span class="token punctuation">:</span>
+        <span class="token key atrule">img</span><span class="token punctuation">:</span> /img/wechat.jpg
+        <span class="token key atrule">text</span><span class="token punctuation">:</span> 微信
+    <span class="token punctuation">-</span> <span class="token key atrule">itemlist</span><span class="token punctuation">:</span>
+        <span class="token key atrule">img</span><span class="token punctuation">:</span> /img/alipay.jpg
+        <span class="token key atrule">text</span><span class="token punctuation">:</span> 支付宝<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="/images/hexo-theme-butterfly-doc-post-donate.png" alt=""></p>
+<h2 id="头像"><a href="#头像" class="headerlink" title="头像"></a>头像</h2><p>配置`butterages/hexo-theme-butterfly-doc-post-donate.png)</p>
+<h2 id="文章封面"><a href="#文章封面" class="headerlink" title="文章封面"></a>文章封面</h2><p>文章的markdown文档上,在Front-matter添加cover,并填上要显示的图片地址。<br>如果不配置cover,可以设置显示默认的cover</p>
+<p>配置butterfly.yml</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">default_cover</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//cdn.jsdelivr.net/gh/jerryc127/CDN@latest/cover/default_bg.png<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>当配置多张图片时,会随机选择一张作爲cover.此时写法应爲</p>
+<pre class="line-numbers language-java"><code class="language-java">default_cover<span class="token operator">:</span>
+  <span class="token operator">-</span> https<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>cdn<span class="token punctuation">.</span>jsdelivr<span class="token punctuation">.</span>net<span class="token operator">/</span>gh<span class="token operator">/</span>jerryc127<span class="token operator">/</span>CDN<span class="token annotation punctuation">@latest</span><span class="token operator">/</span>cover<span class="token operator">/</span>default_bg<span class="token punctuation">.</span>png
+  <span class="token operator">-</span> https<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>cdn<span class="token punctuation">.</span>jsdelivr<span class="token punctuation">.</span>net<span class="token operator">/</span>gh<span class="token operator">/</span>jerryc127<span class="token operator">/</span>CDN<span class="token annotation punctuation">@latest</span><span class="token operator">/</span>cover<span class="token operator">/</span>default_bg2<span class="token punctuation">.</span>png
+  <span class="token operator">-</span> https<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>cdn<span class="token punctuation">.</span>jsdelivr<span class="token punctuation">.</span>net<span class="token operator">/</span>gh<span class="token operator">/</span>jerryc127<span class="token operator">/</span>CDN<span class="token annotation punctuation">@latest</span><span class="token operator">/</span>cover<span class="token operator">/</span>default_bg3<span class="token punctuation">.</span>png<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>随机图片配置哟</p>
+<h2 id="头像-1"><a href="#头像-1" class="headerlink" title="头像"></a>头像</h2><p>配置<code>butterfly.yml</code>l````yaml<br>avatar: <a href="https://xxxx/avat" target="_blank" rel="noopener">https://xxxx/avat</a> TOC</p>
+<p>在文章页，会有一个目录，用于显示TOC</p>
+<p>配置<code>butterfly.yml</code></p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">toc</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">number</span><span class="token punctuation">:</span> <span class="token boolean important">true   </span><span class="token comment" spellcheck="true">#显示章节数字</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="为特定的文章配置是否显示TOC和特定的目录章节数字"><a href="#为特定的文章配置是否显示TOC和特定的目录章节数字" class="headerlink" title="为特定的文章配置是否显示TOC和特定的目录章节数字"></a>为特定的文章配置是否显示TOC和特定的目录章节数字</h3><p>在你的文章<code>md</code>文件的头部，加入<code>toc_number</code>和<code>toc</code>项，并配置<code>true</code>或者<code>false</code>即可。</p>
+<p><code>toc</code>是否显示文章TOC</p>
+<p><code>toc_number</code> 是否显示章节数</p>
+<p>配置之后你的特定的文章将会拥有它自己的目录数字的显示与否，而不会受全局的配置影响。</p>
+<blockquote>
+<p><code>enable: true</code></p>
+</blockquote>
+<p><img src="/images/hexo-theme-butterfly-doc-toc-true.png" alt=""></p>
+<blockquote>
+<p><code>number: false</code></p>
+</blockquote>
+<p><img src="/images/hexo-theme-butterfly-doc-toc-number-false.png" alt=""></p>
+<h3 id="设置是否自动打开TOC"><a href="#设置是否自动打开TOC" class="headerlink" title="设置是否自动打开TOC"></a>设置是否自动打开TOC</h3><p>可选择进入文章页面时，是否自动打开sidebar显示TOC</p>
+<pre class="line-numbers language-YAML"><code class="language-YAML">auto_open_sidebar:
+  enable: true<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="博客年份"><a href="#博客年份" class="headerlink" title="博客年份"></a>博客年份</h2><p><code>since</code>是一个来展示你站点起始时间的选项。它位于页面的最底部。</p>
+<p>配置<code>butterfly.yml</code></p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">since</span><span class="token punctuation">:</span> <span class="token number">2018</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="/images/hexo-theme-butterfly-doc-since.png" alt=""></p>
+<h2 id="页脚自定义文本"><a href="#页脚自定义文本" class="headerlink" title="页脚自定义文本"></a>页脚自定义文本</h2><p><code>footer_custom_text</code>是一个给你用来在页脚自定义文本的选项。通常你可以在这里写声明文本等。支持 HTML。</p>
+<p>配置<code>butterfly.yml</code></p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">footer_custom_text</span><span class="token punctuation">:</span> Hi<span class="token punctuation">,</span> welcome to my &lt;a hrefmy &lt;a href"https<span class="token punctuation">:</span>//jerryc.me/"<span class="token punctuation">></span>blog&lt;/a<span class="token punctuation">></span>!<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="/images/hexo-eerfly-doc-footer-text.png" alt=""></p>
+<h2 id="ICP"><a href="#ICP" class="headerlink" title="ICP"></a>ICP</h2><p>对于部分有备案的域名，可以在ICP配置显示。</p>
+<p>配置<code>butterfly.yml</code></p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">ICP</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">url</span><span class="token punctuation">:</span> http<span class="token punctuation">:</span>//www.beian.miit.gov.cn/state/outPortal/loginPortal.action
+  <span class="token key atrule">text</span><span class="token punctuation">:</span> 粤ICP备xxxx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="夜间模式"><a href="#夜间模式" class="headerlink" title="夜间模式"></a>夜间模式</h2><p>右下角会有夜间模式按钮</p>
+<p>配置<code>butterfly.yml</code></p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">nightshift</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><img src="/images/hexo-theme-butterfly-doc-dark-mode.png" alt=""></p>
+<h2 id="阅读模式"><a href="#阅读模式" class="headerlink" title="阅读模式"></a>阅读模式</h2><p>阅读模式下会去掉除文章外的内容，避免干扰阅读。</p>
+<p>只会出现在文章页面，右下角会有阅读模式按钮。</p>
+<p>配置<code>butterfly.yml</code></p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">readmode</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><img src="/images/hexo-theme-butterfly-doc-read-mode.png" alt=""></p>
+<h2 id="简繁转换"><a href="#简繁转换" class="headerlink" title="简繁转换"></a>简繁转换</h2><p>简体繁体互换</p>
+<p>右下角会有简繁转换按钮。</p>
+<p>配置<code>butterfly.yml</code></p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">translate</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token comment" spellcheck="true"># 默认按钮显示文字(网站是简体，应设置为'default: 繁')</span>
+  <span class="token key atrule">default</span><span class="token punctuation">:</span> 简
+  <span class="token comment" spellcheck="true">#网站默认语言，1: 繁体中文, 2: 简体中文</span>
+  <span class="token key atrule">defaultEncoding</span><span class="token punctuation">:</span> <span class="token number">1</span>
+  <span class="token comment" spellcheck="true">#延迟时间,若不在前, 要设定延迟翻译时间, 如100表示100ms,默认为0</span>
+  <span class="token key atrule">translateDelay</span><span class="token punctuation">:</span> <span class="token number">0</span>
+  <span class="token comment" spellcheck="true">#博客网址</span>
+  <span class="token key atrule">cookieDomain</span><span class="token punctuation">:</span> <span class="token string">"https://jerryc.me/"</span>
+  <span class="token comment" spellcheck="true">#当文字是简体时，按钮显示的文字</span>
+  <span class="token key atrule">msgToTraditionalChinese</span><span class="token punctuation">:</span> <span class="token string">"繁"</span>
+  <span class="token comment" spellcheck="true">#当文字是繁体时，按钮显示的文字</span>
+  <span class="token key atrule">msgToSimplifiedChinese</span><span class="token punctuation">:</span> <span class="token string">"简"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>简体</p>
+</blockquote>
+<p><img src="/images/hexo-theme-butterfly-doc-simp.png" alt=""></p>
+<blockquote>
+<p>繁体</p>
+</blockquote>
+<p><img src="/images/hexo-theme-butterfly-doc-tranditional.png" alt=""></p>
+<h2 id="运行时间"><a href="#运行时间" class="headerlink" title="运行时间"></a>运行时间</h2><p>网页已运行时间</p>
+<p>配置<code>butterfly.yml</code></p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">runtimeshow</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">start_date</span><span class="token punctuation">:</span> 6/7/2018 00<span class="token punctuation">:</span><span class="token datetime number">00:00</span>  
+  <span class="token comment" spellcheck="true">##网页开通时间</span>
+  <span class="token comment" spellcheck="true">#格式: 月/日/年 时间</span>
+  <span class="token comment" spellcheck="true">#也可以写成 年/月/日 时间</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="/images/hexo-theme-butterfly-doc-runtime.png" alt=""></p>
+<h2 id="侧边排版"><a href="#侧边排版" class="headerlink" title="侧边排版"></a>侧边排版</h2><p>可自行决定哪个项目需要显示</p>
+<blockquote>
+<p>至少需要显示一个</p>
+</blockquote>
+<p>配置<code>butterfly.yml</code></p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">aside</span><span class="token punctuation">:</span>
+  <span class="token key atrule">card_author</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">card_announcement</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">card_recent_post</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">card_categories</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">card_tags</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">card_archives</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">card_webinfo</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="相关文章"><a href="#相关文章" class="headerlink" title="相关文章"></a>相关文章</h2><p>相关文章推荐的原理是根据文章tags的比重来推荐</p>
+<p>配置<code>butterfly.yml</code></p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">related_post</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">limit</span><span class="token punctuation">:</span> <span class="token number">6 </span><span class="token comment" spellcheck="true"># 显示推荐文章数目</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p><img src="/images/hexo-theme-butterfly-doc-relatedpost.png" alt=""></p>
+<h2 id="自定义字体"><a href="#自定义字体" class="headerlink" title="自定义字体"></a>自定义字体</h2><p>可自行设置字体的<code>font-family</code></p>
+<p>配置<code>butterfly.yml</code></p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">font</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">font-family</span><span class="token punctuation">:</span> Lato<span class="token punctuation">,</span> Helvetica Neue For Number<span class="token punctuation">,</span> <span class="token punctuation">-</span>apple<span class="token punctuation">-</span>system<span class="token punctuation">,</span> BlinkMacSystemFont<span class="token punctuation">,</span> Segoe UI<span class="token punctuation">,</span> Roboto<span class="token punctuation">,</span> PingFang SC<span class="token punctuation">,</span> Hiragino Sans GB<span class="token punctuation">,</span><span class="token string">"Microsoft JhengHei"</span><span class="token punctuation">,</span> <span class="token string">"MicrMicrosoft YaHei"</span><span class="token punctuation">,</span> Helvetica Neue<span class="token punctuation">,</span> Helvetica<span class="token punctuation">,</span> Arial<span class="token punctuation">,</span> sans<span class="token punctuation">-</span>serif
+  <span class="token key atrule">code-font</span><span class="token punctuation">:</span> consolas<span class="token punctuation">,</span> Menlo<span class="token punctuation">,</span> <span class="token string">"PingFang SC"</span><span class="token punctuation">,</span> <span class="token string">"Microsoft JhegHei"</span><span class="token punctuation">,</span><span class="token string">"Microsoft YaHei"</span><span class="token punctuation">,</span> monospace<span class="token punctuation">,</span> Helvetica Neue For Number<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="网站副标题"><a href="#网站副标题" class="headerlink" title="网站副标题"></a>网站副标题</h2><p>可设置主页中显示的网站副标题或者喜欢的座右铭。</p>
+<p>配置<code>butterfly.yml</code></p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">subtitle</span><span class="token punctuation">:</span> 
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">sub1</span><span class="token punctuation">:</span> 今日事<span class="token punctuation">,</span>今日毕
+  <span class="token key atrule">sub2</span><span class="token punctuation">:</span> Nevr put off till tomorrow what you can do today<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="/images/hhexo-theme-butterfly-doc-index-subtitle.gif" alt=""></p>
+<h1 id="主题页面"><a href="#主题页面" class="headerlink" title="主题页面"></a>主题页面</h1><h2 id="Page-Front-matter"><a href="#Page-Front-matter" class="headerlink" title="Page Front-matter"></a>Page Front-matter</h2><pre class="line-numbers language-markdown"><code class="language-markdown"><span class="token hr punctuation">---</span>
+title:
+date:
+type: （tags,link,categories这三个页面需要配置）
+comments: (是否需要显示评论，默认true)
+description:
+<span class="token title important">top_img: (设置顶部图)
+<span class="token punctuation">---</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Post-Front-matter"><a href="#Post-Front-matter" class="headerlink" title="Post Front-matter"></a>Post Front-matter</h2><pre class="line-numbers language-markdown"><code class="language-markdown"><span class="token hr punctuation">---</span>
+title:
+date:
+tags:
+categories:
+keywords:
+description:
+top_img: （除非特定需要，可以不写）
+comments  是否显示评论（除非设置false,可以不写）
+cover:  缩略图
+toc:  是否显示toc （除非特定文章设置，可以不写）
+<span class="token title important">toc_number: 是否显示toc数字 （除非特定文章设置，可以不写）
+<span class="token punctuation">---</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="标签页"><a href="#标签页" class="headerlink" title="标签页"></a>标签页</h2><ol>
+<li><p>前往你的 Hexo 博客的根目录</p>
+</li>
+<li><p>输入<code>hexo new page tags</code></p>
+</li>
+<li><p>你会找到<code>source/tags/index.md</code>这个文件</p>
+</li>
+<li><p>修改这个文件：</p>
+</li>
+</ol>
+<pre class="line-numbers language-markdown"><code class="language-markdown"><span class="token hr punctuation">---</span>
+title: 标签
+date: 2018-01-05 00:00:00
+<span class="token title important">type: "tags"
+<span class="token punctuation">---</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="分类页"><a href="#分类页" class="headerlink" title="分类页"></a>分类页</h2><ol>
+<li><p>前往你的 Hexo 博客的根目录</p>
+</li>
+<li><p>输入<code>hexo new page categories</code></p>
+</li>
+<li><p>你会找到<code>source/categories/index.md</code>这个文件</p>
+</li>
+<li><p>修改这个文件：</p>
+</li>
+</ol>
+<pre class="line-numbers language-markdown"><code class="language-markdown"><span class="token hr punctuation">---</span>
+title: 分类
+date: 2018-01-05 00:00:00
+<span class="token title important">type: "categories"
+<span class="token punctuation">---</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="相册"><a href="#相册" class="headerlink" title="相册"></a>相册</h2><p>为你的博客创建一个相册页！</p>
+<h3 id="创建相册页"><a href="#创建相册页" class="headerlink" title="创建相册页"></a>创建相册页</h3><ol>
+<li><p>前往你的 Hexo 博客的根目录</p>
+</li>
+<li><p>输入<code>hexo new page gallery</code></p>
+</li>
+<li><p>你会找到<code>source/gallery/index.md</code>这个文件</p>
+</li>
+<li><p>修改这个文件：</p>
+</li>
+</ol>
+<pre class="line-numbers language-markdown"><code class="language-markdown"><span class="token hr punctuation">---</span>
+title: Gallery
+date: 2018-01-05 00:00:00
+<span class="token title important">type: "gallery"
+<span class="token punctuation">---</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="创建音乐页"><a href="#创建音乐页" class="headerlink" title="创建音乐页"></a>创建音乐页</h2><ol>
+<li><p>前往你的 Hexo 博客的根目录</p>
+</li>
+<li><p>输入<code>hexo new page music</code></p>
+</li>
+<li><p>你会找到<code>source/music/index.md</code>这个文件</p>
+</li>
+<li><p>修改这个文件：</p>
+</li>
+</ol>
+<pre class="line-numbers language-markdown"><code class="language-markdown"><span class="token hr punctuation">---</span>
+title: 时光不必趁早 东川不会迟到 一切都刚刚好
+date: 2018-01-05 00:00:00
+<span class="token title important">type: "music"
+<span class="token punctuation">---</span></span>
+{% aplayerlist %}
+{
+<span class="token code keyword">        "narrow": false,</span>
+<span class="token code keyword">        "autoplay": true,</span>
+<span class="token code keyword">        "mode": "random",</span>
+<span class="token code keyword">        "showlrc": 3,</span>
+<span class="token code keyword">        "mutex": true,</span>
+<span class="token code keyword">        "theme": "#e6d0b2",</span>
+<span class="token code keyword">        "preload": "metadata",</span>
+<span class="token code keyword">        "listmaxheight": "513px",</span>
+<span class="token code keyword">        "music": [{</span>
+<span class="token code keyword">                        "title": "那女孩对我说",</span>
+<span class="token code keyword">                        "author": "Uu",</span>
+<span class="token code keyword">                        "url": "https://m10.music.126.net/20190707210814/bffc91aa364dfe8dfe2b5e456c6220a3/yyaac/055a/055c/0209/20d5474d36261e8d96635c2425e0ec7a.m4a",</span>
+<span class="token code keyword">                        "pic": "http://p2.music.126.net/tXo6kGSy27gXlQzOI2O5BA==/109951164161042589.jpg?param=130y130"</span>
+<span class="token code keyword">                },</span>
+<span class="token code keyword">                {</span>
+<span class="token code keyword">                        "title": "生活该有的样子",</span>
+<span class="token code keyword">                        "author": "A-Lin/王晰",</span>
+<span class="token code keyword">                        "url": "https://m10.music.126.net/20190707212419/9474289a91cf7e02e136cd4613720c1c/yyaac/040f/535d/045b/3e0e53eaf1d7830082c2310dc8ab6072.m4a",</span>
+<span class="token code keyword">                        "pic": "https://gss1.bdstatic.com/-vo3dSag_xI4khGkpoWK1HF6hhy/baike/w%3D268%3Bg%3D0/sign=01cd9f8855b5c9ea62f304e5ed02d13d/5366d0160924ab18a27d48b43bfae6cd7a890bcd.jpg"</span>
+<span class="token code keyword">                },</span>
+<span class="token code keyword">                {</span>
+<span class="token code keyword">                        "title": "再一次拥抱",</span>
+<span class="token code keyword">                        "author": "崔子格",</span>
+<span class="token code keyword">                        "url": "https://m801.music.126.net/20190707213302/295e2bd322f3c925221674847442f549/jdyyaac/030c/515c/065d/4fd5bafd4af6a2ed29a0176f8c89f8e3.m4a",</span>
+<span class="token code keyword">                        "pic": "http://p2.music.126.net/LWZZX5fFAiD-TC13fMfrlA==/109951163424899850.jpg?param=130y130"</span>
+<span class="token code keyword">                }</span>
+<span class="token code keyword">        ]</span>
+}
+{% endaplayerlist %}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Butterfly 提供了一个叫做<code>gallery</code>的标签，让你能够在 markdown 文件里生成<code>gallery-item</code>。</p>
+<p>修改你刚刚创建的<code>source/gallery/index.md</code>，并加上<code>gallery</code> 标签。</p>
+<p><code>gallery img-url [title]</code></p>
+<p>例子:</p>
+<pre class="line-numbers language-markdown"><code class="language-markdown"><span class="token hr punctuation">---</span>
+title: Gallery
+date: 2018-01-05 00:00:00
+<span class="token title important">type: "gallery"
+<span class="token punctuation">---</span></span>
+{% gallery https://ws1.sinaimg.cn/large/8700af19gy1fp5i6o2vghj20ea0eajse melody %
+{% gallery https://user-images.githubusercontent.com/126213423337325500-23e8f77c-26c9-11e8-8e24-eb4346f1fff5.png background %}
+{% gallery https://ws1.sinaimg.cn/large/8700af19gy1fp5i64zaxqj20b40b474b demo1 %}
+{% gallery https://ws1.sinaimg.cn/large/8700af19ly1fn2h26q32uj21120kudqq demo2 %}
+{% gallery https://ws1.sinaimg.cn/large/8700af19ly1fnhdaimi40j218g0p0dic demo3 %}
+{% gallery https://ws1.sinaimg.cn/large/8700af19ly1fn2i5kjh2pj21120kuncd %}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>gallery-item 也拥有 fancybox 的效果!</p>
+</blockquote>
+<p><img src="/images/hexo-theme-butterfly-doc-gallery.png" alt=""></p>
+<h2 id="友情链接"><a href="#友情链接" class="headerlink" title="友情链接"></a>友情链接</h2><p>为你的博客创建一个友情链接！</p>
+<h3 id="创建友情链接页面"><a href="#创建友情链接页面" class="headerlink" title="创建友情链接页面"></a>创建友情链接页面</h3><ol>
+<li>前往你的 Hexo 博客的根目录</li>
+<li>输入 <code>hexo new page link</code></li>
+<li>你会找到<code>source/link/index.md</code>这个文件</li>
+<li>修改这个文件：</li>
+</ol>
+<pre class="line-numbers language-markdown"><code class="language-markdown"><span class="token hr punctuation">---</span>
+title: 友情链接
+date: 2018-06-07 22:17:49
+<span class="token title important">type: "link"
+<span class="token punctuation">---</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="友情链接添加"><a href="#友情链接添加" class="headerlink" title="友情链接添加"></a>友情链接添加</h3><p>在Hexo博客目录中的<code>source/_data</code>，创建一个文件<code>link.yml</code></p>
+<pre class="line-numbers language-yml"><code class="language-yml">class:
+  class_name: 友情链接
+  link_list:
+    1:
+      name: xxx
+      link: https://blog.xxx.com
+      avatar: https://cdn.xxxxx.top/avatar.png
+      descr: xxxxxxx
+    2:
+      name: xxxxxx
+      link: https://www.xxxxxxcn/
+      avatar: https://xxxxx/avatar.png
+      descr: xxxxxxx  
+
+ class2:
+   class_name: 链接无效
+   link_list:
+     1:
+       name: 梦xxx
+       link: https://blog.xxx.com
+       avatar: https://xxxx/avatar.png
+       descr: xxxx
+     2:
+       name: xx
+       link: https://www.axxxx.cn/
+       avatar: https://x
+       descr: xx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="友情链接界面设置"><a href="#友情链接界面设置" class="headerlink" title="友情链接界面设置"></a>友情链接界面设置</h3><p>需要添加友情链接，可以在<code>Butterfly.yml</code>配置<br>可在友情链接上写上自己的个人资料，方便其他人添加。</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">Flink</span><span class="token punctuation">:</span>
+  <span class="token key atrule">headline</span><span class="token punctuation">:</span> 友情链接
+  <span class="token key atrule">info_headline</span><span class="token punctuation">:</span> 我的Blog资料
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> Blog 名字： JerryC
+  <span class="token key atrule">address</span><span class="token punctuation">:</span> Blog 地址： https<span class="token punctuation">:</span>//jerryc.me/
+  <span class="token key atrule">avatar</span><span class="token punctuation">:</span> Blog 头像： https<span class="token punctuation">:</span>//jerryc.me/img/avatar.png
+  <span class="token key atrule">info</span><span class="token punctuation">:</span> Blog 简介： 今日事<span class="token punctuation">,</span>今日毕
+  <span class="token key atrule">comment</span><span class="token punctuation">:</span> 如果需要交换友链<span class="token punctuation">,</span>请留言<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>![](</p>
+<p><img src="!%5B%5D(!%5B%5D(%5B%5D(%5D((((/images/hexo-theme-butterfly-doc-flink-he/hexo-theme-butterfly-doc-flink.png" alt=""></p>
+<h1 id="第三方支持"><a href="#第三方支持" class="headerlink" title="第三方支持"></a>第三方支持</h1><h2 id="评论"><a href="#评论" class="headerlink" title="评论"></a>评论</h2><blockquote>
+<p>只能选择一个评论服务商</p>
+</blockquote>
+<h3 id="Disqus"><a href="#Disqus" class="headerlink" title="Disqus"></a>Disqus</h3><p>注册 <a href="https://disqus.com/" target="_blank" rel="noopener">disqus</a>，配置你自己的 disqus，然后在<code>Butterfly</code>里开启它。</p>
+<p>配置<code>butterfly.yml</code></p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">disqus</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true </span><span class="token comment" spellcheck="true"># or false</span>
+  <span class="token key atrule">shortname</span><span class="token punctuation">:</span> 你的disqus的 short<span class="token punctuation">-</span>name<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p><img src="/images/hexo-theme-butterfly-doc-disqus.png" alt=""></p>
+<h3 id="Laibili（来必力）"><a href="#Laibili（来必力）" class="headerlink" title="Laibili（来必力）"></a>Laibili（来必力）</h3><p>注册<a href="http://www.laibili.com.cn/" target="_blank" rel="noopener">来必力</a>，配置你自己的来必力设置，然后在<code>Butterfly</code>里开启它。</p>
+<p>配置<code>butterfly.yml</code></p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">laibili</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true </span><span class="token comment" spellcheck="true"># or false</span>
+  <span class="token key atrule">uid</span><span class="token punctuation">:</span> 你的laibili的uid<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>laibili 的 uid 你能在这里找到:</p>
+<p><img src="/images/hexo-theme-butterfly-doc-laibili.jpg" alt=""></p>
+<p><img src="/images/hexo-theme-butterfly-doc-laibili_2.png" alt=""></p>
+<h3 id="Gitment"><a href="#Gitment" class="headerlink" title="Gitment"></a>Gitment</h3><p>遵循 <a href="https://github.com/imsun/gitment" target="_blank" rel="noopener">gitment</a>的指示去获取你的 github Oauth 应用的 client id 和 secret 值。</p>
+<p>然后配置<code>butterfly.yml</code>:</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">gitment</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true </span><span class="token comment" spellcheck="true"># or false</span>
+  <span class="token key atrule">owner</span><span class="token punctuation">:</span> 你的github用户名
+  <span class="token key atrule">repo</span><span class="token punctuation">:</span> 你的github仓库
+  <span class="token key atrule">client_id</span><span class="token punctuation">:</span> 你的client id
+  <span class="token key atrule">client_secret</span><span class="token punctuation">:</span> 你的client secret<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="/images/hexo-theme-butterfly-doc-gitment.png" alt=""></p>
+<h3 id="Gitalk"><a href="#Gitalk" class="headerlink" title="Gitalk"></a>Gitalk</h3><p>遵循 <a href="https://github.com/gitalk/gitalk" target="_blank" rel="noopener">gitalk</a>的指示去获取你的 github Oauth 应用的 client id 和 secret 值。以及查看它的相关配置说明。</p>
+<p>然后配置<code>butterfly.yml</code>:</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">gitalk</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">client_id</span><span class="token punctuation">:</span> 你的client id 
+  <span class="token key atrule">client_secret</span><span class="token punctuation">:</span> 你的client secret
+  <span class="token key atrule">repo</span><span class="token punctuation">:</span> 你的github仓库
+  <span class="token key atrule">owner</span><span class="token punctuation">:</span> 你的github用户名
+  <span class="token key atrule">admin</span><span class="token punctuation">:</span> 该仓库的拥有者或协作者<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="/images/hexo-theme-butterfly-doc-gitalk.png" alt=""></p>
+<h3 id="Valine"><a href="#Valine" class="headerlink" title="Valine"></a>Valine</h3><p>遵循 <a href="https://github.com/xCss/Valine" target="_blank" rel="noopener">Valine</a>的指示去配置你的 LeanCloud 应用。以及查看相应的配置说明。</p>
+<p>然后配置<code>butterfly.yml</code>:</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">valine</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">false </span><span class="token comment" spellcheck="true"># if you want use valine,please set this value is true</span>
+  <span class="token key atrule">appId</span><span class="token punctuation">:</span>   <span class="token comment" spellcheck="true"># leancloud application app id</span>
+  <span class="token key atrule">appKey</span><span class="token punctuation">:</span>   <span class="token comment" spellcheck="true"># leancloud application app key</span>
+  <span class="token key atrule">notify</span><span class="token punctuation">:</span> <span class="token boolean important">false </span><span class="token comment" spellcheck="true"># valine mail notify (true/false) https://github.com/xCss/Valine/wiki</span>
+  <span class="token key atrule">verify</span><span class="token punctuation">:</span> <span class="token boolean important">false </span><span class="token comment" spellcheck="true"># valine verify code (true/false)</span>
+  pageSize<span class="token punctuation">:</span>ent list page size
+  <span class="token key atrule">avatar</span><span class="token punctuation">:</span> monsterid <span class="token comment" spellcheck="true"># gravatar style htte heee https://valine.js.org/#/avatar</span>
+  <span class="token key atrule">lang</span><span class="token punctuation">:</span> en <span class="token comment" spellcheck="true"># i18n: zh-cn/en/tw</span>
+  <span class="token key atrule">placeholder</span><span class="token punctuation">:</span> Please leave your footprints <span class="token comment" spellcheck="true"># valine comment input placeholder(like: Please leave your footprints )</span>
+  <span class="token key atrule">guest_info</span><span class="token punctuation">:</span> nick<span class="token punctuation">,</span>mail<span class="token punctuation">,</span>link <span class="token comment" spellcheck="true">#valine comment header inf</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="/images/hexo-theme-butterfly-doc-valine.png" alt=""></p>
+<h2 id="分享"><a href="#分享" class="headerlink" title="分享"></a>分享</h2><blockquote>
+<p>只能选择一个分享服务商</p>
+</blockquote>
+<h3 id="AddThis"><a href="#AddThis" class="headerlink" title="AddThis"></a>AddThis</h3><blockquote>
+<p>找到你的 pub-id</p>
+</blockquote>
+<p><img src="/images/hexo-theme-butterfly-doc-addthis.jpg" alt=""></p>
+<p>配置<code>butterfly.yml</code></p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">addThis</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true </span><span class="token comment" spellcheck="true"># or false</span>
+  <span class="token key atrule">pubid</span><span class="token punctuation">:</span> 你的pub<span class="token punctuation">-</span>id<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="Sharejs"><a href="#Sharejs" class="headerlink" title="Sharejs"></a>Sharejs</h3><p>如果你不知道 <a href="https://github.com/overtrue/share.js/" target="_blank" rel="noopener">sharejs</a>，看看它的说明。</p>
+<p>配置<code>utterfly.yml</code></p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">sharejs</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">sites</span><span class="token punctuation">:</span> facebookk<span class="token punctuation">,</span>twitter<span class="token punctuation">,</span>wechat<span class="token punctuation">,</span>weibo<span class="token punctuation">,</span>qq  <span class="token comment" spellcheck="true">#想要显示的内容</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p><img src="/images/hexo-theme-butterfly-doc-sharejs.png" alt=""></p>
+<h3 id="Addtoany"><a href="#Addtoany" class="headerlink" title="Addtoany"></a>Addtoany</h3><p>可以到<a href="https://www.addtoany.com/" target="_blank" rel="noopener">addtoany</a>查看使用说明</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">addtoany</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+  <span class="token key atrule">item</span><span class="token punctuation">:</span>   <span class="token comment" spellcheck="true"># 显示的内容</span>
+    <span class="token punctuation">-</span> facebook
+    <span class="token punctuation">-</span> twitter
+    <span class="token punctuation">-</span> wechat
+    <span class="token punctuation">-</span> sina_weibo
+    <span class="token punctuation">-</span> facebook_messenger
+    <span class="token punctuation">-</span> email
+    <span class="token punctuation">-</span> copy_link<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="/images/hexo-theme-butterfly-doc-addtoany.png" alt=""></p>
+<h2 id="搜索系统"><a href="#搜索系统" class="headerlink" title="搜索系统"></a>搜索系统</h2><h3 id="Algolia"><a href="#Algolia" class="headerlink" title="Algolia"></a>Algolia</h3><ol>
+<li><p>你需要安装 <a href="https://github.com/oncletom/hexo-algolia" target="_blank" rel="noopener">hexo-algolia</a>或 <a href="https://github.com/LouisBarranqueiro/hexo-algoliasearch" target="_blank" rel="noopener">hexo-algoliasearch</a>. 根据它们的说明文档去做相应的配置。</p>
+</li>
+<li><p>配置<code>butterfly.yml</code></p>
+</li>
+</ol>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">algolia_search</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">hits</span><span class="token punctuation">:</span>
+    <span class="token key atrule">per_page</span><span class="token punctuation">:</span> <span class="token number">6</span>
+
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">input_placeholder</span><span class="token punctuation">:</span> Search for Posts
+    <span class="token key atrule">hits_empty</span><span class="token punctuation">:</span> <span class="token string">"We didn't find any results for the search: ${query}"</span> <span class="token comment" spellcheck="true"># if there are no result</span>
+    <span class="token key atrule">hits_stats</span><span class="token punctuation">:</span> <span class="token string">"${hits} results found in ${time} ms"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="本地搜索"><a href="#本地搜索" class="headerlink" title="本地搜索"></a>本地搜索</h3><ol>
+<li><p>你需要安装 <a href="https://github.com/PaicHyperionDev/hexo-generator-search" target="_blank" rel="noopener">hexo-generator-search</a>. 根据它的文档去做相应配置。<strong>注意格式只支持 xml</strong>。</p>
+</li>
+<li><p>配置<code>butterfly.yml</code></p>
+</li>
+</ol>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">local_search</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">input_placeholder</span><span class="token punctuation">:</span> Search for Posts
+    <span class="token key atrule">hits_empty</span><span class="token punctuation">:</span> <span class="token string">"We didn't find any results for the search: ${query}"</span> <span class="token comment" spellcheck="true"># if there are no result</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="网站验证"><a href="#网站验证" class="headerlink" title="网站验证"></a>网站验证</h2><p>如果需要搜索引擎收录网站，可能需要登录对应搜索引擎的管理平台进行提交。<br>各自的验证码可从各自管理平台拿到</p>
+<p>配置<code>butterfly.yml</code></p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># Google Webmaster tools verification setting</span>
+<span class="token comment" spellcheck="true"># See: https://www.google.com/webmasters/</span>
+<span class="token key atrule">google_site_verification</span><span class="token punctuation">:</span>
+
+<span class="token comment" spellcheck="true"># Bing Webmaster tools verification setting</span>
+<span class="token comment" spellcheck="true"># See: https://www.bing.com/webmaster/</span>
+<span class="token key atrule">bing_site_verification</span><span class="token punctuation">:</span>
+
+<span class="token comment" spellcheck="true"># Yandex Webmaster tools verification setting</span>
+<span class="token comment" spellcheck="true"># See: https://webmaster.yandex.ru/</span>
+<span class="token key atrule">yandex_site_verification</span><span class="token punctuation">:</span>
+
+<span class="token comment" spellcheck="true"># Baidu Webmaster tools verification setting</span>
+<span class="token comment" spellcheck="true"># See: https://ziyuan.baidu.com/site/</span>
+<span class="token key atrule">baidu_site_verification</span><span class="token punctuation">:</span>
+
+<span class="token comment" spellcheck="true"># 360 Webmaster tools verification setting</span>
+<span class="token comment" spellcheck="true"># see http://zhanzhang.so.com/</span>
+qihu_site_verification<span class="token punctuation">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="分析统计"><a href="#分析统计" class="headerlink" title="分析统计"></a>分析统计</h2><h3 id="百度统计"><a href="#百度统计" class="headerlink" title="百度统计"></a>百度统计</h3><ol>
+<li><p>登录百度统计的<a href="https://tongji.baidu.com/web/welcome/login" target="_blank" rel="noopener">官方网站</a></p>
+</li>
+<li><p>找到你百度统计的统计代码</p>
+</li>
+</ol>
+<p><img src="/images/hexo-theme-butterfly-doc-baidu-tongji.jpg" alt=""></p>
+<p>3. 配置<code>butterfly.yml</code></p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">baidu_analytics</span><span class="token punctuation">:</span> 你的代码<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="谷歌分析"><a href="#谷歌分析" class="headerlink" title="谷歌分析"></a>谷歌分析</h3><ol>
+<li><p>登录谷歌分析的<a href="https://www.google.com/analytics/" target="_blank" rel="noopener">官方网站</a></p>
+</li>
+<li><p>找到你的谷歌分析的跟踪 ID</p>
+</li>
+</ol>
+<p><img src="/images/hexo-theme-butterfly-doc-google-analytics.jpg" alt=""></p>
+<ol start="3">
+<li>配置<code>butterfly.yml</code></li>
+</ol>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">google_analytics</span><span class="token punctuation">:</span> 你的代码 <span class="token comment" spellcheck="true"># 通常以`UA-`打头</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="访问人数-UV-和-PV"><a href="#访问人数-UV-和-PV" class="headerlink" title="访问人数 (UV 和 PV)"></a>访问人数 (UV 和 PV)</h2><h3 id="busuanzi"><a href="#busuanzi" class="headerlink" title="busuanzi"></a>busuanzi</h3><p>访问 busuanzi 的<a href="http://busuanzi.ibruce.info/" target="_blank" rel="noopener">官方网站</a>查看更多的介绍。</p>
+<p>配置<code>butterfly.yml</code></p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">busuanzi</span><span class="token punctuation">:</span>
+  <span class="token key atrule">site_uv</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">site_pv</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">page_pv</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="/images/hexo-theme-butterfly-doc-busuanzi-site-pv.png" alt=""></p>
+<p><img src="/images/hexo-theme-butterfly-doc-pv.png" alt=""></p>
+<h2 id="MathJax"><a href="#MathJax" class="headerlink" title="MathJax"></a>MathJax</h2><blockquote>
+<p>建议使用 KaTex 获得更好的效果，下文有介绍！</p>
+</blockquote>
+<p>配置<code>butterfly.yml</code>:</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">mathjax</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true </span><span class="token comment" spellcheck="true"># or false</span>
+  <span class="token key atrule">cdn</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//cdn.bootcss.com/mathjax/2.7.2/MathJax.js<span class="token punctuation">?</span>config=TeX<span class="token punctuation">-</span>AMS<span class="token punctuation">-</span>MML_HTMLorMML <span class="token comment" spellcheck="true"># required</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>然后你需要修改一下默认的<code>markdown</code>渲染引擎来实现 MathJax 的效果。</p>
+<p>查看: <a href="https://www.npmjs.com/package/hexo-renderer-kramed" target="_blank" rel="noopener">hexo-renderer-kramed</a></p>
+<p>以下操作在你 hexo 博客的目录下 (<strong>不是 Butterfly 的目录!</strong>):</p>
+<p><img src="/images/hexo-theme-butterfly-doc-mathjax.png" alt=""></p>
+<p>效果：</p>
+<p><img src="/images/hexo-theme-butterfly-doc-mathjax-2.jpg" alt=""></p>
+<h2 id="KaTeX"><a href="#KaTeX" class="headerlink" title="KaTeX"></a>KaTeX</h2><p>首先禁用<code>MathJax</code>（如果你配置过 MathJax 的话），然后修改你的<code>butterfly.yml</code>以便加载<code>katex.min.css</code>:</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">katex</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">cdn</span><span class="token punctuation">:</span>
+    <span class="token key atrule">css</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>你不需要添加<code>katex.min.js</code>来渲染数学方程。相应的你需要卸载你之前的 hexo 的 markdown 渲染器以及<code>hexo-math</code>，然后安装新的<code>hexo-renderer-markdown-it-plus</code>:</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># 替换 `hexo-renderer-kramed` 或者 `hexo-renderer-marked` 等hexo的markdown渲染器</span>
+<span class="token comment" spellcheck="true"># 你可以在你的package.json里找到hexo的markdwon渲染器，并将其卸载</span>
+npm un hexo<span class="token punctuation">-</span>renderer<span class="token punctuation">-</span>marked <span class="token punctuation">-</span><span class="token punctuation">-</span>save
+
+<span class="token comment" spellcheck="true"># or</span>
+
+npm un hexo<span class="token punctuation">-</span>renderer<span class="token punctuation">-</span>kramed <span class="token punctuation">-</span><span class="token punctuation">-</span>save
+
+<span class="token comment" spellcheck="true"># 卸载 `hexo-math`</span>
+npm un hexo<span class="token punctuation">-</span>math <span class="token punctuation">-</span><span class="token punctuation">-</span>save
+
+<span class="token comment" spellcheck="true"># 然后安装 `hexo-renderer-markdown-it-plus`</span>
+npm i @upupming/hexo<span class="token punctuation">-</span>renderer<span class="token punctuation">-</span>markdown<span class="token punctuation">-</span>it<span class="token punctuation">-</span>plus <span class="token punctuation">-</span><span class="token punctuation">-</span>save<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>注意到 <a href="https://github.com/CHENXCHEN/hexo-renderer-markdown-it-plus" target="_blank" rel="noopener"><code>hexo-renderer-markdown-it-plus</code></a>已经无人持续维护, 所以我们使用 <a href="https://github.com/upupming/hexo-renderer-markdown-it-plus" target="_blank" rel="noopener"><code>@upupming/hexo-renderer-markdown-it-plus</code></a>。 这份 fork 的代码使用了 <a href="https://github.com/yzhang-gh/markdown-it-katex" target="_blank" rel="noopener"><code>@neilsustc/markdown-it-katex</code></a>同时它也是 VSCode 的插件 <a href="https://github.com/yzhang-gh/vscode-markdown" target="_blank" rel="noopener">Markdown All in One</a>所使用的, 所以我们可以获得最新的 KaTex 功能例如 <code>\tag{}</code>。</p>
+<p>你还可以通过 <a href="https://github.com/yzhang-gh/markdown-it-katex" target="_blank" rel="noopener"><code>@neilsustc/markdown-it-katex</code></a>控制 KaTeX 的设置，所有可配置的选项参见 <a href="https://katex.org/docs/options.html。" target="_blank" rel="noopener">https://katex.org/docs/options.html。</a> 比如你想要禁用掉 KaTeX 在命令行上输出的冗长的警告信息，你可以在根目录的 <code>_config.yml</code> 中使用下面的配置将 <code>strict</code> 设置为 false:</p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">markdown_it_plus</span><span class="token punctuation">:</span>
+  <span class="token key atrule">plugins</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">plugin</span><span class="token punctuation">:</span>
+      <span class="token key atrule">name</span><span class="token punctuation">:</span> <span class="token string">'@neilsustc/markdown-it-katex'</span>
+      <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+      <span class="token key atrule">options</span><span class="token punctuation">:</span>
+        <span class="token key atrule">strict</span><span class="token punctuation">:</span> <span class="token boolean important">false</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>当然，你还可以利用这个特性来定义一些自己常用的 <code>macros</code>。</p>
+<p>因为 KaTeX 更快更轻量，因此没有 MathJax 的功能多（比如右键菜单）。为那些使用 MathJax 的用户，我们也为 KaTeX 默认添加了 <a href="https://github.com/upupming/katex-copytex" target="_blank" rel="noopener"><em>Copy As TeX Code</em></a>的功能。</p>
+<p><img src="/images/hexo-theme-butterfly-doc-katex.gif" alt=""></p>
+<h2 id="特效"><a href="#特效" class="headerlink" title="特效"></a>特效</h2><h3 id="打字效果"><a href="#打字效果" class="headerlink" title="打字效果"></a>打字效果</h3><p>打字效果<a href="https://github.com/disjukr/activate-power-mode" target="_blank" rel="noopener">activate-power-mode</a></p>
+<p>配置<code>butterfly.yml</code></p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">activate_power_mode</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><img src="/images/hexo-theme-butterfly-doc-type-animation.gif" alt=""></p>
+<h3 id="静止彩带"><a href="#静止彩带" class="headerlink" title="静止彩带"></a>静止彩带</h3><p>好看的彩带背景，可设置每次刷新更换彩带，或者每次点击更换彩带</p>
+<p>配置<code>butterfly.yml</code></p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">canvas_ribbon</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+  <span class="token key atrule">size</span><span class="token punctuation">:</span> <span class="token number">150</span>
+  <span class="token key atrule">alpha</span><span class="token punctuation">:</span> <span class="token number">0.6</span>
+  <span class="token key atrule">zIndex</span><span class="token punctuation">:</span> <span class="token number">-1</span>
+  <span class="token key atrule">click_to_change</span><span class="token punctuation">:</span> <span class="token boolean important">false  </span><span class="token comment" spellcheck="true">#设置是否每次点击都更换彩带</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>相关配置可查看<a href="https://github.com/hustcc/ribbon.js" target="_blank" rel="noopener">canvas_ribbon</a></p>
+<h3 id="动态彩带"><a href="#动态彩带" class="headerlink" title="动态彩带"></a>动态彩带</h3><p>好看的彩带背景，会飘动</p>
+<p>配置<code>butterfly.yml</code></p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">canvas_ribbon_piao</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><img src="/images/hexo-theme-butterfly-doc-canvas-ribbon-piao.gif" alt=""></p>
+<h3 id="烟花效果"><a href="#烟花效果" class="headerlink" title="烟花效果"></a>烟花效果</h3><p>配置<code>butterfly.yml</code></p>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">fireworks</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><img src="/images/hexo-theme-butterfly-doc-firewall.gif" alt=""></p>
+<h2 id="PWA"><a href="#PWA" class="headerlink" title="PWA"></a>PWA</h2><p>要为<code>Butterfly</code>配上 PWA 特性, 你需要如下几个步骤:</p>
+<ol>
+<li><p>打开 hexo 工作目录</p>
+</li>
+<li><p><code>npm install hexo-offline --save</code> 或者 <code>yarn add hexo-offline</code></p>
+</li>
+<li><p>修改<code>_config.yml</code> 在站点<code>_config.yml</code>中增加以下内容。</p>
+</li>
+</ol>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token comment" spellcheck="true"># offline config passed to sw-precache.</span>
+<span class="token key atrule">offline</span><span class="token punctuation">:</span>
+  <span class="token key atrule">maximumFileSizeToCacheInBytes</span><span class="token punctuation">:</span> <span class="token number">10485760 </span><span class="token comment" spellcheck="true"># 缓存的最大文件大小，以字节为单位</span>
+  <span class="token key atrule">staticFileGlobs</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> public/**/*.<span class="token punctuation">{</span>js<span class="token punctuation">,</span>html<span class="token punctuation">,</span>css<span class="token punctuation">,</span>png<span class="token punctuation">,</span>jpg<span class="token punctuation">,</span>gif<span class="token punctuation">,</span>svg<span class="token punctuation">,</span>webp<span class="token punctuation">,</span>eot<span class="token punctuation">,</span>ttf<span class="token punctuation">,</span>woff<span class="token punctuation">,</span>woff2<span class="token punctuation">}</span>
+  <span class="token comment" spellcheck="true"># 静态文件合集，如果你的站点使用了例如webp格式的文件，请将文件类型添加进去。</span>
+  <span class="token key atrule">stripPrefix</span><span class="token punctuation">:</span> public
+  <span class="token key atrule">verbose</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">runtimeCaching</span><span class="token punctuation">:</span>
+    <span class="token comment" spellcheck="true"># CDNs - should be cacheFirst, since they should be used specific versions so should not change</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">urlPattern</span><span class="token punctuation">:</span> /* <span class="token comment" spellcheck="true"># 如果你需要加载CDN资源，请配置该选项，如果没有，可以不配置。</span>
+      <span class="token key atrule">handler</span><span class="token punctuation">:</span> cacheFirst
+      <span class="token key atrule">options</span><span class="token punctuation">:</span>
+        <span class="token key atrule">origin</span><span class="token punctuation">:</span> your_websie_url <span class="token comment" spellcheck="true"># 可替换成你的 url</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>更多内容请查看 <a href="https://github.com/JLHwung/hexo-offline" target="_blank" rel="noopener">hexo-offline</a>的官方文档</p>
+<ol start="4">
+<li>在<code>butterfly.yml</code>中开启 pwa 选项。</li>
+</ol>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">pwa</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">manifest</span><span class="token punctuation">:</span> /img/pwa/manifest.json
+  <span class="token key atrule">theme_color</span><span class="token punctuation">:</span> "<span class="token comment" spellcheck="true">#fff"</span>
+  <span class="token key atrule">apple_touch_icon</span><span class="token punctuation">:</span> /img/pwa/apple<span class="token punctuation">-</span>touch<span class="token punctuation">-</span>icon.png
+  <span class="token key atrule">favicon_32_32</span><span class="token punctuation">:</span> /img/pwa/32.png
+  <span class="token key atrule">favicon_16_16</span><span class="token punctuation">:</span> /img/pwa/16.png
+  <span class="token key atrule">mask_icon</span><span class="token punctuation">:</span> /img/pwa/safari<span class="token punctuation">-</span>pinned<span class="token punctuation">-</span>tab.svg<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="5">
+<li>在创建<code>source/</code>目录中创建<code>manifest.json</code>文件。</li>
+</ol>
+<pre class="line-numbers language-json"><code class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span> //应用全称
+    <span class="token property">"short_name"</span><span class="token operator">:</span> <span class="token string">"Junzhou"</span><span class="token punctuation">,</span> //应用简称
+    <span class="token property">"theme_color"</span><span class="token operator">:</span> <span class="token string">"#49b1f5"</span><span class="token punctuation">,</span> //匹配浏览器的地址栏颜色
+    <span class="token property">"background_color"</span><span class="token operator">:</span> <span class="token string">"#49b1f5"</span><span class="token punctuation">,</span>//加载应用时的背景色
+    <span class="token property">"display"</span><span class="token operator">:</span> <span class="token string">"standalone"</span><span class="token punctuation">,</span>//首选显示模式 其他选项有：fullscreen<span class="token punctuation">,</span>minimal-ui<span class="token punctuation">,</span>browser
+    <span class="token property">"scope"</span><span class="token operator">:</span> <span class="token string">"/"</span><span class="token punctuation">,</span>
+    <span class="token property">"start_url"</span><span class="token operator">:</span> <span class="token string">"/"</span><span class="token punctuation">,</span>
+    <span class="token property">"icons"</span><span class="token operator">:</span> <span class="token punctuation">[</span> //该数组指定icons图标参数，用来时适配不同设备（需为png，至少包含一个192px*192px的图标）
+        <span class="token punctuation">{</span>
+          <span class="token property">"src"</span><span class="token operator">:</span> <span class="token string">"images/pwaicons/36.png"</span><span class="token punctuation">,</span> //图标文件的目录，需在source/目录下自行创建。
+          <span class="token property">"sizes"</span><span class="token operator">:</span> <span class="token string">"36x36"</span>     <span class="token property">"src"</span><span class="token operator">:</span> <span class="token string">"images/pwaicons/48.png"</span><span class="token punctuation">,</span>
+          <span class="token property">"sizes"</span><span class="token operator">:</span> "48x48    <span class="token property">"src"</span><span class="token operator">:</span> <span class="token string">"images/pwaicons/72.png"</span><span class="token punctuation">,</span>
+          <span class="token property">"sizes"</span><span class="token operator">:</span> <span class="token string">"72x72"</span><span class="token punctuation">,</span>
+          <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"image/png"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span>
+          <span class="token property">"src"</span><span class="token operator">:</span> <span class="token string">"images/pwaicons/96.png"</span><span class="token punctuation">,</span>
+          <span class="token property">"sizes"</span><span class="token operator">:</span> <span class="token string">"96x96"</span><span class="token punctuation">,</span>
+          <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"image/png"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span>
+          <span class="token property">"src"</span><span class="token operator">:</span> <span class="token string">"images/pwaicons/144.png"</span><span class="token punctuation">,</span>
+          <span class="token property">"sizes"</span><span class="token operator">:</span> <span class="token string">"144x144"</span><span class="token punctuation">,</span>
+          <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"image/png"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span>
+          <span class="token property">"src"</span><span class="token operator">:</span> <span class="token string">"images/pwaicons/192.png"</span><span class="token punctuation">,</span>
+          <span class="token property">"sizes"</span><span class="token operator">:</span> <span class="token string">"192x192"</span><span class="token punctuation">,</span>
+          <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"image/png"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span>
+            <span class="token property">"src"</span><span class="token operator">:</span> <span class="token string">"images/pwaicons/512.png"</span><span class="token punctuation">,</span>
+            <span class="token property">"sizes"</span><span class="token operator">:</span> <span class="token string">"512x512"</span><span class="token punctuation">,</span>
+            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"image/png"</span>
+          <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"splash_pages"</span><span class="token operator">:</span> <span class="token null">null</span> //配置自定义启动动画。
+  <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>你也可以通过 <a href="https://app-manifest.firebaseapp.com/" target="_blank" rel="noopener">Web App Manifest</a>快速创建<code>manifest.json</code>。（Web App Manifest 要求至少包含一个 512*512 像素的图标）</p>
+<ol start="6">
+<li>可以通过<code>Chrome</code>插件<code>Lighthouse</code>检查 PWA 配置是否生效以及配置是否正确。</li>
+</ol>
+<ul>
+<li>打开博客页面</li>
+<li>启动<code>Lighthouse</code>插件 (<code>Lighthouse</code>插件要求至少包含一个 512*512 像素的图标)</li>
+</ul>
+<p>关于 PWA（渐进式增强 Web 应用）的更多内容请参阅 <a href="https://developers.google.com/web/tools/lighthouse/audits/address-bar" target="_blank" rel="noopener">Google Tools for Web Developers</a></p>
+<h2 id="字数统计"><a href="#字数统计" class="headerlink" title="字数统计"></a>字数统计</h2><p>要为<code>Butterfly</code>配上字数统计特性, 你需要如下几个步骤:</p>
+<ol>
+<li><p>打开 hexo 工作目录</p>
+</li>
+<li><p><code>npm install hexo-wordcount --save</code> or <code>yarn add hexo-wordcount</code></p>
+</li>
+<li><p>配置<code>butterfly.yml</code>:</p>
+</li>
+</ol>
+<pre class="line-numbers language-yaml"><code class="language-yaml"><span class="token key atrule">wordcount</span><span class="token punctuation">:</span>
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><img src="/images/hexo-theme-butterfly-doc-word-count.png" alt=""></p>
+<h2 id="文章置顶"><a href="#文章置顶" class="headerlink" title="文章置顶"></a>文章置顶</h2><p>要为你一些文章置顶，你需要如下步骤:</p>
+<ol>
+<li>打开 hexo 工作目录</li>
+<li><code>npm uninstall hexo-generator-index --save</code> 然后 <code>npm install hexo-generator-index-pin-top --save</code></li>
+<li>你要在文章的<code>front-matter</code>区域里添加<code>top: True</code>属性来把这篇文章置顶。</li>
+<li>你可以参考 <a href="https://github.com/netcan/hexo-generator-index-pin-top" target="_blank" rel="noopener">hexo-generator-index-pin-top</a>这个仓库来了解更多细节。</li>
+</ol>
+<p>举个例子:</p>
+<p>你的某篇文章开头如下：</p>
+<pre class="line-numbers language-markdown"><code class="language-markdown">title: xxxx
+tags:
+  <span class="token list punctuation">-</span> xxx
+<span class="token title important">date: 2018-08-08 08:08:08
+<span class="token punctuation">---</span></span>
+// ....<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>现在把<code>top: True</code>加进去：</p>
+<pre class="line-numbers language-markdown"><code class="language-markdown">title: xxxx
+tags:
+  <span class="token list punctuation">-</span> xxx
+date: 2018-08-08 08:08:08
+<span class="token title important">top: True
+<span class="token punctuation">---</span></span>
+// ....<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://ciweigg2.github.io" rel="external nofollow noreferrer">Ciwei</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://ciweigg2.github.io/2019/07/04/hexo-theme-butterfly-zhu-ti-an-zhuang-ya/">https://ciweigg2.github.io/2019/07/04/hexo-theme-butterfly-zhu-ti-an-zhuang-ya/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://ciweigg2.github.io" target="_blank">Ciwei</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/hexo/">
+                                    <span class="chip bg-color">hexo</span>
+                                </a>
+                            
+                                <a href="/tags/butterfly/">
+                                    <span class="chip bg-color">butterfly</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2019/07/05/chang-yong-de-zheng-ze-biao-da-shi/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="https://ciwei3.cn-sh2.ufileos.com/56.jpg" class="responsive-img" alt="常用的正则表达式">
+                        
+                        <span class="card-title">常用的正则表达式</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            一、校验数字的表达式
+数字：
+
+^[0-9]\*$
+n位的数字：
+
+^\d{n}$
+至少n位的数字：
+
+^\d{n,}$
+m-n位的数字：
+
+
+
+^\d{m,n}$
+零和非零开头的数字：
+
+^(0|[1-9][0-9]\*)$
+非零开头的最
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2019-07-05
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/综合/" class="post-category">
+                                    综合
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/正则表达式/">
+                        <span class="chip bg-color">正则表达式</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/07/02/flagger-ji-cheng-istio-zi-dong-wan-cheng-abtesting-bu-shu/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="https://ciwei3.cn-sh2.ufileos.com/64.jpg" class="responsive-img" alt="flagger集成istio自动完成ABTesting部署">
+                        
+                        <span class="card-title">flagger集成istio自动完成ABTesting部署</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            介绍接着上一篇文章：flagger集成istio自动完成金丝雀部署
+这边文章主要讲A/B Testing
+A/B 发布主要是根据特定的条件将一部分匹配规则的用户匹配到新版本 其他还是使用老板的部署
+请求头满足谷歌和Safari浏览器的用户：
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-07-02
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/综合/" class="post-category">
+                                    综合
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/flagger/">
+                        <span class="chip bg-color">flagger</span>
+                    </a>
+                    
+                    <a href="/tags/istio/">
+                        <span class="chip bg-color">istio</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+    
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">年份</span>
+            <a href="https://ciweigg2.github.io" target="_blank">Ciwei</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">340.3k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    window.setTimeout("siteTime()", 1000);
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2019";
+                    var startMonth = "6";
+                    var startDate = "28";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <!-- Baidu Analytics -->
+
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+            <!-- 洪卫 shw2018 add 2019.08.28 -->
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+    
+
+    
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i["DaoVoiceObject"] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            a.charset = "utf-8";
+            m.parentNode.insertBefore(a, m)
+        })(window, document, "script", ('https:' == document.location.protocol ? 'https:' : 'http:') +
+            "//widget.daovoice.io/widget/6984b559.js", "daovoice")
+        daovoice('init', {
+            app_id: ""
+        });
+        daovoice('update');
+    </script>
+    
+
+    
+
+    
+
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<!-- 背景雪花飘落特效洪卫 shw2018 add 2019.09.10 -->
+        
+
+</body>
+
+</html>

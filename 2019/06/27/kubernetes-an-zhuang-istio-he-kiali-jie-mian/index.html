@@ -1,0 +1,1626 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="kubernetes安装istio和kiali界面, 如果没有你">
+    <meta name="description" content="安装helm参考：kubernetes安装helm和Monocular界面
+
+
+安装kubernetes参考：kubernetes-1.14.2集群安装和dashbaord面板
+开启Sidecar自动注入如果集群使用的是自动 Sidecar">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>kubernetes安装istio和kiali界面 | 如果没有你</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper head-container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">如果没有你</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/about">
+          
+          <i class="fas fa-user-circle" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>关于</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="https://ciweigg2.github.io/ciwei-resume/">
+          
+          <i class="fas fa-trophy" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>简历</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-list" style="zoom: 0.6;"></i>
+      
+      <span>娱乐</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/musics">
+          
+          <i class="fas fa-music" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>音乐</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/movies">
+          
+          <i class="fas fa-film" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>电影</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/books">
+          
+          <i class="fas fa-book" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>图书</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/galleries">
+          
+          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>相册</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="https://ciweigg2.github.io/alicdn/">
+          
+          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>免费图床</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/books">
+          
+          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>书单</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/games">
+          
+          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>游戏</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">如果没有你</div>
+        <div class="logo-desc">
+            
+            躺在你学校的操场看星空 教室里的灯还亮着你没走 记得 我写给你的情书 都什么年代了 到现在我还在写着 总有一天总有一年会发现 有人默默的陪在你的身边
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>   
+				
+                  <a href="/about " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-user-circle" style="position: absolute;left:50px" ></i>
+			      
+		          <span>关于</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="https://ciweigg2.github.io/ciwei-resume/ " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-trophy" style="position: absolute;left:50px" ></i>
+			      
+		          <span>简历</span>
+                  </a>
+                </li>
+               
+            </ul>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+				<i class="fas fa-fw fa-link"></i>
+			
+			Contact
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			Friends
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-list"></i>
+			
+			娱乐
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>   
+				
+                  <a href="/musics " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-music" style="position: absolute;left:50px" ></i>
+			      
+		          <span>音乐</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="/movies " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-film" style="position: absolute;left:50px" ></i>
+			      
+		          <span>电影</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="/books " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-book" style="position: absolute;left:50px" ></i>
+			      
+		          <span>图书</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="/galleries " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
+			      
+		          <span>相册</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="https://ciweigg2.github.io/alicdn/ " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
+			      
+		          <span>免费图床</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="/books " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
+			      
+		          <span>书单</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="/games " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
+			      
+		          <span>游戏</span>
+                  </a>
+                </li>
+               
+            </ul>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://ciwei3.cn-sh2.ufileos.com/189.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        kubernetes安装istio和kiali界面
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/prometheus/">
+                                <span class="chip bg-color">prometheus</span>
+                            </a>
+                        
+                            <a href="/tags/istio/">
+                                <span class="chip bg-color">istio</span>
+                            </a>
+                        
+                            <a href="/tags/grafana/">
+                                <span class="chip bg-color">grafana</span>
+                            </a>
+                        
+                            <a href="/tags/kiali/">
+                                <span class="chip bg-color">kiali</span>
+                            </a>
+                        
+                            <a href="/tags/jaegar/">
+                                <span class="chip bg-color">jaegar</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/综合/" class="post-category">
+                                综合
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-06-27
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        1.8k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        9 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h3 id="安装helm"><a href="#安装helm" class="headerlink" title="安装helm"></a>安装helm</h3><p>参考：kubernetes安装helm和Monocular界面</p>
+<a id="more"></a>
+
+<h3 id="安装kubernetes"><a href="#安装kubernetes" class="headerlink" title="安装kubernetes"></a>安装kubernetes</h3><p>参考：kubernetes-1.14.2集群安装和dashbaord面板</p>
+<h3 id="开启Sidecar自动注入"><a href="#开启Sidecar自动注入" class="headerlink" title="开启Sidecar自动注入"></a>开启Sidecar自动注入</h3><p>如果集群使用的是自动 Sidecar 注入，为 default 命名空间打上标签 istio-injection=enabled。</p>
+<pre class="line-numbers language-java"><code class="language-java">kubectl label namespace <span class="token keyword">default</span> istio<span class="token operator">-</span>injection<span class="token operator">=</span>enabled<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="安装istio"><a href="#安装istio" class="headerlink" title="安装istio"></a>安装istio</h3><pre class="line-numbers language-java"><code class="language-java">wget https<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>istio<span class="token operator">/</span>istio<span class="token operator">/</span>releases<span class="token operator">/</span>download<span class="token operator">/</span><span class="token number">1.2</span><span class="token punctuation">.</span><span class="token number">0</span><span class="token operator">/</span>istio<span class="token operator">-</span><span class="token number">1.2</span><span class="token punctuation">.</span><span class="token number">0</span><span class="token operator">-</span>linux<span class="token punctuation">.</span>tar<span class="token punctuation">.</span>gz
+tar <span class="token operator">-</span>zxvf istio<span class="token operator">-</span><span class="token number">1.2</span><span class="token punctuation">.</span><span class="token number">0</span><span class="token operator">-</span>linux<span class="token punctuation">.</span>tar<span class="token punctuation">.</span>gz
+vi <span class="token operator">~</span><span class="token operator">/</span><span class="token punctuation">.</span>bash_profile
+export PATH<span class="token operator">=</span><span class="token string">"$PATH:/root/istio-1.2.0/bin"</span>
+source <span class="token operator">~</span><span class="token operator">/</span><span class="token punctuation">.</span>bash_profile<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>helm安装istio</p>
+<pre class="line-numbers language-java"><code class="language-java">cd istio<span class="token operator">-</span><span class="token number">1.2</span><span class="token punctuation">.</span><span class="token number">0</span>
+这个过程很慢 需要耐心等待 可以使用kubectl describe pod xxx 查看详细信息
+helm install install<span class="token operator">/</span>kubernetes<span class="token operator">/</span>helm<span class="token operator">/</span>istio<span class="token operator">-</span>init <span class="token operator">--</span>name istio<span class="token operator">-</span>init <span class="token operator">--</span>namespace istio<span class="token operator">-</span>system
+helm install install<span class="token operator">/</span>kubernetes<span class="token operator">/</span>helm<span class="token operator">/</span>istio <span class="token operator">--</span>name istio <span class="token operator">--</span>namespace istio<span class="token operator">-</span>system <span class="token operator">--</span>set tracing<span class="token punctuation">.</span>enabled<span class="token operator">=</span><span class="token boolean">true</span> <span class="token operator">--</span>set grafana<span class="token punctuation">.</span>enabled<span class="token operator">=</span><span class="token boolean">true</span> <span class="token operator">--</span>set tracing<span class="token punctuation">.</span>jaeger<span class="token punctuation">.</span>ingress<span class="token punctuation">.</span>enabled<span class="token operator">=</span><span class="token boolean">true</span> <span class="token operator">--</span>set tracing<span class="token punctuation">.</span>ingress<span class="token punctuation">.</span>enabled<span class="token operator">=</span><span class="token boolean">true</span> <span class="token operator">--</span>set kiali<span class="token punctuation">.</span>ingress<span class="token punctuation">.</span>enabled<span class="token operator">=</span><span class="token boolean">true</span>
+kubectl get svc <span class="token operator">-</span>n istio<span class="token operator">-</span>system
+kubectl get pods <span class="token operator">-</span>n istio<span class="token operator">-</span>system<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>显示成这样说明部署成功了</p>
+<pre class="line-numbers language-java"><code class="language-java">NAME                                      READY   STATUS      RESTARTS   AGE
+grafana<span class="token operator">-</span>7b9f5d484f<span class="token operator">-</span>mf28j                  <span class="token number">1</span><span class="token operator">/</span><span class="token number">1</span>     Running     <span class="token number">0</span>          11h
+istio<span class="token operator">-</span>citadel<span class="token operator">-</span>848f4c8489<span class="token operator">-</span>s4bm9            <span class="token number">1</span><span class="token operator">/</span><span class="token number">1</span>     Running     <span class="token number">0</span>          11h
+istio<span class="token operator">-</span>cleanup<span class="token operator">-</span>secrets<span class="token operator">-</span><span class="token number">1.1</span><span class="token punctuation">.</span><span class="token number">1</span><span class="token operator">-</span>4zd5w         <span class="token number">0</span><span class="token operator">/</span><span class="token number">1</span>     Completed   <span class="token number">0</span>          12h
+istio<span class="token operator">-</span>egressgateway<span class="token operator">-</span>7469db8c68<span class="token operator">-</span>jlr9b      <span class="token number">1</span><span class="token operator">/</span><span class="token number">1</span>     Running     <span class="token number">0</span>          12h
+istio<span class="token operator">-</span>galley<span class="token operator">-</span>86bcf86779<span class="token operator">-</span>858jv             <span class="token number">1</span><span class="token operator">/</span><span class="token number">1</span>     Running     <span class="token number">0</span>          12h
+istio<span class="token operator">-</span>grafana<span class="token operator">-</span>post<span class="token operator">-</span>install<span class="token operator">-</span><span class="token number">1.1</span><span class="token punctuation">.</span><span class="token number">1</span><span class="token operator">-</span>t7qqg    <span class="token number">0</span><span class="token operator">/</span><span class="token number">1</span>     Completed   <span class="token number">0</span>          12h
+istio<span class="token operator">-</span>ingressgateway<span class="token operator">-</span>56bbdd69bf<span class="token operator">-</span>j7swp     <span class="token number">1</span><span class="token operator">/</span><span class="token number">1</span>     Running     <span class="token number">0</span>          12h
+istio<span class="token operator">-</span>pilot<span class="token operator">-</span>77b99c499<span class="token operator">-</span>xxhfk               <span class="token number">2</span><span class="token operator">/</span><span class="token number">2</span>     Running     <span class="token number">1</span>          12h
+istio<span class="token operator">-</span>policy<span class="token operator">-</span>85f58d8775<span class="token operator">-</span>wd8wm             <span class="token number">2</span><span class="token operator">/</span><span class="token number">2</span>     Running     <span class="token number">6</span>          12h
+istio<span class="token operator">-</span>security<span class="token operator">-</span>post<span class="token operator">-</span>install<span class="token operator">-</span><span class="token number">1.1</span><span class="token punctuation">.</span><span class="token number">1</span><span class="token operator">-</span>nfhb8   <span class="token number">0</span><span class="token operator">/</span><span class="token number">1</span>     Completed   <span class="token number">0</span>          12h
+istio<span class="token operator">-</span>sidecar<span class="token operator">-</span>injector<span class="token operator">-</span>5464f674c4<span class="token operator">-</span>rcvpk   <span class="token number">1</span><span class="token operator">/</span><span class="token number">1</span>     Running     <span class="token number">0</span>          12h
+istio<span class="token operator">-</span>telemetry<span class="token operator">-</span>9b844886f<span class="token operator">-</span>h9rzd           <span class="token number">2</span><span class="token operator">/</span><span class="token number">2</span>     Running     <span class="token number">6</span>          12h
+istio<span class="token operator">-</span>tracing<span class="token operator">-</span>7f5d8c5d98<span class="token operator">-</span>s72nv            <span class="token number">1</span><span class="token operator">/</span><span class="token number">1</span>     Running     <span class="token number">0</span>          12h
+kiali<span class="token operator">-</span>589d55b4db<span class="token operator">-</span>vljzq                    <span class="token number">1</span><span class="token operator">/</span><span class="token number">1</span>     Running     <span class="token number">0</span>          12h
+prometheus<span class="token operator">-</span><span class="token number">878999949</span><span class="token operator">-</span>qntkc                <span class="token number">1</span><span class="token operator">/</span><span class="token number">1</span>     Running     <span class="token number">0</span>          12h<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="卸载istio"><a href="#卸载istio" class="headerlink" title="卸载istio"></a>卸载istio</h3><p>如果您使用Helm和Tiller安装了Istio，请使用以下命令卸载：</p>
+<pre class="line-numbers language-java"><code class="language-java">helm delete <span class="token operator">--</span>purge istio
+helm delete <span class="token operator">--</span>purge istio<span class="token operator">-</span>init<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>template安装的话</p>
+<pre><code>helm template install/kubernetes/helm/istio --name istio --namespace istio-system | kubectl delete -f -
+kubectl delete namespace istio-system</code></pre><p>删除CRD会永久删除您对Istio所做的任何配置更改</p>
+<pre class="line-numbers language-java"><code class="language-java">kubectl delete <span class="token operator">-</span>f install<span class="token operator">/</span>kubernetes<span class="token operator">/</span>helm<span class="token operator">/</span>istio<span class="token operator">-</span>init<span class="token operator">/</span>files<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>部署测试应用</p>
+<p>vi nginx-daemonset.yaml</p>
+<pre class="line-numbers language-java"><code class="language-java">保持格式的
+apiVersion<span class="token operator">:</span> extensions<span class="token operator">/</span>v1beta1
+kind<span class="token operator">:</span> DaemonSet
+metadata<span class="token operator">:</span>
+  name<span class="token operator">:</span> qf<span class="token operator">-</span>test<span class="token operator">-</span>nginx
+spec<span class="token operator">:</span>
+  template<span class="token operator">:</span>
+    metadata<span class="token operator">:</span>
+      labels<span class="token operator">:</span>
+        app<span class="token operator">:</span> nginx
+    spec<span class="token operator">:</span>
+      containers<span class="token operator">:</span>
+      <span class="token operator">-</span> name<span class="token operator">:</span> nginx
+        image<span class="token operator">:</span> qingfenglian<span class="token operator">/</span>test_nginx
+        ports<span class="token operator">:</span>
+        <span class="token operator">-</span> containerPort<span class="token operator">:</span> <span class="token number">80</span>
+<span class="token operator">--</span><span class="token operator">-</span>
+apiVersion<span class="token operator">:</span> v1
+kind<span class="token operator">:</span> Service
+metadata<span class="token operator">:</span>
+  name<span class="token operator">:</span> qf<span class="token operator">-</span>test<span class="token operator">-</span>nginx
+  namespace<span class="token operator">:</span> <span class="token keyword">default</span>
+spec<span class="token operator">:</span>
+  type<span class="token operator">:</span> NodePort
+  selector<span class="token operator">:</span>
+    app<span class="token operator">:</span> nginx
+  ports<span class="token operator">:</span>
+  <span class="token operator">-</span> port<span class="token operator">:</span> <span class="token number">80</span>
+    targetPort<span class="token operator">:</span> <span class="token number">80</span>
+    name<span class="token operator">:</span> http
+保持格式的<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>部署</p>
+<pre class="line-numbers language-java"><code class="language-java">kubectl apply <span class="token operator">-</span>f nginx<span class="token operator">-</span>daemonset<span class="token punctuation">.</span>yaml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>用上面的yaml文件部署成功后看一下 daemonset, pod,svc,node 信息</p>
+<p>kubectl get daemonset,pod,svc,node -o wide</p>
+<pre class="line-numbers language-java"><code class="language-java">NAME                                 DESIRED   CURRENT   READY   UP<span class="token operator">-</span>TO<span class="token operator">-</span>DATE   AVAILABLE   NODE SELECTOR   AGE   CONTAINERS   IMAGES                    SELECTOR
+daemonset<span class="token punctuation">.</span>extensions<span class="token operator">/</span>qf<span class="token operator">-</span>test<span class="token operator">-</span>nginx   <span class="token number">1</span>         <span class="token number">1</span>         <span class="token number">1</span>       <span class="token number">1</span>            <span class="token number">1</span>           <span class="token operator">&lt;</span>none<span class="token operator">></span>          16h   nginx        qingfenglian<span class="token operator">/</span>test_nginx   app<span class="token operator">=</span>nginx
+
+NAME                      READY   STATUS    RESTARTS   AGE   IP            NODE       NOMINATED NODE   READINESS GATES
+pod<span class="token operator">/</span>qf<span class="token operator">-</span>test<span class="token operator">-</span>nginx<span class="token operator">-</span>45k8x     <span class="token number">1</span><span class="token operator">/</span><span class="token number">1</span>     Running   <span class="token number">0</span>          16h   <span class="token number">10.2440</span><span class="token punctuation">.</span><span class="token number">244.24424444440</span><span class="token punctuation">.</span><span class="token number">244.244244444</span>  k8s<span class="token operator">-</span>master   <span class="token operator">&lt;</span>none<span class="token operator">></span>           <span class="token operator">&lt;</span>97vc   <span class="token number">1</span><span class="token operator">/</span><span class="token number">1</span>     Running   <span class="token number">0</span>          16h   <span class="token number">10.244</span><span class="token punctuation">.</span><span class="token number">10.4</span>   k8s<span class="token operator">-</span>node     <span class="token operator">&lt;</span>none<span class="token operator">></span>           <span class="token operator">&lt;</span>none<span class="token operator">></span>
+
+NAME                    TYPE        CLUSTER<span class="token operator">-</span>IP     EXTERNAL<span class="token operator">-</span>IP   <span class="token function">PORT</span><span class="token punctuation">(</span>S<span class="token punctuation">)</span>        AGE     SELECTOR
+service<span class="token operator">/</span>kubernetes      ClusterIP   <span class="token number">10.96</span><span class="token punctuation">.</span><span class="token number">0.1</span>      <span class="token operator">&lt;</span>none<span class="token operator">></span>        <span class="token number">443</span><span class="token operator">/</span>TCP        2d18h   <span class="token operator">&lt;</span>none<span class="token operator">></span>
+service<span class="token operator">/</span>qf<span class="token operator">-</span>test<span class="token operator">-</span>nginx   NodePort    <span class="token number">10.98</span><span class="token punctuation">.</span><span class="token number">49.158</span>   <span class="token operator">&lt;</span>none<span class="token operator">></span>        <span class="token number">80</span><span class="token operator">:</span><span class="token number">31412</span><span class="token operator">/</span>TCP   16h     app<span class="token operator">=</span>nginx
+
+NAME              STATUS     ROLES    AGE     VERSION   INTERNAL<span class="token operator">-</span>IP   EXTERNAL<span class="token operator">-</span>IP   OS<span class="token operator">-</span>IMAGE                KERNEL<span class="token operator">-</span>VERSION          CONTAINER<span class="token operator">-</span>RUNTIME
+node<span class="token operator">/</span>k8s<span class="token operator">-</span>master   Ready      master   2d18h   v1<span class="token number">.14</span><span class="token punctuation">.</span><span class="token number">0</span>   <span class="token number">10.211</span><span class="token punctuation">.</span><span class="token number">55.6</span>   <span class="token operator">&lt;</span>none<span class="token operator">></span>        CentOS Linux <span class="token function">7</span> <span class="token punctuation">(</span>Core<span class="token punctuation">)</span>   <span class="token number">3.10</span><span class="token punctuation">.</span><span class="token number">0</span><span class="token operator">-</span><span class="token number">957</span><span class="token punctuation">.</span>el7<span class="token punctuation">.</span>x86_64   docker<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token number">18.6</span><span class="token punctuation">.</span><span class="token number">1</span>
+node<span class="token operator">/</span>k8s<span class="token operator">-</span>node     NotReady   <span class="token operator">&lt;</span>none<span class="token operator">></span>   2d15h   v1<span class="token number">.14</span><span class="token punctuation">.</span><span class="token number">0</span>   <span class="token number">10.211</span><span class="token punctuation">.</span><span class="token number">55.7</span>   <span class="token operator">&lt;</span>none<span class="token operator">></span>        CentOS Linux <span class="token function">7</span> <span class="token punctuation">(</span>Core<span class="token punctuation">)</span>   <span class="token number">3.10</span><span class="token punctuation">.</span><span class="token number">0</span><span class="token operator">-</span><span class="token number">957</span><span class="token punctuation">.</span>el7<span class="token punctuation">.</span>x86_64   docker<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token number">18.6</span><span class="token punctuation">.</span><span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>创建gateway</p>
+<p>vi qingfeng-deve-gateway.yaml</p>
+<pre class="line-numbers language-java"><code class="language-java">apiVersion<span class="token operator">:</span> networking<span class="token punctuation">.</span>istio<span class="token punctuation">.</span>io<span class="token operator">/</span>v1alpha3
+kind<span class="token operator">:</span> Gateway
+metadata<span class="token operator">:</span>
+  name<span class="token operator">:</span> qingfeng<span class="token operator">-</span>deve
+spec<span class="token operator">:</span>
+  selector<span class="token operator">:</span>
+    istio<span class="token operator">:</span> ingressgateway # 使用 istio 默认的 ingress gateway
+  servers<span class="token operator">:</span>
+  <span class="token operator">-</span> port<span class="token operator">:</span>
+      number<span class="token operator">:</span> <span class="token number">80</span>
+      name<span class="token operator">:</span> http
+      protocol<span class="token operator">:</span> HTTP
+    hosts<span class="token operator">:</span>
+    <span class="token operator">-</span> <span class="token string">"*"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>部署</p>
+<pre class="line-numbers language-java"><code class="language-java">kubectl create <span class="token operator">-</span>f <span class="token operator">&lt;</span><span class="token punctuation">(</span>istioctl kube<span class="token operator">-</span>inject <span class="token operator">-</span>f qingfeng<span class="token operator">-</span>deve<span class="token operator">-</span>gateway<span class="token punctuation">.</span>yaml<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>查看(这里gateway名字叫qingfeng-deve)</p>
+<pre class="line-numbers language-java"><code class="language-java">kubectl get gateway<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>部署测试应用</p>
+<p>创建virtualservice </p>
+<pre class="line-numbers language-java"><code class="language-java">vi nginx<span class="token operator">-</span>virutalservice<span class="token punctuation">.</span>yaml
+
+apiVersion<span class="token operator">:</span> networking<span class="token punctuation">.</span>istio<span class="token punctuation">.</span>io<span class="token operator">/</span>v1alpha3
+kind<span class="token operator">:</span> VirtualService
+metadata<span class="token operator">:</span>
+  name<span class="token operator">:</span> vs<span class="token operator">-</span>nginx
+spec<span class="token operator">:</span>
+  hosts<span class="token operator">:</span>
+  <span class="token operator">-</span> <span class="token string">"nginx.local.com"</span>
+  gateways<span class="token operator">:</span>
+  <span class="token operator">-</span> qingfeng<span class="token operator">-</span>deve
+  http<span class="token operator">:</span>
+  <span class="token operator">-</span> match<span class="token operator">:</span>
+    <span class="token operator">-</span> uri<span class="token operator">:</span>
+        prefix<span class="token operator">:</span> <span class="token operator">/</span>
+    route<span class="token operator">:</span>
+    <span class="token operator">-</span> destination<span class="token operator">:</span>
+        host<span class="token operator">:</span> qf<span class="token operator">-</span>test<span class="token operator">-</span>nginx
+
+kubectl create <span class="token operator">-</span>f <span class="token operator">&lt;</span><span class="token punctuation">(</span>istioctl kube<span class="token operator">-</span>inject <span class="token operator">-</span>f nginx<span class="token operator">-</span>virutalservice<span class="token punctuation">.</span>yaml<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>修改 istio-ingressgateway</p>
+<pre class="line-numbers language-java"><code class="language-java">kubectl <span class="token operator">-</span>n istio<span class="token operator">-</span>system edit deployment istio<span class="token operator">-</span>ingressgateway<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>找到下面内容，并做修改</p>
+<p>将 80 端口和 443 端口配置为 hostPort 模式，</p>
+<p>等待几秒让 istio-ingressgateway 重新调度</p>
+<pre class="line-numbers language-java"><code class="language-java">image<span class="token operator">:</span> docker<span class="token punctuation">.</span>io<span class="token operator">/</span>istio<span class="token operator">/</span>proxyv2<span class="token operator">:</span><span class="token number">1.1</span><span class="token punctuation">.</span><span class="token number">1</span>
+        imagePullPolicy<span class="token operator">:</span> IfNotPresent
+        name<span class="token operator">:</span> istio<span class="token operator">-</span>proxy
+        ports<span class="token operator">:</span>
+        <span class="token operator">-</span> containerPort<span class="token operator">:</span> <span class="token number">80</span>
+          hostPort<span class="token operator">:</span> <span class="token number">80</span>                <span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span>######## 这里增加这一行
+          protocol<span class="token operator">:</span> TCP
+        <span class="token operator">-</span> containerPort<span class="token operator">:</span> <span class="token number">443</span>
+          hostPort<span class="token operator">:</span> <span class="token number">443</span>　　　　　　　　  <span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span><span class="token operator">--</span>######## 这里增加一行
+          protocol<span class="token operator">:</span> TCP
+        <span class="token operator">-</span> containerPort<span class="token operator">:</span> <span class="token number">31400</span>
+          protocol<span class="token operator">:</span> TCP
+        <span class="token operator">-</span> containerPort<span class="token operator">:</span> <span class="token number">15029</span>
+          protocol<span class="token operator">:</span> TCP
+        <span class="token operator">-</span> containerPort<span class="token operator">:</span> <span class="token number">15030</span>
+          protocol<span class="token operator">:</span> TCP
+        <span class="token operator">-</span> containerPort<span class="token operator">:</span> <span class="token number">15031</span>
+          protocol<span class="token operator">:</span> TCP
+        <span class="token operator">-</span> containerPort<span class="token operator">:</span> <span class="token number">15032</span>
+          protocol<span class="token operator">:</span> TCP
+        <span class="token operator">-</span> containerPort<span class="token operator">:</span> <span class="token number">15443</span>
+          protocol<span class="token operator">:</span> TCP
+        <span class="token operator">-</span> containerPort<span class="token operator">:</span> <span class="token number">15020</span>
+          protocol<span class="token operator">:</span> TCP
+        <span class="token operator">-</span> containerPort<span class="token operator">:</span> <span class="token number">15090</span>
+          name<span class="token operator">:</span> http<span class="token operator">-</span>envoy<span class="token operator">-</span>prom
+          protocol<span class="token operator">:</span> TCP<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>验证结果</p>
+<p>host绑定：由于我的域名是 nginx.local.com  没有域名解析，所以需要在host里面添加一条记录</p>
+<p>绑定host之后通过浏览器访问  nginx.local.com 查看返回信息</p>
+<h3 id="部署kiali"><a href="#部署kiali" class="headerlink" title="部署kiali"></a>部署kiali</h3><p>在istio命名空间 istio-system 里面创建一个secret 作为kiali认证凭据</p>
+<pre><code>设置用户名和密码为admin
+USERNAME=$(echo -n 'admin' | base64)
+PASSPHRASE=$(echo -n 'admin' | base64)
+NAMESPACE=istio-system
+kubectl create namespace $NAMESPACE
+cat &lt;&lt;EOF | kubectl apply -f -
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kiali
+  namespace: $NAMESPACE
+  labels:
+    app: kiali
+type: Opaque
+data:
+  username: $USERNAME
+  passphrase: $PASSPHRASE
+EOF
+设置用户名和密码为admin 格式有问题所以我这里用中文填充了</code></pre><p>部署</p>
+<p>jaegerURL和grafanaURL可以先执行下面的修改端口 将端口暴露出去配置到下面的jaegerURL和grafanaURL 我建议是单独访问 别配置到kiali呀</p>
+<pre class="line-numbers language-java"><code class="language-java">保持格式的
+helm template \
+    <span class="token operator">--</span>set kiali<span class="token punctuation">.</span>enabled<span class="token operator">=</span><span class="token boolean">true</span> \
+    <span class="token operator">--</span>set <span class="token string">"kiali.dashboard.jaegerURL=http://$(kubectl get svc tracing --namespace istio-system -o jsonpath='{.spec.clusterIP}'):80"</span> \
+    <span class="token operator">--</span>set <span class="token string">"kiali.dashboard.grafanaURL=htt://$(kubectl get svc grafana --namespace istio-system -o jsonpath='{.spec.clusterIP}'):3000"</span> \
+    install<span class="token operator">/</span>kubernetes<span class="token operator">/</span>helm<span class="token operator">/</span>istio \
+    <span class="token operator">--</span>name istio <span class="token operator">--</span>namespace istio<span class="token operator">-</span>system <span class="token operator">></span> $HOME<span class="token operator">/</span>istio<span class="token punctuation">.</span>yaml
+
+kubectl apply <span class="token operator">-</span>f $HOME<span class="token operator">/</span>istio<span class="token punctuation">.</span>yaml
+保持格式的<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>查看</p>
+<pre class="line-numbers language-java"><code class="language-java">kubectl get pod <span class="token operator">-</span>n istio<span class="token operator">-</span>system <span class="token operator">|</span>grep kiali<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>本地测试</p>
+<p>先查看 kiali 对应的service 已经使用的端口 ，然后通过curl 请求 svcIp:prot 访问 返回下面内容表示通了</p>
+<pre class="line-numbers language-java"><code class="language-java">kubectl get svc <span class="token operator">-</span>n istio<span class="token operator">-</span>system kiali <span class="token operator">-</span>o wide<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>curl 10.111.29.249:20001/kiali/console</p>
+<p>部署virtualservice指向kiali 的service</p>
+<p>gateway 配置文件我就不贴了(参考上面的gateway配置)，这里放一下 virtualservice</p>
+<p>vi virtual.yaml</p>
+<pre class="line-numbers language-java"><code class="language-java">apiVersion<span class="token operator">:</span> networking<span class="token punctuation">.</span>istio<span class="token punctuation">.</span>io<span class="token operator">/</span>v1alpha3
+kind<span class="token operator">:</span> VirtualService
+metadata<span class="token operator">:</span>
+  name<span class="token operator">:</span> kiali
+  namespace<span class="token operator">:</span> <span class="token keyword">default</span>
+spec<span class="token operator">:</span>
+  gateways<span class="token operator">:</span>
+  <span class="token operator">-</span> qingfeng<span class="token operator">-</span>deve
+  hosts<span class="token operator">:</span>
+  <span class="token operator">-</span> kiali<span class="token punctuation">.</span>selfservice<span class="token punctuation">.</span>com
+  http<span class="token operator">:</span>
+  <span class="token operator">-</span> match<span class="token operator">:</span>
+    <span class="token operator">-</span> uri<span class="token operator">:</span>
+        prefix<span class="token operator">:</span> <span class="token operator">/</span>
+    route<span class="token operator">:</span>
+    <span class="token operator">-</span> destination<span class="token operator">:</span>
+        host<span class="token operator">:</span> kiali<span class="token punctuation">.</span>istio<span class="token operator">-</span>system<span class="token punctuation">.</span>svc<span class="token punctuation">.</span>cluster<span class="token punctuation">.</span>local
+        port<span class="token operator">:</span>
+          number<span class="token operator">:</span> <span class="token number">20001</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>创建</p>
+<pre class="line-numbers language-java"><code class="language-java">kubectl create <span class="token operator">-</span>f virtual<span class="token punctuation">.</span>yaml<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>配置hosts解析</p>
+<p>访问：kiali.selfservice.com</p>
+<h3 id="修改prometheus-grafana-tracing-jaeger"><a href="#修改prometheus-grafana-tracing-jaeger" class="headerlink" title="修改prometheus grafana tracing(jaeger)"></a>修改prometheus grafana tracing(jaeger)</h3><p>1 验证prometheus  service 已经运行：</p>
+<pre class="line-numbers language-java"><code class="language-java">kubectl <span class="token operator">-</span>n istio<span class="token operator">-</span>system get svc prometheus
+NAME         CLUSTER<span class="token operator">-</span>IP     EXTERNAL<span class="token operator">-</span>IP   <span class="token function">PORT</span><span class="token punctuation">(</span>S<span class="token punctuation">)</span>    AGE
+prometheus   <span class="token number">10.59</span><span class="token punctuation">.</span><span class="token number">241.54</span>   <span class="token operator">&lt;</span>none<span class="token operator">></span>        <span class="token number">9090</span><span class="token operator">/</span>TCP   2m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>2 验证Grafana service运行：</p>
+<pre class="line-numbers language-java"><code class="language-java">kubectl <span class="token operator">-</span>n istio<span class="token operator">-</span>system get svc grafana
+NAME      CLUSTER<span class="token operator">-</span>IP      EXTERNAL<span class="token operator">-</span>IP   <span class="token function">PORT</span><span class="token punctuation">(</span>S<span class="token punctuation">)</span>    AGE
+grafana   <span class="token number">10.59</span><span class="token punctuation">.</span><span class="token number">247.103</span>   <span class="token operator">&lt;</span>none<span class="token operator">></span>        <span class="token number">3000</span><span class="token operator">/</span>TCP   2m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>3 tracing service运行：</p>
+<pre class="line-numbers language-java"><code class="language-java">kubectl <span class="token operator">-</span>n istio<span class="token operator">-</span>system get svc tracing
+NAME      TYPE        CLUSTER<span class="token operator">-</span>IP      EXTERNAL<span class="token operator">-</span>IP   <span class="token function">PORT</span><span class="token punctuation">(</span>S<span class="token punctuation">)</span>   AGE
+tracing   ClusterIP   <span class="token number">10.109</span><span class="token punctuation">.</span><span class="token number">53.237</span>   <span class="token operator">&lt;</span>none<span class="token operator">></span>        <span class="token number">80</span><span class="token operator">/</span>TCP    19m<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>3 本地访问grafana(这一步没啥用)</p>
+<p>A: 把本地3000端口转发到grafana pod的3000端口：</p>
+<pre class="line-numbers language-java"><code class="language-java">kubectl <span class="token operator">-</span>n istio<span class="token operator">-</span>system port<span class="token operator">-</span>forward $<span class="token punctuation">(</span>kubectl <span class="token operator">-</span>n istio<span class="token operator">-</span>system get pod <span class="token operator">-</span>l app<span class="token operator">=</span>grafana <span class="token operator">-</span>o jsonpath<span class="token operator">=</span><span class="token string">'{.items[0].metadata.name}'</span><span class="token punctuation">)</span> <span class="token number">3000</span><span class="token operator">:</span><span class="token number">3000</span> <span class="token operator">&amp;</span>
+　　B<span class="token operator">:</span> 在本地的浏览器中访问   http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>localhost<span class="token operator">:</span><span class="token number">3000</span><span class="token operator">/</span>dashboard<span class="token operator">/</span>db<span class="token operator">/</span>istio<span class="token operator">-</span>mesh<span class="token operator">-</span>dashboard
+
+        curl http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>localhost<span class="token operator">:</span><span class="token number">3000</span><span class="token operator">/</span>dashboard<span class="token operator">/</span>db<span class="token operator">/</span>istio<span class="token operator">-</span>mesh<span class="token operator">-</span>dashboard
+        <span class="token operator">&lt;</span>a href<span class="token operator">=</span><span class="token string">"/d/1/istio-mesh-dashboard?"</span><span class="token operator">></span>Moved Permanently<span class="token operator">&lt;</span><span class="token operator">/</span>a<span class="token operator">></span>
+        上面的port<span class="token operator">-</span>forward只能本地访问，不能从外部访问<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如何从外部访问service：</p>
+<p>默认是clusterIP，需要改成NodePort，暴露一个在30000 ~32767范围内的端口</p>
+<p>修改端口为NodePort类型暴露出去 type: NodePort nodePort:ip</p>
+<p>tracing 端口为31001</p>
+<pre class="line-numbers language-java"><code class="language-java">kubectl edit svc tracing <span class="token operator">-</span>n istio<span class="token operator">-</span>system<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>prometheus 端口为31002</p>
+<pre class="line-numbers language-java"><code class="language-java">kubectl edit svc prometheus <span class="token operator">-</span>n istio<span class="token operator">-</span>system<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>prometheus 端口为31003</p>
+<pre class="line-numbers language-java"><code class="language-java">kubectl edit svc grafana <span class="token operator">-</span>n istio<span class="token operator">-</span>system<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>之后就能单独访问这些界面prometheus grafana tracing(jaeger)</p>
+<p>这里放一个kiali的界面吧</p>
+<p><img src="/images/20190627174238.png" alt=""></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://ciweigg2.github.io" rel="external nofollow noreferrer">Ciwei</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://ciweigg2.github.io/2019/06/27/kubernetes-an-zhuang-istio-he-kiali-jie-mian/">https://ciweigg2.github.io/2019/06/27/kubernetes-an-zhuang-istio-he-kiali-jie-mian/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://ciweigg2.github.io" target="_blank">Ciwei</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/prometheus/">
+                                    <span class="chip bg-color">prometheus</span>
+                                </a>
+                            
+                                <a href="/tags/istio/">
+                                    <span class="chip bg-color">istio</span>
+                                </a>
+                            
+                                <a href="/tags/grafana/">
+                                    <span class="chip bg-color">grafana</span>
+                                </a>
+                            
+                                <a href="/tags/kiali/">
+                                    <span class="chip bg-color">kiali</span>
+                                </a>
+                            
+                                <a href="/tags/jaegar/">
+                                    <span class="chip bg-color">jaegar</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2019/06/30/idea-shi-yong-cloud-toolkit-zi-dong-da-bao-fa-bu-dao-fu-wu-qi/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="https://ciwei3.cn-sh2.ufileos.com/94.jpg" class="responsive-img" alt="IDEA使用Cloud Toolkit自动打包发布到服务器">
+                        
+                        <span class="card-title">IDEA使用Cloud Toolkit自动打包发布到服务器</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            介绍Cloud Toolkit 帮助开发者将本地应用程序一键部署到线下自有 VM，或阿里云 ECS、EDAS 和 Kubernetes 中去当您每次修改完代码后，是否正在经历反复地打包？采用 SCP 工具上传？使用XShell或Secure
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2019-06-30
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/综合/" class="post-category">
+                                    综合
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/CloudToolkit/">
+                        <span class="chip bg-color">CloudToolkit</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/06/25/docker-an-zhuang-elasticsearch6.8.0/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="https://ciwei3.cn-sh2.ufileos.com/180.jpg" class="responsive-img" alt="docker安装elasticsearch6.8.0">
+                        
+                        <span class="card-title">docker安装elasticsearch6.8.0</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            安装elasticsearchdocker pull elasticsearch:6.8.0
+
+
+创建network
+docker network create dnw_es_680
+创建容器
+docker run -d --name es
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-06-25
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/综合/" class="post-category">
+                                    综合
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/elasticsearch/">
+                        <span class="chip bg-color">elasticsearch</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+    
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">年份</span>
+            <a href="https://ciweigg2.github.io" target="_blank">Ciwei</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">340.3k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    window.setTimeout("siteTime()", 1000);
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2019";
+                    var startMonth = "6";
+                    var startDate = "28";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <!-- Baidu Analytics -->
+
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+            <!-- 洪卫 shw2018 add 2019.08.28 -->
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+    
+
+    
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i["DaoVoiceObject"] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            a.charset = "utf-8";
+            m.parentNode.insertBefore(a, m)
+        })(window, document, "script", ('https:' == document.location.protocol ? 'https:' : 'http:') +
+            "//widget.daovoice.io/widget/6984b559.js", "daovoice")
+        daovoice('init', {
+            app_id: ""
+        });
+        daovoice('update');
+    </script>
+    
+
+    
+
+    
+
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<!-- 背景雪花飘落特效洪卫 shw2018 add 2019.09.10 -->
+        
+
+</body>
+
+</html>

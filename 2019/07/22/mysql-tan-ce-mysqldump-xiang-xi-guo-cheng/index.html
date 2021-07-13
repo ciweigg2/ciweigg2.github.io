@@ -1,0 +1,1799 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="【MySQL】探测mysqldump详细过程, 如果没有你">
+    <meta name="description" content="前言：相信大家对mysqldump应该不陌生，但是大家对mysqldump的原理及备份过程真的熟悉吗？今天，我们一起来深入理解一下mysqldump的备份原理及备份过程以及不同参数产生的效果。
+
+
+1.直接 mysqldump -uroot">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>【MySQL】探测mysqldump详细过程 | 如果没有你</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper head-container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">如果没有你</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/about">
+          
+          <i class="fas fa-user-circle" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>关于</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="https://ciweigg2.github.io/ciwei-resume/">
+          
+          <i class="fas fa-trophy" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>简历</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-list" style="zoom: 0.6;"></i>
+      
+      <span>娱乐</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/musics">
+          
+          <i class="fas fa-music" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>音乐</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/movies">
+          
+          <i class="fas fa-film" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>电影</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/books">
+          
+          <i class="fas fa-book" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>图书</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/galleries">
+          
+          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>相册</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="https://ciweigg2.github.io/alicdn/">
+          
+          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>免费图床</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/books">
+          
+          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>书单</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/games">
+          
+          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>游戏</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">如果没有你</div>
+        <div class="logo-desc">
+            
+            躺在你学校的操场看星空 教室里的灯还亮着你没走 记得 我写给你的情书 都什么年代了 到现在我还在写着 总有一天总有一年会发现 有人默默的陪在你的身边
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>   
+				
+                  <a href="/about " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-user-circle" style="position: absolute;left:50px" ></i>
+			      
+		          <span>关于</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="https://ciweigg2.github.io/ciwei-resume/ " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-trophy" style="position: absolute;left:50px" ></i>
+			      
+		          <span>简历</span>
+                  </a>
+                </li>
+               
+            </ul>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+				<i class="fas fa-fw fa-link"></i>
+			
+			Contact
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			Friends
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-list"></i>
+			
+			娱乐
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>   
+				
+                  <a href="/musics " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-music" style="position: absolute;left:50px" ></i>
+			      
+		          <span>音乐</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="/movies " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-film" style="position: absolute;left:50px" ></i>
+			      
+		          <span>电影</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="/books " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-book" style="position: absolute;left:50px" ></i>
+			      
+		          <span>图书</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="/galleries " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
+			      
+		          <span>相册</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="https://ciweigg2.github.io/alicdn/ " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
+			      
+		          <span>免费图床</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="/books " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
+			      
+		          <span>书单</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="/games " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
+			      
+		          <span>游戏</span>
+                  </a>
+                </li>
+               
+            </ul>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://ciwei3.cn-sh2.ufileos.com/19.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        【MySQL】探测mysqldump详细过程
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/mysql/">
+                                <span class="chip bg-color">mysql</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/mysql/" class="post-category">
+                                mysql
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-07-22
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        7.1k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        43 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p><strong>前言：</strong>相信大家对mysqldump应该不陌生，但是大家对mysqldump的原理及备份过程真的熟悉吗？今天，我们一起来深入理解一下mysqldump的备份原理及备份过程以及不同参数产生的效果。</p>
+<a id="more"></a>
+
+<p>1.直接 <code>mysqldump -uroot -pyourpass test_db &gt; test_db.sql</code> 备份 产生的general_log如下：</p>
+<pre class="line-numbers language-mysql"><code class="language-mysql">2018-08-14T14:10:50.227254+08:00       27 Connect    root@localhost on  using Socket
+2018-08-14T14:10:50.227454+08:00       27 Query    /*!40100 SET @@SQL_MODE='' */
+2018-08-14T14:10:50.227640+08:00       27 Query    /*!40103 SET TIME_ZONE='+00:00' */
+2018-08-14T14:10:50.227857+08:00       27 Query    SHOW VARIABLES LIKE 'gtid\_mode'
+2018-08-14T14:10:50.232239+08:00       27 Query    SELECT LOGFILE_GROUP_NAME, FILE_NAME, TOTAL_EXTENTS, INITIAL_SIZE, ENGINE, EXTRA FROM INFORMATION_SCHEMA.FILES WHERE FILE_TYPE = 'UNDO LOG' AND FILE_NAME IS NOT NULL AND LOGFILE_GROUP_NAME IS NOT NULL AND LOGFILE_GROUP_NAME IN (SELECT DISTINCT LOGFILE_GROUP_NAME FROM INFORMATION_SCHEMA.FILES WHERE FILE_TYPE = 'DATAFILE' AND TABLESPACE_NAME IN (SELECT DISTINCT TABLESPACE_NAME FROM INFORMATION_SCHEMA.PARTITIONS WHERE TABLE_SCHEMA IN ('test_db'))) GROUP BY LOGFILE_GROUP_NAME, FILE_NAME, ENGINE, TOTAL_EXTENTS, INITIAL_SIZE ORDER BY LOGFILE_GROUP_NAME
+2018-08-14T14:10:50.234201+08:00       27 Query    SELECT DISTINCT TABLESPACE_NAME, FILE_NAME, LOGFILE_GROUP_NAME, EXTENT_SIZE, INITIAL_SIZE, ENGINE FROM INFORMATION_SCHEMA.FILES WHERE FILE_TYPE = 'DATAFILE' AND TABLESPACE_NAME IN (SELECT DISTINCT TABLESPACE_NAME FROM INFORMATION_SCHEMA.PARTITIONS WHERE TABLE_SCHEMA IN ('test_db')) ORDER BY TABLESPACE_NAME, LOGFILE_GROUP_NAME
+2018-08-14T14:10:50.235122+08:00       27 Query    SHOW VARIABLES LIKE 'ndbinfo\_version'
+2018-08-14T14:10:50.237841+08:00       27 Init DB    test_db
+2018-08-14T14:10:50.237980+08:00       27 Query    SHOW CREATE DATABASE IF NOT EXISTS `test_db`
+2018-08-14T14:10:50.238083+08:00       27 Query    show tables
+2018-08-14T14:10:50.238489+08:00       27 Query    LOCK TABLES `act_re_model` READ /*!32311 LOCAL */,`custom_api_info` READ /*!32311 LOCAL */,`custom_application_sysem` READ /*!32311 LOCAL */,`stud` READ /*!32311 LOCALnts` READ /*!32311 LOCAL */
+2018-08-14T14:10:50.238709+08:00       9+08:00       27 Query    show table status like 'act\_re\_model'
+2018-08-14T14:10:50.238999+08:00       27 Query    SET SQL_QUOTE_SHOW_CREATE=1
+2018-08-14T14:10:50.239181+08:00       27 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T14:10:50.239285+08:00       27 Query    show create table `act_re_model`
+2018-08-14T14:10:50.239497+08:00       27 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T14:10:50.239606+08:00       27 Query    show fields from `act_re_model`
+2018-08-14T14:10:50.240116+08:00       27 Query    show fields from `act_re_model`
+2018-08-14T14:10:50.240487+08:00       27 Query    SELECT /*!40001 SQL_NO_CACHE */ * FROM `act_re_model`
+2018-08-14T14:10:50.240693+08:00       27 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T14:10:50.240809+08:00       27 Query    use `test_db`
+2018-08-14T14:10:50.241090+08:00       27 Query    select @@collation_database
+2018-08-14T14:10:50.241384+08:00       27 Query    SHOW TRIGGERS LIKE 'act\_re\_model'
+2018-08-14T14:10:50.241813+08:00       27 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T14:10:50.242010+08:00       27 Query    show table status like 'custom\_api\_info'
+2018-08-14T14:10:50.242391+08:00       27 Query    SET SQL_QUOTE_SHOW_CREATE=1
+2018-08-14T14:10:50.242545+08:00       27 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T14:10:50.242705+08:00       27 Query    show create table `custom_api_info`
+2018-08-14T14:10:50.242888+08:00       27 QuerON character_set_results = 'utf8'
+2018-08-14T14:10:50.243044+08:.243044+08:00       27 Query    show fields from `custom_api_info`
+2018-08-14T14:10:50.243541+08:00       27 Query    show fields from `custom_api_info`
+2018-08-14T14:10:50.244019+08:00       27 Query    SELECT /*!40001 SQL_NO_CACHE */ * FROM `custom_api_info`
+2018-08-14T14:10:50.2442782018-08-14T14:10:50.244439+08:00       27 Query    use `test_db`
+2018-08-14T14:10:50.244602+08:00       27 Query    select @@collation_database
+2018-08-14T14:10:50.244765+08:00       27 Query    SHOW TRIGGERS LIKE 'custom\_api\_info'
+2018-08-14T14:10:50.245215+08:00       27 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T14::50.245384+08:00       27 Query    show table status like 'custom\_apppplication\_system'
+2018-08-14T14:10:50.245749+08:00       27 Query    SET SQL_QUOTE_SHOW_CREATE=1
+2018-08-14T14:10:50.245888+08:00       27 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T14:10:50.246032+08:00       27 Query    show create table `custom_application_system`
+2018-08-14T14:10:50.246215+08:00       27 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T14:10:50.246383+08:00       27 Query    show fields from `custom_application_system`
+2018-08-14T14:10:50.246816+08:00       27 Query    show fields from `custom_application_system`
+2018-08-14T14:10:50.247256+08:00      27 Query    SELECT /*!40001 SQL_NO_CACHE */ * FROM `custom_applicaation_system`
+2018-08-14T14:10:50.247507+08:00       27 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T1470+08:00       27 Query    use `test_db`
+2018-08-14T14:10:50.247825+080.247825+08:00       27 Query    select @@collation_database
+2018-08-14T14:10:50.247987+08:00       27 Query    SHOW TRIGGERS LIKE 'custom\_application\_system'
+2018-08-14T14:10:50.248474+08:00       27 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T14:10:50.248651+08:00       27 Query    show table status like 'stud'
+2018-08-14T14:10:50.248985+08:00       27 Query    SET SQL_QUOTE_SHOW_CREATE=1
+2018-08-14T14:10:50.249123+08:00       27 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T14:10:50.249291+08:00       27 Query    show create table `stud`
+2018-08-14T14:10:50.249460+08:00       27 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T14:10:50.249632+08:00       27 Query    show fields from `stud`
+2018-08-14T14:10:50.250060+08:00       27 Query    show fields from `stud`
+2018-08-14T14:10:50.250509+08:00       27 Query    SELECT /*!40001 SQL_NO_CACHE */ * FROM `stud`
+2018-08-14T14:10:50.250764+08:00       27 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T14:10:50.250906+08:00       27 Query    use `test_db`
+2018-08-14T14:10:50.251064+08:00       27 Query    select @@collation_database
+2018-08-14T14:10:50.251239+08:00       27 Query    SHOW TRIGGERS LIKE 'stud'
+2018-08-14T14:10:50.251662+08:00       27 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T14:10:50.251808+08:00       27 Query    show table status like 'students'
+2018-08-14T14:10:50.252120+08:00      +08:00       27 Query    SET SESSION character_set_result'
+2018-08-14T14:10:50.252428+08:00       27 Query    show create tablereate table `students`
+2018-08-14T14:10:50.252595+08:00       27 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T14:10:50.252742+08:00       27 Query    show fields from `students`
+2018-08-14T14:10:50.253165+08:00       27 Query    show fields from `students`
+2018-08-14T14:10:50.253566+08:00       27 Query    SELECT /*!40001 SQL_NO_CACHE */ * FROM `students`
+2018-08-14T14:10:50.253783+08:00       27 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T14:10:50.253894+08:00       27 Query    use `test_db`
+2018-08-14T14:10:50.254023+08:00       27 Query    select @@collation_database
+2018-08-14T14:10:50.254189+08:00       27 Query    SHOW TRIGGERS LIKE 'students'
+2018-08-14T14:10:50.254589+08:00       27 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T14:10:50.254719+08:00       27 Query    LOCK TABLES mysql.event READ
+2018-08-14T14:10:50.254958+08:00       27 Query    show events
+2018-08-14T14:10:50.255413+08:00       27 Query    UNLOCK TABLES
+2018-08-14T14:10:50.255528+08:00       27 Query    LOCK TABLES mysql.proc READ
+2018-08-14T14:10:50.255705+08:00       27 Query    use `test_db`
+2018-08-14T14:10:50.255795+08:00       27 Query    select @@collation_database
+2018-08-14T14:10:50.255995+08:00       27 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T14:10:50.256128+08:00       27 Query    SHOW FUNCTION STATUS WHERE Db = 'test_db'
+2018-08-14T14:10:50.258323+08:00       27 Query    SHOW PROCEDURE STATUS WHERE Db = 'test_db'
+2018-08-14T14:10:50.259955+08:00       27 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T14:10:50.260080+08:00       27 Query    UNLOCK TABLES
+2018-08-14T14:10:50.260222+08:00       27 Query    UNLOCK TABLES
+2018-08-14T14:10:50.260327+08:00       27 Quit    <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>2.增加 <code>single-transaction</code> 参数 即 <code>mysqldump -uroot -pyourpass --single-transaction test_db &gt; test_db.sql</code> 备份 产生的general_log如下：</p>
+<pre class="line-numbers language-mysql"><code class="language-mysql">2018-08-14T14:15:29.731380+08:00       29 Connect    root@localhost on  using Socket
+2018-08-14T14:15:29.731586+08:00       29 Query    /*!40100 SET @@SQL_MODE='' */
+2018-08-14T14:15:29.731755+08:00       29 Query    /*!40103 SET TIME_ZONE='+00:00' */
+2018-08-14T14:15:29.731948+08:00       29 Query    SET SESSION TRANSACTION ISOLATION LEVEL REPEATABLE READ
+2018-08-14T14:15:29.732107+08:00       29 Query    START TRANSACTION /*!40100 WITH CONSISTENT SNAPSHOT */
+2018-08-14T14:15:29.732314+08:00       29 Query    SHOW VARIABLES LIKE 'gtid\_mode'
+2018-08-14T14:15:29.735166+08:00       29 Query    UNLOCK TABLES
+2018-08-14T14:15:29.735549+08:00       29 Query    SELECT LOGFILE_GROUP_NAME, FILE_NAME, TOTAL_EXTENTS, INITIAL_SIZE, ENGINE, EXTRA FROM INFORMATION_SCHEMA.FILES WHERE FILE_TYPE = 'UNDO LOG' AND FILE_NAME IS NOT NULL AND LOGFILE_GROUP_NAME IS NOT NULL AND LOGFILE_GROUP_NAME IN (SELECT DISTINCT LOGFILE_GROUP_NAME FROM INFORMATION_SCHEMA.FILES WHERE FILE_TYPE = 'DATAFILE' AND TABLESPACE_NAME IN (SELECT DISTINCT TABLESPACE_NAME FROM INFORMATION_SCHEMA.PARTITIONS WHERE TABLE_SCHEMA IN ('test_db'))) GROUP BY LOGFILE_GROUP_NAME, FILE_NAME, ENGINE, TOTAL_EXTENTS, INITIAL_SIZE ORDER BY LOGFILE_GROUP_NAME
+2018-08-14T14:15:29.737219+08:00       29 Query    SELECT DISTINCT TABLESPACE_NAME, FILE_NAME, LOGFILE_GROUP_NAME, EXTENT_SIZE, INITIAL_SIZE, ENGINE FROM INFORMATION_SCHEMA.FILES WHERE FILE_TYPE = 'DATAFILE' AND TABLESPACE_NAME IN (SELECT DISTINCT TABLESPACE_NAME FROM INFORMATION_SCHEMA.PARTITIONS WHERE TABLE_SCHEMA IN ('test_db')) ORDER BY TABLESPACE_NAME, LOGFILE_GROUP_NAME
+2018-08-14T14:15:29.738111+08:00       29 Query    SHOW VARIABLES LIKE 'ndbinfo\_version'
+2018-08-14T14:15:29.741207+08:00       29 Init DB    test_db
+2018-08-14T14:15:29.741344+08:00       29 Query    SHOW CREATE DATABASE IF NOT EXISTS `test_db`
+2018-08-14T14:15:29.741458+08:00       29 Query    SAVEPOINT sp
+2018-08-14T14:15:29.741544+08:00       29 Query    show tables
+2018-08-14T14:15:29.741759+08:00       29 Query    show table status like 'act\_re\_model'
+2018-08-14T14:15:29.742037+08:00       29 Query    SET SQL_QUOTE_SHOW_CREATE=1
+2018-08-14T14:15:29.742158+08:00       29 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T14:15:29.742283+08:00       29 Query    show create table `act_re_model`
+2018-08-14T14:15:29.742399+08:00       29 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T14:15:29.742493+08:00       29 Query    show fields from `act_re_model`
+2018-08-14T14:15:29.742944+08:00       29 Query    show fields from `act_re_model`
+2018-08-14T14:15:29.743360+08:00       29 Query    SELECT /*!40001 SQL_NO_CACHE */ * FROM `act_re_model`
+2018-08-14T14:15:29.743614+08:00       29 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T14:15:29.743780+08:00       29 Query    use `test_db`
+2018-08-14T14:15:29.743941+08:00       29 Query    select @@collation_database
+2018-08-14T14:15:29.744161+08:00       29 Query    SHOW TRIGGERS LIKE 'act\_re\_model'
+2018-08-14T14:15:29.744657+08:00       29 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T14:15:29.744811+08:00       29 Query    ROLLBACK TO SAVEPOINT sp
+2018-08-14T14:15:29.744972+08:00       29 Query    show table status like 'custom\_api\_info'
+2018-08-14T14:15:29.745351+08:00       29 Query    SET SQL_QUOTE_SHOW_CREATE=1
+2018-08-14T14:15:29.745503+08:00       29 Qu5:29.745655+08:00       29 Query    show create table `custom_api_info`
+2018-08-14T14:15:29.745853+08:00       29 Query    SET cter_set_results = 'utf8'
+2018-08-14T14:15:29.746032+08:00       2908:00       2999 Query    show fields from `custom_api_info`
+2018-08-14T14:15:29.746579+08:00       29 Query    show fields from `custom_api_info`
+2018-08-14T14:15:29.747091+08:00       29 Query    SELECT /*!40001 SQL_NO_CACHE */ * FROM `custom_api_info`
+2018-08-14T14:15:29.747367+08:00       29 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T14:15:29.747523+08:00       29 Query    use `test_db`
+2018-08-14T14:15:29.747681+08:00       29 Query    select @@collation_database
+2018-08-14T14:15:29.747851+08:00       29 Query    SHOW TRIGGERS LIKE 'custom\_api\_info'
+2018-08-14T14:15:29.748329+08:00       29 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T14:15:29.748481+08:00       29 Query    ROLLBACK TO SAVEPOINT sp
+2018-08-14T14:15:29.748624+08:00       29 Query    show table status like 'custom\_application\_system'
+2018-08-14T14:15:29.748933+08:00       29 Query    SET SQL_QUOTE_SHOW_CREATE=1
+2018-08-14T14:15:29.749083+08:00       29 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T14:15:29.749244+08:00       29 Query    show create table `custom_application_system`
+2018-08-14T14:15:29.749417+08:00       29 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T14:15:29.749581+08:00       29 Query    show fields from `custom_application_system`
+2018-08-14T14:15:29.750027+08:00       29 Query    show fields fro `custom_application_system`
+2018-08-14T14:15:29.750472+08:00        29 Query    SELECT /*!40001 SQL_NO_CACHE */ * FROM `custom_application_system`
+2018-08-14T14:15:29.750689+08:00       29 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T14:15:29.750820+08:00       29 Query    use `test_db`
+2018-08-14T14:15:29.750955+08:00       29 Query    select @@collation_database
+2018-08-14T14:15:29.751115+08:00       29 Query    SHOW TRIGGERS LIKE 'custom\_application\_system'
+2018-08-14T14:15:29.751558+08:00       29 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T14:15:29.751694+08:00       29 Query    ROLLBACK TO SAVEPOINT sp
+2018-08-14T14:15:29.751821+08:00       29 Query    show table status like 'stud'
+20:15:29.752110+08:00       29 Query    SET SQL_QUOTE_SHOW_CREATE=1
+2018EATE=1
+2018-08-14T14:15:29.752245+08:00       29 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T14:15:29.752367+08:00       29 Query    show create table `stud`
+2018-08-14T14:15:29.752509+08:00       29 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T14:15:29.752645+08:00       29 Query    show fields from `stud`
+2018-08-14T14:15:29.753040+08:00       29 Query    show fields from `stud`
+2018-08-14T14:15:29.753453+08:00       29 Query    SELECT /*!40001 SQL_NO_CACHE */ * FROM `stud`
+2018-08-14T14:15:29.753687+08:00       29 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T14:15:29.753811+08:00       29 Query    use `test_db`
+2018-08-14T14:15:29.753935+08:00       29 Query    select @@collation_database
+2018-08-14T14:15:29.754089+08:00       29 Query    SHOW TRIGGERS LIKE 'stud'
+2018-08-14T14:15:29.754509+08:00       29 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T14:15:29.754644+08:00       29 Query    ROLLBACK TO SAVEPOINT sp
+2018-08-14T14:15:29.754770+08:00       29 Query    show table status like 'students'
+2018-08-14T14:15:29.755068+08:00       29 Query    SET SQL_QUOTE_SHOW_CREATE=1
+2018-08-14T14:15:29.755204+08:00       29 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T14:15:29.755334+08:00       29 Query    show create table `students`
+2018-08-14T14:15:29.755482+08:00       29 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T14:15:29.755617+08:00       29 Query    show fields from `students`
+2018-08-14T14:15:29.756003+08:00       29 Query    show fields from `students`
+2018-08-14T14:15:29.756486+08:00       29 Query    SELECT /*!40001 SQL_NO_CACHE */ * FROM `students`
+2018-08-14T14:15:29.756694+08:00       29 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T14:15:29.756816+08:00       29 Query    use `test_db`
+2018-08-14T14:15:29.756946+08:00       29 Query    select @@collation_database
+2018-08-14T14:15:29.757097+08:00       29 Query    SHOW TRIGGERS LIKE 'students'
+2018-08-14T14:15:29.757513+08:00       29 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T14:15:29.757647+08:00       29 Query    ROLLBACK TO SAVEPOINT sp
+2018-08-14T14:15:29.757771+08:00       29 Query    RELEASE SAVEPOINT sp
+2018-08-14T14:15:29.757897+08:00       29 Query    show events
+2018-08-14T14:15:29.758400+08:00       29 Query    use `test_db`
+2018-08-14T14:15:29.758544+08:00       29 Query    select @@collation_database
+2018-08-14T14:15:29.758682+08:00       29 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T14:15:29.758813+08:00       29 Query    SHOW FUNCTION STATUS WHERE Db = 'test_db'
+2018-08-14T14:15:29.761003+08:00       29 Query    SHOW PROCEDURE STATUS WHERE Db = 'test_db'
+2018-08-14T14:15:29.762609+08:00       29 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T14:15:29.763200+08:00       29 Quit    <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>3.使用 <code>--master-data=2</code> 及<code>--single-transaction</code> 参数 即 <code>mysqldump -uroot -pyourpass --master-data=2 --single-transaction test_db &gt; test_db.sql</code>  备份  产生的general_log如下：</p>
+<pre class="line-numbers language-mysql"><code class="language-mysql">2018-08-14T14:30:06.020562+08:00       33 Connect    root@localhost on  using Socket
+2018-08-14T14:30:06.020733+08:00       33 Query    /*!40100 SET @@SQL_MODE='' */
+2018-08-14T14:30:06.020902+08:00       33 Query    /*!40103 SET TIME_ZONE='+00:00' */
+2018-08-14T14:30:06.021082+08:00       33 Query    FLUSH /*!40101 LOCAL */ TABLES
+2018-08-14T14:30:06.023110+08:00       33 Query    FLUSH TABLES WITH READ LOCK
+2018-08-14T14:30:06.023302+08:00       33 Query    SET SESSION TRANSACTION ISOLATION LEVEL REPEATABLE READ
+2018-08-14T14:30:06.023428+08:00       33 Query    START TRANSACTION /*!40100 WITH CONSISTENT SNAPSHOT */
+2018-08-14T14:30:06.023580+08:00       33 Query    SHOW VARIABLES LIKE 'gtid\_mode'
+2018-08-14T14:30:06.026820+08:00       33 Query    SHOW MASTER STATUS
+2018-08-14T14:30:06.026952+08:00       33 Query    UNLOCK TABLES
+2018-08-14T14:30:06.027163+08:00       33 Query    SELECT LOGFILE_GROUP_NAME, FILE_NAME, TOTAL_EXTENTS, INITIAL_SIZE, ENGINE, EXTRA FROM INFORMATION_SCHEMA.FILES WHERE FILE_TYPE = 'UNDO LOG' AND FILE_NAME IS NOT NULL AND LOGFILE_GROUP_NAME IS NOT NULL AND LOGFILE_GROUP_NAME IN (SELECT DISTINCT LOGFILE_GROUP_NAME FROM INFORMATION_SCHEMA.FILES WHERE FILE_TYPE = 'DATAFILE' AND TABLESPACE_NAME IN (SELECT DISTINCT TABLESPACE_NAME FROM INFORMATION_SCHEMA.PARTITIONS WHERE TABLE_SCHEMA IN ('test_db'))) GROUP BY LOGFILE_GROUP_NAME, FILE_NAME, ENGINE, TOTAL_EXTENTS, INITIAL_SIZE ORDER BY LOGFILE_GROUP_NAME
+2018-08-14T14:30:06.029717+08:00       33 Query    SELECT DISTINCT TABLESPACE_NAME, FILE_NAME, LOGFILE_GROUP_NAME, EXTENT_SIZE, INITIAL_SIZE, ENGINE FROM INFORMATION_SCHEMA.FILES WHERE FILE_TYPE = 'DATAFILE' AND TABLESPACE_NAME IN (SELECT DISTINCT TABLESPACE_NAME FROM INFORMATION_SCHEMA.PARTITIONS WHERE TABLE_SCHEMA IN ('test_db')) ORDER BY TABLESPACE_NAME, LOGFILE_GROUP_NAME
+2018-08-14T14:30:06.030799+08:00       33 Query    SHOW VARIABLES LIKE 'ndbinfo\_version'
+2018-08-14T14:30:06.033857+08:00       33 Init DB    test_db
+2018-08-14T14:30:06.033985+08:00       33 Query    SHOW CREATE DATABASE IF NOT EXISTS `test_db`
+2018-08-14T14:30:06.034125+08:00       33 Query    SAVEPOINT sp
+2018-08-14T14:30:06.034239+08:00       33 Query    show tables
+2018-08-14T14:30:06.034457+08:00       33 Query    show table status like 'act\_re\_model'
+2018-08-14T14:30:06.034770+08:00       33 Query    SET SQL_QUOTE_SHOW_CREATE=1
+2018-08-14T14:30:06.034888+08:00       33 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T14:30:06.034974+08:00       33 Query    show create table `act_re_model`
+2018-08-14T14:30:06.035075+08:00       33 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T14:30:06.035175+08:00       33 Query    show fields from `act_re_model`
+2018-08-14T14:30:06.035602+08:00       33 Query    show fields from `act_re_model`
+2018-08-14T14:30:06.035971+08:00       33 Query    SELECT /*!40001 SQL_NO_CACHE */ * FROM `act_re_model`
+2018-08-14T14:30:06.036291+08:00       33 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T14:30:06.036399+08:00       33 Query    use `test_db`
+2018-08-14T14:30:06.036488+08:00       33 Query    select @@collation_database
+2018-08-14T14:30:06.036582+08:00       33 Query    SHOW TRIGGERS LIKE 'act\_re\_model'
+2018-08-14T14:30:06.037013+08:00       33 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T14:30:06.037102+08:00       33 Query    ROLLBACK TO SAVEPOINT sp
+2018-08-14T14:30:06.037204+08:00       33 Query    show table status like 'custom\_api\_info'
+2018-08-14T14:30:06.037487+08:00       33 Query    SET SQL_QUOTE_SHOW_CREATE=1
+2018-08-14T14:30:06.037571+018-08-14T14:30:06.037670+08:00       33 Query    show create table `custom_api_info`
+2018-08-14T14:30:06.037793+08:00       33 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T14:30:06.0370+08:00       33 Query    show fields from `custom_api_info`
+2018-08-1114T14:30:06.038313+08:00       33 Query    show fields from `custom_api_info`
+2018-08-14T14:30:06.038688+08:00       33 Query    SELECT /*!40001 SQL_NO_CACHE */ * FROM `custom_api_info`
+2018-08-14T14:30:06.038881+08:00       33 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T14:30:06.039027+08:00       33 Query    use `test_db`
+2018-08-14T14:30:06.039204+08:00       33 Query    select @@collation_database
+2018-08-14T14:30:06.039378+08:00       33 Query    SHOW TRGGERS LIKE 'custom\_api\_info'
+2018-08-14T14:30:06.039837+08:00    binary'
+2018-08-14T14:30:06.039027+08:00       33 Query    use `test_d14T14:30:06.039972+08:00       33 Query    ROLLBACK TO SAVEPOINT sp
+2018-08-14T14:30:06.040124+08:00       33 Query    show table status like 'custom\_application\_system'
+2018-08-14T14:30:06.040460+08:00       33 Query    SET SQL_QUOTE_SHOW_CREATE=1
+2018-08-14T14:30:06.04595+08:00       33 Query    SET SESSION character_set_results = 'binarry'
+2018-08-14T14:30:06.040731+08:00       33 Query    show create table `custom_application_system`
+2018-08-14T14:30:06.040905+08:00    +08:00       33 Query    show fields from `students`
+2018-08-14T14:30:4T14:30:06.041050+08:00       33 Query    show fields from `custom_application_system`
+2018-08-14T14:30:06.041477+08:00       33 Query    show fields from `custom_application_system`
+2018-08-14T14:30:06.041904+08:00       33 Query    SELECT /*!40001 SQL_NO_CACHE */ * FROM `custom_application_system`
+2018-08-14T14:30:06.042121+08:00       33 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T14:30:06.042288+08:00       33 Query    use `test_db`
+2018-08-14T14:30:06.042428+08:00       33 Query    select @@collation_database
+2018-08-14T14:30:06.042579+08:00       33 Query    SHOW TRIGGERS LIKE 'custom\_application\_system'
+2018-08-14T14:30:06.043001+08:00       33 Quer.043152+08:00       33 Query    ROLLBACK TO SAVEPOINT sp
+2018-08-14T14:30:06.043295+08:00       33 Query    show table status like 'stud'
+2018-08-14T14:30:06.043601+08:00       33 Query    SET SQL_QUOTE_SHOW_CREATE=1
+2018-08-14T14:30:06.043780+08:00       33 Querycharacter_set_results = 'binary'
+2018-08-14T14:30:06.043915+08:0043915+08:0000       33 Query    show create table `stud`
+2018-08-14T14:30:06.044070+08:00       33 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T14:30:06.044231+08:00       33 Query    show fields from `stud`
+2018-08-14T14:30:06.044630+08:00       33 Query    show fields from `stud`
+2018-08-14T14:30:06.045042+08:00       33 Query    SELECT /*!40001 SQL_NO_CACHE */ * FROM `stud`
+2018-08-14T14:30:06.045306+08:00       33 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T14:30:06.045437+08:00       33 Query    use `test_db`
+2018-08-14T14:30:06.045572+08:00       33 Query    select @@collation_database
+2018-08-14T14:30:06.045712+08:00       33 Query    SHOW TRIGGERS LIKE 'stud'
+2018-08-14T14:30:06.046100+08:00       33 Query    SET SESS47622+08:00       33 Query    show fields from `students`
+2018-08-14T1:00       33 Query    ROLLBACK TO SAVEPOINT sp
+2018-08-14T14:30:06.046381+08:00       33 Query    show table status like 'students'
+2018-08-14T14:30:06.046668+08:00       33 Query    SET SQL_QUOTE_SHOW_CREATE=1
+2018-08-14T14:30:06.046813+08:00       33 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T14:30:06.046939+08:00       33 Query    show create table `students`
+2018-08-14T14:30:06.047086+08:00       33 Query    SET SESSION character_set_results = 'utf8'
+201-08-14T14:30:06.047249+08:00       33 Query    show fields from `stude
+2018-08-14T14:30:06.046813+08:00       33 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T14:30:06.046939+08:00       3CT /*!40001 SQL_NO_CACHE */ * FROM `students`
+2018-08-14T14:30:06.048248+08:00       33 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T14:30:06.048379+08:00       33 Query    use `test_db`
+2018-08-14T14:30:06.048531+08:00       33 Query    select @@collation_database
+2018-08-14T14:30:06.048675+08:00       33 Query    SHOW TRIGGERS LIKE 'students'
+2018-08-14T14:30:06.049066+08:00       33 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T14:30:06.049221+08:00       33 Query    ROLLBACK TO SAVEPOINT sp
+2018-08-14T14:30:06.049344+08:00       33 Query    RELEASE SAVEPOINT sp
+2018-08-14T14:30:06.049467+08:00       33 Query    show events
+2018-08-14T14:30:06.050063+08:00       33 Query    use `test_db`
+2018-08-14T14:30:06.050220+08:00       33 Query    select @@collation_database
+2018-08-14T14:30:06.050364+08:00       33 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T14:30:06.050503+08:00       33 Query    SHOW FUNCTION STATUS WHERE Db = 'test_db'
+2018-08-14T14:30:06.052734+08:00       33 Query    SHOW PROCEDURE STATUS WHERE Db = 'test_db'
+2018-08-14T14:30:06.054303+08:00       33 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T14:30:06.054808+08:00       33 Quit<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>4.使用 <code>--skip-lock-tables</code> 参数 即 <code>mysqldump -uroot -pyourpass --skip-lock-tables test_db &gt; test_db.sql</code> 备份 产生的general_log如下：</p>
+<pre class="line-numbers language-mysql"><code class="language-mysql">2018-08-14T15:20:57.546924+08:00       37 Connect    root@localhost on  using Socket
+2018-08-14T15:20:57.547051+08:00       37 Query    /*!40100 SET @@SQL_MODE='' */
+2018-08-14T15:20:57.547310+08:00       37 Query    /*!40103 SET TIME_ZONE='+00:00' */
+2018-08-14T15:20:57.547548+08:00       37 Query    SHOW VARIABLES LIKE 'gtid\_mode'
+2018-08-14T15:20:57.550374+08:00       37 Query    SELECT LOGFILE_GROUP_NAME, FILE_NAME, TOTAL_EXTENTS, INITIAL_SIZE, ENGINE, EXTRA FROM INFORMATION_SCHEMA.FILES WHERE FILE_TYPE = 'UNDO LOG' AND FILE_NAME IS NOT NULL AND LOGFILE_GROUP_NAME IS NOT NULL AND LOGFILE_GROUP_NAME IN (SELECT DISTINCT LOGFILE_GROUP_NAME FROM INFORMATION_SCHEMA.FILES WHERE FILE_TYPE = 'DATAFILE' AND TABLESPACE_NAME IN (SELECT DISTINCT TABLESPACE_NAME FROM INFORMATION_SCHEMA.PARTITIONS WHERE TABLE_SCHEMA IN ('test_db'))) GROUP BY LOGFILE_GROUP_NAME, FILE_NAME, ENGINE, TOTAL_EXTENTS, INITIAL_SIZE ORDER BY LOGFILE_GROUP_NAME
+2018-08-14T15:20:57.551896+08:00       37 Query    SELECT DISTINCT TABLESPACE_NAME, FILE_NAME, LOGFILE_GROUP_NAME, EXTENT_SIZE, INITIAL_SIZE, ENGINE FROM INFORMATION_SCHEMA.FIE TABLE_SCHEMA IN ('test_db')) ORDER BY TABLESPACE_NAME, LOGFILE_GROUP_NAME
+2018-08-14T15:20:57.552833+08:00       37 Query    SHOW VARIABLES LIKE 'ndbinfo\_version'
+2018-08-14T15:20:57.555707+08:00       37 Init DB    test_db
+2018-08-14T15:20:57.555815+08:00       37 Query    SHOW CREATE DATABASE IF NOT EXISTS `test_db`
+200:57.555956+08:00       37 Query    show tables
+2018-08-14T15:20:57.556230+08:00       37 Query    show table status like 'act\_re\_model'
+2e\_model'
+222018-08-14T15:20:57.556516+08:00       37 Query    SET SQL_QUOTE_SHOW_CREATE=1
+2018-08-14T15:20:57.556617+08:00       37 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T15:20:57.556713+08:00       37 Query    show create table `act_re_model`
+2018-08-14T15:20:57.556824+08:00       37 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T15:20:57.556921+08:00       37 Query    show fields from `act_re_model`
+2018-08-14T15:20:57.557334+08:00       37 Query    show fields from `act_re_model`
+2018-08-14T15:20:57.557704+08:00       37 Query    SELECT /*!40001 SQL_NO_CACHE */ * FROM `act_re_model`
+2018-08-14T15:20:57.557906+08:00       37 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T15:20:57.557983+08:00       37 Query    use `test_db`
+2018-08-14T15:20:57.558076+08:00       37 Query    select @@collation_database
+2018-08-14T15:20:57.558222+08:00       37 Query    SHOW TRIGGERS LIKE 'act\_re\_model'
+2018-08-14T1ts = 'utf8'
+2018-08-14T15:20:57.558777+08:00       37 Query    show table status like 'custom\_api\_info'
+2018-08-14T15:20:57.559120+08:00       37 Query    SET SQL_QUOTE_SHOW_CREATE=1
+2018-08-14T15:20:57.559272+08:00       37 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T15:20:57.559389+08:00       37 Query    show create table `custom_api_info`
+2018-08-14T15:20:57.559548+08:00       37 Q:57.559685+08:00       37 Query    show fields from `custom_api_info`
+2018-08-14T15:20:57.560092+08:00       37 Query    show fields from `custom_api_info`
+2018-08-14T15:20:57.560527+08:00       37 Query    SELECT /*!40001 SQL_NO_CACHE */ * FROM `custom_api_info`
+2018-08-14T15:20:57.560733+08:00       37 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T15:20:57.560848+08:00       37 Query    use `test_db`
+2018-08-14T15:20:57.560973+08:00       37 Query    select @@collation_database
+2018-08-14T15:20:57.561104+08:0    SHOW TRIGGERS LIKE 'custom\_api\_info'
+2018-08-14T15:20:57.5615:20:57.56155508+08:00       37 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T15:20:57.561642+08:00       37 Query    show table status like 'custom\_application\_system'
+2018-08-14T15:20:57.561921+08:00       37 Query    SET SQL_QUOTE_SHOW_CREATE=1
+2018-08-14T15:20:57.562033+08:00       37 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T15:20:57.562168+08:00       37 Query    show create table `custom_application_system`
+2018-08-14T15:20:57.562330+08:00       37 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T15:20:57.562457+08:00       37 Query    show fields from `custom_application_system`
+2018-08-14T15:20:57.562820+08:00       37 Query    show fields from `custom_application_system`
+2018-08-14T15:20:57.563219+08:00       37 Query    SELECT /*!40001 SQL_NO_CACHE */ * FROM `custom_application_system`
+2018-08-14T15:20:57.563416+08:00       37 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T15:20:57.563529+08:00       37 Query    use `test_db`
+2018-08-14T15:20:57.563655+08:00       37 Query    select @@collation_database
+2018-08-14T15:20:57.563790+08:00       37 Query    SHOW TRIGGERS LIKE 'custom\_application\_system'
+2018-08-14T15:20:57.564170+08:00       37 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T15:20:57.564314+08:00       37 Query    show table status like 'stud'
+2018-08-14T15:20:57.564587+08:00       37 Query    SET SQL_QUOTE_SHOW_CREATE=1
+2018-08-14T15:20:57.564698+08:00       37 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T15:20:57.564815+08:00       37 Query    show create table `stud`
+2018-08-14T15:20:57.564952+08:00       37 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T15:20:57.565081+08:00       37 Query    show fields from `stud`
+2018-08-14T15:20:57.565469+08:00       37 Query    show fields from `stud`
+2018-08-14T15:20:57.565828+08:00       37 Query    SELECT /*!40001 SQL_NO_CACHE */ * FROM `stud`
+2018-08-14T15:20:57.566035+08:008-14T15:20:57.566166+08:00       37 Query    use `test_db`
+2018-08-14T15:20:57.566305+08:00       37 Query    select @@collation_database
+2018-08-14T15:20:57.566433+08:00       37 Query    SHOW TRIGGERS LIKE 'stud'
+2018-08-14T15:20:57.566798+08:00       37 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T15:20:57.566927+08:00       37 Query    show table status like 'students'
+2018-08-14T15:20:57.567226+08:00       37 Query    SET SQL_QUOTE_SHOW_CREATE=1
+2018-08-14T15:20:57.567337+08:00       37 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T15:20:57.567456+08:00       37 Query    sw create table `students`
+2018-08-14T15:20:57.567588+08:00       3777 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T15:20:57.567722+08:00       37 Query    show fields from `students`
+2018-08-14T15:20:57.568071+08:00       37 Query    show fields from `students`
+2018-08-14T15:20:57.568451+08:00       37 Query    SELECT /*!40001 SQL_NO_CACHE */ * FROM `students`
+2018-08-14T15:20:57.568650+08:00       37 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T15:20:57.568760+08:00       37 Query    use `test_db`
+2018-08-14T15:20:57.568879+08:00       37 Query    select @@collation_database
+2018-08-14T15:20:57.569009+08:00       37 Query    SHOW TRIGGERS LIKE 'students'
+2018-08-14T15:20:57.569401+08:00       37 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T15:20:57.569533+08:00       37 Query    show events
+2018-08-14T15:20:57.569960+08:00       37 Query    use `test_db`
+2018-08-14T15:20:57.570082+08:00       37 Query    select @@collation_database
+2018-08-14T15:20:57.570248+08:00       37 Query    SET SESSION character_set_results = 'binary'
+2018-08-14T15:20:57.570394+08:00       37 Query    SHOW FUNCTION STATUS WHERE Db = 'test_db'
+2018-08-14T15:20:57.572401+08:00       37 Query    SHOW PROCEDURE STATUS WHERE Db = 'test_db'
+2018-08-14T15:20:57.573994+08:00       37 Query    SET SESSION character_set_results = 'utf8'
+2018-08-14T15:20:57.574450+08:00       37 Quit    <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>5.使用 <code>--lock-all-tables</code> 参数 即 <code>mysqldump -uroot -pyourpass --lock-all-tables test_db &gt; test_db.sql</code> 备份 产生的general_log如下：</p>
+<pre class="line-numbers language-mysql"><code class="language-mysql">2018-08-16T15:27:44.653042+08:00       12 Connect    root@localhost on  using Socket
+2018-08-16T15:27:44.653378+08:00       12 Query    /*!40100 SET @@SQL_MODE='' */
+2018-08-16T15:27:44.653576+08:00       12 Query    /*!40103 SET TIME_ZONE='+00:00' */
+2018-08-16T15:27:44.653782+08:00       12 Query    FLUSH TABLES
+2018-08-16T15:27:44.656576+08:00       12 Query    FLUSH TABLES WITH READ LOCK
+2018-08-16T15:27:44.656779+08:00       12 Query    SHOW VARIABLES LIKE 'gtid\_mode'
+2018-08-16T15:27:44.661157+08:00       12 Query    SELECT LOGFILE_GROUP_NAME, FILE_NAME, TOTAL_EXTENTS, INITIAL_SIZE, ENGINE, EXTRA FROM INFORMATION_SCHEMA.FILES WHERE FILE_TYPE = 'UNDO LOG' AND FILE_NAME IS NOT NULL AND LOGFILE_GROUP_NAME IS NOT NULL AND LOGFILE_GROUP_NAME IN (SELECT DISTINCT LOGFILE_GROUP_NAME FROM INFORMATION_SCHEMA.FILES WHERE FILE_TYPE = 'DATAFILE' AND TABLESPACE_NAME IN (SELECT DISTINCT TABLESPACE_NAME FROM INFORMATION_SCHEMA.PARTITIONS WHERE TABLE_SCHEMA IN ('test_db'))) GROUP BY LOGFILE_GROUP_NAME, FILE_NAME, ENGINE, TOTAL_EXTENTS, INITIAL_SIZE ORDER BY LOGFILE_GROUP_NAME
+2018-08-16T15:27:44.664158+08:00       12 Query    SELECT DISTINCT TABLESPACE_NAME, FILE_NAME, LOGFILE_GROUP_NAME, EXTENT_SIZE, INITIAL_SIZE, ENGINE FROM INFORMATION_SCHEMA.FILES WHERE FILE_TYPE = 'DATAFILE' AND TABLESPACE_NAME IN (SELECT DISTINCT TABLESPACE_NAME FROM INFORMATION_SCHEMA.PARTITIONS WHERE TABLE_SCHEMA IN ('test_db')) ORDER BY TABLESPACE_NAME, LOGFILE_GROUP_NAME
+2018-08-16T15:27:44.665119+08:00       12 Query    SHOW VARIABLES LIKE 'ndbinfo\_version'
+2018-08-16T15:27:44.667725+08:00       12 Init DB    test_db
+2018-08-16T15:27:44.667857+08:00       12 Query    SHOW CREATE DATABASE IF NOT EXISTS `test_db`
+2018-08-16T15:27:44.668053+08:00       12 Query    show tables
+2018-08-16T15:27:44.668384+08:00       12 Query    show table status like 'ac'
+2018-08-16T15:27:44.668738+08:00       12 Query    SET SQL_QUOTE_SHOW_CREATE=1
+2018-08-16T15:27:44.668888+08:00       12 Query    SET SESSION character_set_results = 'binary'
+2018-08-16T15:27:44.669050+08:00       12 Query    show create table `ac`
+2018-08-16T15:27:44.669244+08:00       12 Query    SET SESSION character_set_results = 'utf8'
+2018-08-16T15:27:44.669408+08:00       12 Query    show fields from `ac`
+2018-08-16T15:27:44.669844+08:00       12 Query    show fields from `ac`
+2018-08-16T15:27:44.670334+08:00       12 Query    SELECT /*!40001 SQL_NO_CACHE */ * FROM `ac`
+2018-08-16T15:27:44.670605+08:00       12 Query    SET SESSION character_set_results = 'binary'
+2018-08-16T15:27:44.670750+08:00       12 Query    use `test_db`
+2018-08-16T15:27:44.670900+08:00       12 Query    select @@collation_database
+2018-08-16T15:27:44.671088+08:00       12 Query    SHOW TRIGGERS LIKE 'ac'
+2018-08-16T15:27:44.671556+08:00       12 Query    SET SESSION character_set_results = 'utf8'
+2018-08-16T15:27:44.671718+08:00       12 Query    show table status like 'act\_re\_model'
+2018-08-16T15:27:44.672046+08:00       12 Query    SET SQL_QUOTE_SHOW_CREATE=1
+2018-08-16T15:27:44.672201+08:00       12 Query    SET SESSION character_set_results = 'binary'
+2018-08-16T15:27:44.672356+08:00       12 Query    show create table `act_re_model`
+2018-08-16T15:27:44.672525+08:00       12 Query    SET SESSION character_set_results = 'utf8'
+2018-08-16T15:27:44.672680+08:00       12 Query    show fields from `act_re_model`
+2018-08-16T15:27:44.673126+08:00       12 Query    show fields from `act_re_model`
+2018-08-16T15:27:44.673618+08:00       12 Query    SELECT /*!40001 SQL_NO_CACHE */ * FROM `act_re_model`
+2018-08-16T15:27:44.673893+08:00       12 Query    SET SESSION character_set_results = 'binary'
+2018-08-16T15:27:44.674051+08:00       12 Query    use `test_db`
+2018-08-16T15:27:44.674223+08:00       12 Query    select @@collation_database
+2018-08-1T15:27:44.674389+08:00       12 Query    SHOW TRIGGERS LIKE 'act\_re\__model'
+2018-08-16T15:27:44.674825+08:00       12 Query    SET SESSION character_set_results = 'utf8'
+2018-08-16T15:27:44.674997+08:00       12 Query    show table status like 'custom\_api\_info'
+2018-08-16T15:27:44.675333+08:00       12 Query    SET SQL_QUOTE_SHOW_CREATE=1
+2018-08-16T15:27:44.675487+08:00       12 Query    SET SESSION character_set_results = 'binary'
+2018-08-16T15:27:44.675623+08:00       12 Query    show create table `custom_api_info`
+2018-08-16T15:27:44.675812+08:00       12 Query    SET SESSION character_set_results = 'utf8'
+2018-08-16T15:27:44.675972+08:00       12 Query    show fields from `custom_api_info`
+2018-08-16T15:27:44.676422+08:00       12 Query    show fields from `custom_api_info`
+2018-08-16T15:27:44.676854+08:00       12 Query    SELECT /*!40001 SQL_NO_CACHE */ * FROM `custom_api_info`
+2018-08-16T15:27:44.677085+08:00       12 Query    SET SESSION character_set_results = 'binary'
+2018-08-16T15:27:44.677246+08:00       12 Query    use `test_db`
+2018-08-16T15:27:44.677390+08:00       12 Query    select @@collation_database
+2018-08-16T15:27:44.677541+08:00       12 Query    SHOW TRIGGERS LIKE 'custom\_api\_info'
+2018-08-16T15:27:44.677951+08:00       12 Query    SET SESSION character_set_results = 'utf8'
+2018-08-16T15:27:44.678113+08:00       12 Query    show table status like 'custom\_application\_system'
+2018-08-16T15:27:44.678429+08:00       12 Query    SET SQL_QUOTE_SHOW_CREATE=1
+2018-08-16T15:27:44.678564+08:00       12 Query    SET SESSION character_set_results = 'binary'
+2018-08-16T15:27:44.678700+ Query    show create table `custom_application_system`
+2018-08-16T2018-08-16T15:27:44.678891+08:00       12 Query    SET SESSION character_set_results = 'utf8'
+2018-08-16T15:27:44.679052+08:00       12 Query    show fields from `custom_application_system`
+2018-08-16T15:27:44.679467+08:00       12 Query    show fields from `custom_application_system`
+2018-08-16T15:27:44.679871+08:00       12 Query    SELECT /*!40001 SQL_NO_CACHE */ * FROM `custom_application_system`
+2018-08-16T15:27:44.680096+08:00       12 Query    SET SESSION character_set_results = 'binary'
+2018-08-16T15:27:44.680257+08:00       12 Query    use `test_db`
+2018-08-16T15:27:44.680401+08:00       12 Query    select @@collation_database
+2018-08-16T15:27:44.680552+08:00       12 Query    SHOW TRIGGERS LIKE 'custom\_application\_system'
+2018-08-16T15:27:44.680973+08:00       12 Query    SET SESSION character_set_results = 'utf8'
+2018-08-16T15:27:44.681121+08:00       12 Query    show table status like 'stud'
+2018-08-16T15:27:44.681440+08:00       12 Query    SET SQL_QUOTE_SHOW_CREATE=1
+2018-08-16T15:27:44.681569+08:00       12 Query    SET SESSION character_set_results = 'binary'
+2018-08-16T15:27:44.681705+08:00       12 Query    show create table `stud`
+2018-08-16T15:27:44.681864+08:00       12 Query    SET SESSION character_set_results = 'utf8'
+2018-08-16T15:27:44.682024+08:00       12 Query    show fields from `stud`
+2018-08-16T15:27:44.682431+08:00       12 Query    show fields from `stud`
+2018-08-16T15:27:44.682824+08:00       12 Query    SELECT /*!40001 SQL_NO_CACHE */ * FROM `stud`
+2018-08-16T15:27:44.683069+08:00       12 Query    SET SESSION character_set_results = 'binary'
+2018-08-16T15:27:44.683229+08:00       12 Query    use `test_db`
+2018-08-16T15:27:44.683373+08:00       12 Query    select @@collation_database
+2018-08-16T15:27:44.683522+08:00       12 Query    SHOW TRIGGERS LIKE 'stud'
+2018-08-16T15:27:44.683954+08:00       12 Query    SET SESSION character_set_results = 'utf8'
+2018-08-16T15:27:44.684121+08:00       12 Query    show table status like 'students'
+2018-08-16T15:27:44.684439+08:00       12 Query    SET SQL_QUOTE_SHOW_CREATE=1
+2018-08-16T15:27:44.684568+08:00       12 Query    SET SESSION character_set_results = 'binary'
+2018-08-16T15:27:44.684703+08:00       12 Query    show create table `students`
+2018-08-16T15:27:44.684860+08:00       12 Query    SET SESSION character_set_results = 'utf8'
+2018-08-16T15:27:44.685018+08:00       12 Query    show fields from `students`
+2018-08-16T15:27:44.685480+08:00       12 Query    show fields from `students`
+2018-08-16T15:27:44.685876+08:00       12 Query    SELECT /*!40001 SQL_NO_CACHE */ * FROM `students`
+2018-08-16T15:27:44.686108+08:00       12 Query    SET SESSION character_set_results = 'binary'
+2018-08-16T15:27:44.686265+08:00       12 Query    use `test_db`
+2018-08-16T15:27:44.686409+08:00       12 Query    select @@collation_database
+2018-08-16T15:27:44.686563+08:00       12 Query    SHOW TRIGGERS LIKE 'students'
+2018-08-16T15:27:44.686947+08:00       12 Query    SET SESSION character_set_results = 'utf8'
+2018-08-16T15:27:44.687098+08:00       12 Query    show table status like 'upper\_table'
+2018-08-16T15:27:44.687394+08:00       12 Query    SET SQL_QUOTE_SHOW_CREATE=1
+2018-08-16T15:27:44.687521+08:00       12 Query    SET SESSION character_set_results = 'binary'
+2018-08-16T15:27:44.687648+08:00       12 Query    show create table `upper_table`
+2018-08-16T15:27:44.687796+08:00       12 Query    SET SESSION character_set_results = 'utf8'
+2018-08-16T15:27:44.687933+08:00       12 Query    show fields from `upper_table`
+2018-08-16T15:27:44.688339+08:00       12 Query    show fields from `upper_table`
+2018-08-16T15:27:44.688710+08:00       12 Query    SELECT /*!40001 SQL_NO_CACHE */ * FROM `upper_table`
+2018-08-16T15:27:44.688906+08:00       12 Query    SET SESSION character_set_results = 'binary'
+2018-08-16T15:27:44.689046+08:00       12 Query    use `test_db`
+2018-08-16T15:27:44.689229+08:00       12 Query    select @@collation_database
+2018-08-16T15:27:44.689386+08:00       12 Query    SHOW TRIGGERS LIKE 'upper\_table'
+2018-08-16T15:27:44.689890+08:00       12 Query    SET SESSION character_set_results = 'utf8'
+2018-08-16T15:27:44.691705+08:00       12 Quit    <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>总结：</strong> 日常备份可使用 <code>--skip-lock-tables</code> 或 <code>--single-transaction</code> 参数；若要做从库需记录binlog位置 则推荐使用 <code>--master-data=2</code> <code>--single-transaction</code>参数叠加使用。</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://ciweigg2.github.io" rel="external nofollow noreferrer">Ciwei</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://ciweigg2.github.io/2019/07/22/mysql-tan-ce-mysqldump-xiang-xi-guo-cheng/">https://ciweigg2.github.io/2019/07/22/mysql-tan-ce-mysqldump-xiang-xi-guo-cheng/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://ciweigg2.github.io" target="_blank">Ciwei</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/mysql/">
+                                    <span class="chip bg-color">mysql</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2019/07/22/mysql-xian-cheng-zhuang-tai-xiang-jie/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="https://ciwei3.cn-sh2.ufileos.com/238.jpg" class="responsive-img" alt="【MySQL】线程状态详解">
+                        
+                        <span class="card-title">【MySQL】线程状态详解</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            前言：我们常用 show processlist 或 show full processlist 查看数据库连接状态，其中比较关注的是 State 列，此列表示该连接此刻所在的状态。那么你真的了解不同 State 值所表示的状态吗？下面我们
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2019-07-22
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/mysql/" class="post-category">
+                                    mysql
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/mysql/">
+                        <span class="chip bg-color">mysql</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/07/22/mysql-li-yong-binlog-hui-gun-dml-cao-zuo/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="https://ciwei3.cn-sh2.ufileos.com/182.jpg" class="responsive-img" alt="【MySQL】利用binlog回滚DML操作">
+                        
+                        <span class="card-title">【MySQL】利用binlog回滚DML操作</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            简介：
+数据库运行过程中难免会发生误操作，特别是在测试环境 开发人员或测试人员有时会误删或者更新错误某些数据。这时可以用binlog闪回DML操作。
+
+
+条件： 
+
+1.mysql binlog必须存在且是row格式的
+2.反向生成的表必须
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-07-22
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/mysql/" class="post-category">
+                                    mysql
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/mysql/">
+                        <span class="chip bg-color">mysql</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+    
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">年份</span>
+            <a href="https://ciweigg2.github.io" target="_blank">Ciwei</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">340.3k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    window.setTimeout("siteTime()", 1000);
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2019";
+                    var startMonth = "6";
+                    var startDate = "28";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <!-- Baidu Analytics -->
+
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+            <!-- 洪卫 shw2018 add 2019.08.28 -->
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+    
+
+    
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i["DaoVoiceObject"] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            a.charset = "utf-8";
+            m.parentNode.insertBefore(a, m)
+        })(window, document, "script", ('https:' == document.location.protocol ? 'https:' : 'http:') +
+            "//widget.daovoice.io/widget/6984b559.js", "daovoice")
+        daovoice('init', {
+            app_id: ""
+        });
+        daovoice('update');
+    </script>
+    
+
+    
+
+    
+
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<!-- 背景雪花飘落特效洪卫 shw2018 add 2019.09.10 -->
+        
+
+</body>
+
+</html>

@@ -1,0 +1,1624 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Dozer 轻松高效玩转DTO(Data Transfer Object), 如果没有你">
+    <meta name="description" content="介绍对象拷贝字段不一样 对象拷贝不能拷贝List等
+
+
+参考：http://www.spring4all.com/article/15055
+现状对于分布式系统，需要在不同系统之间传递与转换域对象。因为我们不希望外部公开内部域对象，也不允许">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Dozer 轻松高效玩转DTO(Data Transfer Object) | 如果没有你</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper head-container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">如果没有你</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/about">
+          
+          <i class="fas fa-user-circle" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>关于</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="https://ciweigg2.github.io/ciwei-resume/">
+          
+          <i class="fas fa-trophy" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>简历</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-list" style="zoom: 0.6;"></i>
+      
+      <span>娱乐</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/musics">
+          
+          <i class="fas fa-music" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>音乐</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/movies">
+          
+          <i class="fas fa-film" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>电影</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/books">
+          
+          <i class="fas fa-book" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>图书</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/galleries">
+          
+          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>相册</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="https://ciweigg2.github.io/alicdn/">
+          
+          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>免费图床</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/books">
+          
+          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>书单</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/games">
+          
+          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>游戏</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">如果没有你</div>
+        <div class="logo-desc">
+            
+            躺在你学校的操场看星空 教室里的灯还亮着你没走 记得 我写给你的情书 都什么年代了 到现在我还在写着 总有一天总有一年会发现 有人默默的陪在你的身边
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>   
+				
+                  <a href="/about " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-user-circle" style="position: absolute;left:50px" ></i>
+			      
+		          <span>关于</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="https://ciweigg2.github.io/ciwei-resume/ " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-trophy" style="position: absolute;left:50px" ></i>
+			      
+		          <span>简历</span>
+                  </a>
+                </li>
+               
+            </ul>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+				<i class="fas fa-fw fa-link"></i>
+			
+			Contact
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			Friends
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-list"></i>
+			
+			娱乐
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>   
+				
+                  <a href="/musics " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-music" style="position: absolute;left:50px" ></i>
+			      
+		          <span>音乐</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="/movies " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-film" style="position: absolute;left:50px" ></i>
+			      
+		          <span>电影</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="/books " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-book" style="position: absolute;left:50px" ></i>
+			      
+		          <span>图书</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="/galleries " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
+			      
+		          <span>相册</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="https://ciweigg2.github.io/alicdn/ " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
+			      
+		          <span>免费图床</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="/books " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
+			      
+		          <span>书单</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="/games " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
+			      
+		          <span>游戏</span>
+                  </a>
+                </li>
+               
+            </ul>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://ciwei3.cn-sh2.ufileos.com/269.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Dozer 轻松高效玩转DTO(Data Transfer Object)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-06-20
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        3.2k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        14 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>对象拷贝字段不一样 对象拷贝不能拷贝List等</p>
+<a id="more"></a>
+
+<p>参考：<a href="http://www.spring4all.com/article/15055" target="_blank" rel="noopener">http://www.spring4all.com/article/15055</a></p>
+<h3 id="现状"><a href="#现状" class="headerlink" title="现状"></a>现状</h3><p>对于分布式系统，需要在不同系统之间传递与转换域对象。因为我们不希望外部公开内部域对象，也不允许外部域对象渗入系统。传统上，数据对象之间的映射通过手工编码(getter/setter)的方式实现，或对象组装器（或转换器）来解决。我们可能会开发某种自定义映射框架来满足我们的映射转换需求，但这一切都显得不够灵巧</p>
+<h3 id="Dozer"><a href="#Dozer" class="headerlink" title="Dozer"></a>Dozer</h3><p>Dozer 是 Java Bean 到 Java Bean 映射器，它以递归方式将数据从一个对象复制到另一个对象</p>
+<blockquote>
+<p>通常，这些 Java Bean 将具有不同的复杂类型。Dozer 支持简单属性映射，复杂类型映射，双向映射，隐式和显式映射以及递归映射。<br>Dozer不仅支持属性名称之间的映射，还支持在类型之间自动转换。大多数转换方案都是开箱即用的，但 Dozer 还允许您通过 XML / API 的方式指定自定义转换。</p>
+</blockquote>
+<p>下图描绘了 Dozer 可以插入到架构中的一些常见区域。请注意，它通常用于边界（进入/退出）。 Dozer 将确保数据库中的内部域对象不会流入外部表示层或外部使用者。它还可以帮助将域对象映射到外部 API 调用，反之亦然，现在不用纠结这个图，看完下面的测试用例回看该图，柳暗花明， 文末有完整测试用例</p>
+<p><img src="/images/17985603-fbb1c5b8b6ffcbbe.gif" alt=""></p>
+<h3 id="集成-Dozer"><a href="#集成-Dozer" class="headerlink" title="集成 Dozer"></a>集成 Dozer</h3><p>使用 Dozer 的方式很简单，如果你使用 Maven，添加依赖到 pom.xml 中即可</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token operator">&lt;</span>dependency<span class="token operator">></span>
+    <span class="token operator">&lt;</span>groupId<span class="token operator">></span>com<span class="token punctuation">.</span>github<span class="token punctuation">.</span>dozermapper<span class="token operator">&lt;</span><span class="token operator">/</span>groupId<span class="token operator">></span>
+    <span class="token operator">&lt;</span>artifactId<span class="token operator">></span>dozer<span class="token operator">-</span>core<span class="token operator">&lt;</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
+    <span class="token operator">&lt;</span>version<span class="token operator">></span><span class="token number">6.4</span><span class="token punctuation">.</span><span class="token number">0</span><span class="token operator">&lt;</span><span class="token operator">/</span>version<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>dependency<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果你使用 Spring Boot，引入 Dozer starter 即可：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token operator">&lt;</span>dependency<span class="token operator">></span>
+    <span class="token operator">&lt;</span>groupId<span class="token operator">></span>com<span class="token punctuation">.</span>github<span class="token punctuation">.</span>dozermapper<span class="token operator">&lt;</span><span class="token operator">/</span>groupId<span class="token operator">></span>
+    <span class="token operator">&lt;</span>artifactId<span class="token operator">></span>dozer<span class="token operator">-</span>spring<span class="token operator">-</span>boot<span class="token operator">-</span>starter<span class="token operator">&lt;</span><span class="token operator">/</span>artifactId<span class="token operator">></span>
+    <span class="token operator">&lt;</span>version<span class="token operator">></span><span class="token number">6.2</span><span class="token punctuation">.</span><span class="token number">0</span><span class="token operator">&lt;</span><span class="token operator">/</span>version<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>dependency<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>本文主要讲述在 Spring Boot 下如何通过 Dozer 帮助我们搞定 DTO 那点事</p>
+<h3 id="使用-Dozer"><a href="#使用-Dozer" class="headerlink" title="使用 Dozer"></a>使用 Dozer</h3><p>默认使用</p>
+<p>Dozer starter 默认为我们注入了 Dozer Mapper，可以直接使用，另外，文章中所有测试用例中使用 Lombok 注解简化代码</p>
+<p>新建 StudentDomain.java 类</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Data</span>
+<span class="token annotation punctuation">@NoArgsConstructor</span>
+<span class="token annotation punctuation">@AllArgsConstructor</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">StudentDomain</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 身份ID</span>
+    <span class="token keyword">private</span> Long id<span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 姓名</span>
+    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 年龄</span>
+    <span class="token keyword">private</span> Integer age<span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 电话</span>
+    <span class="token keyword">private</span> String mobile<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>新建 StudentVo.java 类，内容同 StudentDomain.java</p>
+<p>编写测试用例：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Autowired</span>
+<span class="token keyword">private</span> Mapper dozerMapper<span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@Test</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testDefault</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    StudentDomain studentDomain <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StudentDomain</span><span class="token punctuation">(</span>1024L<span class="token punctuation">,</span> <span class="token string">"tan日拱一兵"</span><span class="token punctuation">,</span> <span class="token number">18</span><span class="token punctuation">,</span> <span class="token string">"13996996996"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    StudentVo studentVo <span class="token operator">=</span> dozerMapper<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>studentDomain<span class="token punctuation">,</span> StudentVo<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"StudentVo: [{}]"</span><span class="token punctuation">,</span> studentVo<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    studentVo<span class="token punctuation">.</span><span class="token function">setAge</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"StudentDomain: [{}]"</span><span class="token punctuation">,</span> dozerMapper<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>studentVo<span class="token punctuation">,</span> StudentDomain<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>运行结果：</p>
+<pre class="line-numbers language-java"><code class="language-java">StudentVo<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token function">StudentVo</span><span class="token punctuation">(</span>id<span class="token operator">=</span><span class="token number">1024</span><span class="token punctuation">,</span> name<span class="token operator">=</span>tan日拱一兵<span class="token punctuation">,</span> age<span class="token operator">=</span><span class="token number">18</span><span class="token punctuation">,</span> mobile<span class="token operator">=</span><span class="token number">13996996996</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+StudentDomain<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token function">StudentDomain</span><span class="token punctuation">(</span>id<span class="token operator">=</span><span class="token number">1024</span><span class="token punctuation">,</span> name<span class="token operator">=</span>tan日拱一兵<span class="token punctuation">,</span> age<span class="token operator">=</span><span class="token number">16</span><span class="token punctuation">,</span> mobile<span class="token operator">=</span><span class="token number">13996996996</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>结论：</p>
+<blockquote>
+<p>Dozer 默认支持同名 field 的双向映射，即隐式映射<br>如果仅满足这点需求，就没必要写该文章了，应用 Dozer 也为了满足我们更多定制化的需求</p>
+</blockquote>
+<h3 id="定制化使用"><a href="#定制化使用" class="headerlink" title="定制化使用"></a>定制化使用</h3><p>为满足更多的转换需求，我们需要针对 Dozer 定制化，即需要我们声明自己的 Mapper，新建 DozerConfig.java 类</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Configuration</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DozerConfig</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> Mapper <span class="token function">dozerMapper</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        Mapper mapper <span class="token operator">=</span> DozerBeanMapperBuilder<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token comment" spellcheck="true">//指定 dozer mapping 的配置文件(放到 resources 类路径下即可)，可添加多个 xml 文件，用逗号隔开</span>
+                <span class="token punctuation">.</span><span class="token function">withMappingFiles</span><span class="token punctuation">(</span><span class="token string">"dozerBeanMapping.xml"</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">withMappingBuilder</span><span class="token punctuation">(</span><span class="token function">beanMappingBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>           
+                <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> mapper<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> BeanMappingBuilder <span class="token function">beanMappingBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">BeanMappingBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token annotation punctuation">@Override</span>
+            <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">configure</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// 个性化配置添加在此</span>
+            <span class="token punctuation">}</span>    
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Dozer 完成映射有三种方式 XML, API, 注解，因官网多数都是 XML 样例，以及注解方式的局限性所在，所以本文主要使用 API 这种方式，为更好的体现 Dozer 的特性，现阶段必须以 XML API 二者结合的方式来编写测试用例，因为官网说明：</p>
+<blockquote>
+<p>Global config is not supported via APIMappings, API mappings are not 100% feature comparable with XML</p>
+</blockquote>
+<p>测试用例（共 10 个）</p>
+<h3 id="用例-1"><a href="#用例-1" class="headerlink" title="用例 1"></a>用例 1</h3><p>如果两个待映射的 field 不同名，Dozer 默认不会帮我们完成映射，忽略该值，所以我们需要显示映射该 field<br>向 StudentDomain.java 中添加学生地址信息</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 地址</span>
+<span class="token keyword">private</span> String address<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>而 StudentVo.java 中表示学生地址的信息是</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 地址</span>
+<span class="token keyword">private</span> String addr<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>我们需要在 configure 方法中显示指定映射关系</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Override</span>
+<span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">configure</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//测试所有properties，为不同名的 property 手动配置映射关系</span>
+    <span class="token function">mapping</span><span class="token punctuation">(</span>StudentDomain<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> StudentVo<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">fields</span><span class="token punctuation">(</span><span class="token string">"address"</span><span class="token punctuation">,</span> <span class="token string">"addr"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>修改测试用例:</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testDifferentAddress</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    StudentDomain studentDomain <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StudentDomain</span><span class="token punctuation">(</span>1024L<span class="token punctuation">,</span> <span class="token string">"tan日拱一兵"</span><span class="token punctuation">,</span> <span class="token number">18</span><span class="token punctuation">,</span> <span class="token string">"13996996996"</span><span class="token punctuation">,</span> <span class="token string">"中国"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    StudentVo studentVo <span class="token operator">=</span> dozerMapper<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>studentDomain<span class="token punctuation">,</span> StudentVo<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"StudentVo: [{}]"</span><span class="token punctuation">,</span> studentVo<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>运行结果：</p>
+<blockquote>
+<p>StudentVo: [StudentVo(id=1024, name=tan日拱一兵, age=18, mobile=13996996996, addr=中国)]</p>
+</blockquote>
+<h3 id="用例-2"><a href="#用例-2" class="headerlink" title="用例 2"></a>用例 2</h3><p>Dozer 默认是隐式匹配，如果我们关闭隐士匹配，Dozer 只会为我们匹配我们显式指定的 field<br>修改 configure</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//关闭隐式匹配</span>
+<span class="token function">mapping</span><span class="token punctuation">(</span>StudentDomain<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> StudentVo<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> TypeMappingOptions<span class="token punctuation">.</span><span class="token function">wildcard</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">fields</span><span class="token punctuation">(</span><span class="token string">"address"</span><span class="token punctuation">,</span> <span class="token string">"addr"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>重新运行 用例1的测试方法 ，运行结果(只有地址做了映射)：</p>
+<pre class="line-numbers language-java"><code class="language-java">StudentVo<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token function">StudentVo</span><span class="token punctuation">(</span>id<span class="token operator">=</span>null<span class="token punctuation">,</span> name<span class="token operator">=</span>null<span class="token punctuation">,</span> age<span class="token operator">=</span>null<span class="token punctuation">,</span> mobile<span class="token operator">=</span>null<span class="token punctuation">,</span> addr<span class="token operator">=</span>中国<span class="token punctuation">)</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>###用例 3</p>
+<p>默认我们要使用 Dozer 的隐式匹配（同名字段全部匹配），但我们不想将学生的 mobile 字段做映射，我们可以通过 exclude 方法排除不想映射的字段<br>修改 configure</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//测试所有properties，为不同名的 property 手动配置映射关系，排除 mobile 字段</span>
+<span class="token function">mapping</span><span class="token punctuation">(</span>StudentDomain<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> StudentVo<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">exclude</span><span class="token punctuation">(</span><span class="token string">"mobile"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>重新运行 用例1的测试方法 ，运行结果：</p>
+<pre class="line-numbers language-java"><code class="language-java">StudentVo<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token function">StudentVo</span><span class="token punctuation">(</span>id<span class="token operator">=</span><span class="token number">1024</span><span class="token punctuation">,</span> name<span class="token operator">=</span>tan日拱一兵<span class="token punctuation">,</span> age<span class="token operator">=</span><span class="token number">18</span><span class="token punctuation">,</span> mobile<span class="token operator">=</span>null<span class="token punctuation">,</span> addr<span class="token operator">=</span>中国<span class="token punctuation">)</span><span class="token punctuation">]</span>
+        <span class="token punctuation">.</span><span class="token function">fields</span><span class="token punctuation">(</span><span class="token string">"address"</span><span class="token punctuation">,</span> <span class="token string">"addr"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="用例-4"><a href="#用例-4" class="headerlink" title="用例 4"></a>用例 4</h3><p>对象通常嵌套对象或者集合对象，Dozer 可以递归完成相关映射<br>将学生地址封装，同时为学生添加多门课程<br>新增 AddressDomain.java 和 AdressVo.java，除详细地址外所有字段相同</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Data</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AddressDomain</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 省</span>
+    <span class="token keyword">private</span> String province<span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 市</span>
+    <span class="token keyword">private</span> String city<span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 区</span>
+    <span class="token keyword">private</span> String district<span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 详细</span>
+    <span class="token keyword">private</span> String detail<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token annotation punctuation">@Data</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AddressVo</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 省</span>
+    <span class="token keyword">private</span> String province<span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 市</span>
+    <span class="token keyword">private</span> String city<span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 区</span>
+    <span class="token keyword">private</span> String district<span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 详细</span>
+    <span class="token keyword">private</span> String detailAddr<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>同时创建课程类 CourseDomian.java 和 CourseVo.java, 内容相同</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Data</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CourseDomain</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 课程编码</span>
+    <span class="token keyword">private</span> String courseCode<span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 课程Id</span>
+    <span class="token keyword">private</span> Integer courseId<span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 课程名称</span>
+    <span class="token keyword">private</span> String courseName<span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 老师名称</span>
+    <span class="token keyword">private</span> String teacherName<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>同时修改 StudentDomain.java 和 StudentVo.java, 添加地址和课程集合字段：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 地址</span>
+<span class="token keyword">private</span> AddressDomain address<span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 课程集合</span>
+<span class="token keyword">private</span> List<span class="token operator">&lt;</span>CourseDomain<span class="token operator">></span> courses<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>修改configure 配置</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token function">mapping</span><span class="token punctuation">(</span>AddressDomain<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> AddressVo<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">fields</span><span class="token punctuation">(</span><span class="token string">"detail"</span><span class="token punctuation">,</span> <span class="token string">"detailAddr"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>修改测试用例：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">testCascadeObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    StudentDomain studentDomain <span class="token operator">=</span> <span class="token function">getStudentDomain</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    StudentVo studentVo <span class="token operator">=</span> dozerMapper<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>studentDomain<span class="token punctuation">,</span> StudentVo<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"StudentVo: [{}]"</span><span class="token punctuation">,</span> studentVo<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>运行结果：</p>
+<pre class="line-numbers language-java"><code class="language-java">StudentVo<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token function">StudentVo</span><span class="token punctuation">(</span>id<span class="token operator">=</span><span class="token number">1024</span><span class="token punctuation">,</span> name<span class="token operator">=</span>t<span class="token operator">=</span>水寒<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>结论：</p>
+<p>Dozer 会隐式递归匹配所有 field，甚至集合</p>
+<p>###用例 5</p>
+<p>深度匹配需求，英语老师是辅导员，需要单独匹配到 StudentVo.java 的 counsellor 字段<br>添加 configure mapping</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">//测试深度索引匹配</span>
+<span class="token function">mapping</span><span class="token punctuation">(</span>StudentDomain<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> StudentVo<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">fields</span><span class="token punctuation">(</span><span class="token string">"courses[0].teacherName"</span><span class="token punctuation">,</span> <span class="token string">"counsellor"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>重新运行测试用例，运行结果：</p>
+<pre class="line-numbers language-java"><code class="language-java">StudentVo<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token function">StudentVo</span><span class="token punctuation">(</span>id<span class="token operator">=</span><span class="token number">1024</span><span class="token punctuation">,</span> name<span class="token operator">=</span>tan日拱一兵<span class="token punctuation">,</span> age<span class="token operator">=</span><span class="token number">18</span><span class="token punctuation">,</span> mobile<span class="token operator">=</span><span class="token number">13996996996</span><span class="token punctuation">,</span> address<span class="token operator">=</span><span class="token function">AddressVo</span><span class="token punctuation">(</span>province<span class="token operator">=</span>北京<span class="token punctuation">,</span> city<span class="token operator">=</span>北京<span class="token punctuation">,</span> district<span class="token operator">=</span>海淀区<span class="token punctuation">,</span> detailAddr<span class="token operator">=</span>西二旗<span class="token punctuation">)</span><span class="token punctuation">,</span> courses<span class="token operator">=</span><span class="token punctuation">[</span><span class="token function">CourseVo</span><span class="token punctuation">(</span>courseCode<span class="token operator">=</span>English<span class="token punctuation">,</span> courseId<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> courseName<span class="token operator">=</span>英语<span class="token punctuation">,</span> teacherName<span class="token operator">=</span>京晶<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">CourseVo</span><span class="token punctuation">(</span>courseCode<span class="token operator">=</span>Chinese<span class="token punctuation">,</span> courseId<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span> courseName<span class="token operator">=</span>语文<span class="token punctuation">,</span> teacherName<span class="token operator">=</span>水寒<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">,</span> counsellor<span class="token operator">=</span>京晶<span class="token punctuation">)</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>结论：</p>
+<p>我们可以通过深度匹配指定字段，匹配方式以 “.” 号进行分割，集合属性可以指定索引</p>
+<p>###用例 6</p>
+<p>修改 StudentDomain.java 的 age 字段为 Integer 类型，修改 StudentVo.java 的 age 字段为 String 类型<br>重新运行上述测试用例，双向映射，一切正常</p>
+<p>结论：</p>
+<p>Dozer 开箱即用的功能之一就是类型转换，多数类型我们不需要手动转换类型，完全交给 Dozer即可</p>
+<h3 id="用例-7"><a href="#用例-7" class="headerlink" title="用例 7"></a>用例 7</h3><p>上面说到多数类型 Dozer 可以默认做转换，但是 Date 和 String 不可以，我们需要指定 date-formate 格式<br>为学生添加入学日期 entrollmentDate，在 StudentDomain.java 中是 String 类型，在 StudentVo.java 中是 java.util.Date 类型</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 入学日期 设置为"2019-09-01 10:00:00"</span>
+<span class="token keyword">private</span> String entrollmentDate<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>为 entrollmentDate 字段配置 date-formate ，修改 configure</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token function">mapping</span><span class="token punctuation">(</span>StudentDomain<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> StudentVo<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> TypeMappingOptions<span class="token punctuation">.</span><span class="token function">dateFormat</span><span class="token punctuation">(</span><span class="token string">"yyyy-MM-dd"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">fields</span><span class="token punctuation">(</span><span class="token string">"courses[0].teacherName"</span><span class="token punctuation">,</span> <span class="token string">"counsellor"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>运行结果：</p>
+<pre class="line-numbers language-java"><code class="language-java">StudentVo<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token function">StudentVo</span><span class="token punctuation">(</span>id<span class="token operator">=</span><span class="token number">1024</span><span class="token punctuation">,</span> name<span class="token operator">=</span>tan日拱一兵<span class="token punctuation">,</span> age<span class="token operator">=</span><span class="token number">18</span><span class="token punctuation">,</span> mobile<span class="token operator">=</span><span class="token number">13996996996</span><span class="token punctuation">,</span> address<span class="token operator">=</span><span class="token function">AddressVo</span><span class="token punctuation">(</span>province<span class="token operator">=</span>北京<span class="token punctuation">,</span> city<span class="token operator">=</span>北京<span class="token punctuation">,</span> district<span class="token operator">=</span>海淀区<span class="token punctuation">,</span> detailAddr<span class="token operator">=</span>西二旗<span class="token punctuation">)</span><span class="token punctuation">,</span> courses<span class="token operator">=</span><span class="token punctuation">[</span><span class="token function">CourseVo</span><span class="token punctuation">(</span>courseCode<span class="token operator">=</span>English<span class="token punctuation">,</span> courseId<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> courseName<span class="token operator">=</span>英语<span class="token punctuation">,</span> teacherName<span class="token operator">=</span>京晶<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">CourseVo</span><span class="token punctuation">(</span>courseCode<span class="token operator">=</span>Chinese<span class="token punctuation">,</span> courseId<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span> courseName<span class="token operator">=</span>语文<span class="token punctuation">,</span> teacherName<span class="token operator">=</span>水寒<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">,</span> counsellor<span class="token operator">=</span>京晶<span class="token punctuation">,</span> entrollmentDate<span class="token operator">=</span>Sun Sep <span class="token number">01</span> <span class="token number">00</span><span class="token operator">:</span><span class="token number">00</span><span class="token operator">:</span><span class="token number">00</span> CST <span class="token number">2019</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>我们同样可以设置全局 date-formate 和 field 级别 date-formate，全局设置，修改 dozerBeanMapping.xml, 并添加如下内容：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token operator">&lt;</span><span class="token operator">?</span>xml version<span class="token operator">=</span><span class="token string">"1.0"</span> encoding<span class="token operator">=</span><span class="token string">"UTF-8"</span><span class="token operator">?</span><span class="token operator">></span>
+<span class="token operator">&lt;</span>mappings xmlns<span class="token operator">=</span><span class="token string">"http://dozermapper.github.io/schema/bean-mapping"</span>
+          xmlns<span class="token operator">:</span>xsi<span class="token operator">=</span><span class="token string">"http://www.w3.org/2001/XMLSchema-instance"</span>
+          xsi<span class="token operator">:</span>schemaLocation<span class="token operator">=</span><span class="token string">"http://dozermapper.github.io/schema/bean-mapping http://dozermapper.github.io/schema/bean-mapping.xsd"</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>configuration<span class="token operator">></span>
+        <span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span> 默认是 <span class="token boolean">true</span>，当发生转换错误时抛出异常，停止转换，这里设置成<span class="token boolean">false</span>，如果转换错误，继续转换 <span class="token operator">--</span><span class="token operator">></span>
+        <span class="token operator">&lt;</span>stop<span class="token operator">-</span>on<span class="token operator">-</span>errors<span class="token operator">></span><span class="token boolean">false</span><span class="token operator">&lt;</span><span class="token operator">/</span>stop<span class="token operator">-</span>on<span class="token operator">-</span>errors<span class="token operator">></span>
+        <span class="token operator">&lt;</span>date<span class="token operator">-</span>format<span class="token operator">></span>yyyy<span class="token operator">-</span>MM<span class="token operator">-</span>dd HH<span class="token operator">:</span>mm<span class="token operator">:</span>ss<span class="token operator">&lt;</span><span class="token operator">/</span>date<span class="token operator">-</span>format<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>configuration<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>mappings<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果同时设置了全局/类/Field 级别的 date-format，按照优先级最高的进行格式化：Field &gt; 类 &gt; 全局</p>
+<p>###用例 8</p>
+<p>我们可以为 mapping 设置 mapId， 在转换的时候指定 mapId，mapId 可以设置在类级别，也可以设置在 field 级别，实现一次定义，多处使用，同时也可以设置转换方向从默认的双向变为单向（one way）：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token function">mapping</span><span class="token punctuation">(</span>StudentDomain<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> StudentVo<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> TypeMappingOptions<span class="token punctuation">.</span><span class="token function">mapId</span><span class="token punctuation">(</span><span class="token string">"userFieldOneWay"</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">.</span><span class="token function">fields</span><span class="token punctuation">(</span><span class="token string">"age"</span><span class="token punctuation">,</span> <span class="token string">"age"</span><span class="token punctuation">,</span> FieldsMappingOptions<span class="token punctuation">.</span><span class="token function">useMapId</span><span class="token punctuation">(</span><span class="token string">"addrAllProperties"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> FieldsMappingOptions<span class="token punctuation">.</span><span class="token function">oneWay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>修改测试用例，指定 mapId</p>
+<pre class="line-numbers language-java"><code class="language-java">StudentVo studentVo <span class="token operator">=</span> dozerMapper<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>studentDomain<span class="token punctuation">,</span> StudentVo<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token string">"userFieldOneWay"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>###用例 9</p>
+<p>当有些字段需要特殊处理的时候，我们需要实现自定义转换，也就是需要自定义 Converter<br>假设 StudentDomain.java 有 Integer 类型的 score 字段，StudentVo.java 中表示的分数则是 Enum 类型，分为 A/B/C/D 四个等级</p>
+<p>自定义Converter，继承 DozerConverter&lt;A, B&gt;, 并实现其方法：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ScoreConverter</span> <span class="token keyword">extends</span> <span class="token class-name">DozerConverter</span><span class="token operator">&lt;</span>Integer<span class="token punctuation">,</span> ScoreEnum<span class="token operator">></span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> <span class="token function">ScoreConverter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span>Integer<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> ScoreEnum<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> ScoreEnum <span class="token function">convertTo</span><span class="token punctuation">(</span>Integer score<span class="token punctuation">,</span> ScoreEnum scoreEnum<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token number">60</span> <span class="token operator">&lt;=</span> score <span class="token operator">&amp;&amp;</span> score <span class="token operator">&lt;</span> <span class="token number">80</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">return</span> ScoreEnum<span class="token punctuation">.</span>C<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token number">80</span> <span class="token operator">&lt;=</span> score <span class="token operator">&amp;&amp;</span> score <span class="token operator">&lt;</span> <span class="token number">90</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">return</span> ScoreEnum<span class="token punctuation">.</span>B<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token number">90</span> <span class="token operator">&lt;=</span> score<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">return</span> ScoreEnum<span class="token punctuation">.</span>A<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> ScoreEnum<span class="token punctuation">.</span>D<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> Integer <span class="token function">convertFrom</span><span class="token punctuation">(</span>ScoreEnum scoreEnum<span class="token punctuation">,</span> Integer integer<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>修改 configure，添加 mapping：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token function">mapping</span><span class="token punctuation">(</span>StudentDomain<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> StudentVo<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">fields</span><span class="token punctuation">(</span><span class="token string">"score"</span><span class="token punctuation">,</span> <span class="token string">"score"</span><span class="token punctuation">,</span> <span class="token function">customConverter</span><span class="token punctuation">(</span>ScoreConverter<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>运行结果：</p>
+<pre class="line-numbers language-java"><code class="language-java">StudentVo<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token function">StudentVo</span><span class="token punctuation">(</span>id<span class="token operator">=</span><span class="token number">1024</span><span class="token punctuation">,</span> name<span class="token operator">=</span>tan日拱一兵<span class="token punctuation">,</span> age<span class="token operator">=</span><span class="token number">18</span><span class="token punctuation">,</span> mobile<span class="token operator">=</span><span class="token number">13996996996</span><span class="token punctuation">,</span> address<span class="token operator">=</span><span class="token function">AddressVo</span><span class="token punctuation">(</span>province<span class="token operator">=</span>北京<span class="token punctuation">,</span> city<span class="token operator">=</span>北京<span class="token punctuation">,</span> district<span class="token operator">=</span>海淀区<span class="token punctuation">,</span> detailAddr<span class="token operator">=</span>西二旗<span class="token punctuation">)</span><span class="token punctuation">,</span> courses<span class="token operator">=</span><span class="token punctuation">[</span><span class="token function">CourseVo</span><span class="token punctuation">(</span>courseCode<span class="token operator">=</span>English<span class="token punctuation">,</span> courseId<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> courseName<span class="token operator">=</span>英语<span class="token punctuation">,</span> teacherName<span class="token operator">=</span>京晶<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">CourseVo</span><span class="token punctuation">(</span>courseCode<span class="token operator">=</span>Chinese<span class="token punctuation">,</span> courseId<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span> courseName<span class="token operator">=</span>语文<span class="token punctuation">,</span> teacherName<span class="token operator">=</span>水寒<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">,</span> counsellor<span class="token operator">=</span>null<span class="token punctuation">,</span> entrollmentDate<span class="token operator">=</span>Sun Sep <span class="token number">01</span> <span class="token number">10</span><span class="token operator">:</span><span class="token number">00</span><span class="token operator">:</span><span class="token number">00</span> CST <span class="token number">2019</span><span class="token punctuation">,</span> score<span class="token operator">=</span>A<span class="token punctuation">)</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>###用例 10</p>
+<p>Dozer 可以通过实现 DozerEventListener 接口实现 mapping 的事件监听，在 mapping 的时候做全局业务：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token annotation punctuation">@Slf4j</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">StudentListener</span> <span class="token keyword">implements</span> <span class="token class-name">DozerEventListener</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">mappingStarted</span><span class="token punctuation">(</span>DozerEvent dozerEvent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"mappingStarted"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">preWritingDestinationValue</span><span class="token punctuation">(</span>DozerEvent dozerEvent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"preWritingDestinationValue"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">postWritingDestinationValue</span><span class="token punctuation">(</span>DozerEvent dozerEvent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"postWritingDestinationValue"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">mappingFinished</span><span class="token punctuation">(</span>DozerEvent dozerEvent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"mappingFinished"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Dozer 可使用的样例远不止这些，这里罗列出我们最常见的一些业务问题；看完这些用例之后，请回看文章开头的图，我们可以在系统边界处充分利用 Dozer，满足 DTO 的一切需求</p>
+<h3 id="Dozer-支持的数据类型转换（双向）"><a href="#Dozer-支持的数据类型转换（双向）" class="headerlink" title="Dozer 支持的数据类型转换（双向）"></a>Dozer 支持的数据类型转换（双向）</h3><p>在此列举出 Dozer 支持的数据类型转换（双向）</p>
+<ul>
+<li>Primitive to Primitive Wrapper</li>
+<li>Primitive to Custom Wrapper</li>
+<li>Primitive Wrapper to Primitive Wrapper</li>
+<li>Primitive to Primitive</li>
+<li>Complex Type to Complex Type</li>
+<li>String to Primitive</li>
+<li>String to Primitive Wrapper</li>
+<li>String to Complex Type if the Complex Type contains a String constructor</li>
+<li>String to Map</li>
+<li>Collection to Collection</li>
+<li>Collection to Array</li>
+<li>Map to Complex Type</li>
+<li>Map to Custom Map Type</li>
+<li>Enum to Enum</li>
+<li>Each of these can be mapped to one another: java.util.Date, java.sql.Date, java.sql.Time, java.sql.Timestamp, java.util.Calendar, java.util.GregorianCalendar</li>
+<li>String to any of the supported Date/Calendar Objects.</li>
+<li>Objects containing a toString() method that produces a long representing time in (ms) to any supported Date/Calendar object.</li>
+</ul>
+<p>同时看官网 Release 版本，Dozer 现已支持 proto 类型的转换的支持，即支持 gRPC；</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Dozer 可以高效的处理我们日常 DTO 业务，一次 mapping 定义，多处使用, Dozer 与 Lombok 结合使用极大的简化了我们的代码编写量，代码更加工整简洁。同时 <a href="https://github.com/DozerMapper/dozer" target="_blank" rel="noopener">Dozer Github</a> 也保持活跃更新，可以追踪更多新特性，本文 demo 地址：Dozer Demo Github。如果你在业务中需要一些特殊的转换规则，欢迎留言交流，我们一起探讨实现b.com/DozerMapper/dozer) 也保持活跃更新，可以追踪更多新特性，本文 demo 地址：<a href=""></a>Dozer Demo Github如果你在业务中需要一些特殊的转换规则，欢迎留言交流，我们一起探讨实现b.com/DozerMapper/dozer) 也保持活跃更新，可以追踪更多新特b.com/DozerMapper/dozer) 也保持活跃更新，可以追踪更多新特性，本文 demo 地址：<a href="https://github.com/ciweigg2/springboot-doze-examples">Dozer Demo Github</a>如果你在业务中需要一些特殊的转换规则，欢迎留言交流，我们一起探讨实现</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://ciweigg2.github.io" rel="external nofollow noreferrer">Ciwei</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://ciweigg2.github.io/2019/06/20/dozer-qing-song-gao-xiao-wan-zhuan-dto-data-transfer-object/">https://ciweigg2.github.io/2019/06/20/dozer-qing-song-gao-xiao-wan-zhuan-dto-data-transfer-object/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://ciweigg2.github.io" target="_blank">Ciwei</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2019/06/21/mysql-jian-kong-ping-tai-pmm-bu-shu/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="https://ciwei3.cn-sh2.ufileos.com/190.jpg" class="responsive-img" alt="MYSQL监控平台PMM部署">
+                        
+                        <span class="card-title">MYSQL监控平台PMM部署</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            PMM简介
+Percona Monitoring and Management (PMM)是一款开源的用于管理和监控MySQL和MongoDB性能的开源平台，通过PMM客户端收集到的DB监控数据用第三方软件Grafana画图展示出来。在这个
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2019-06-21
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/综合/" class="post-category">
+                                    综合
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/mysql/">
+                        <span class="chip bg-color">mysql</span>
+                    </a>
+                    
+                    <a href="/tags/pmm/">
+                        <span class="chip bg-color">pmm</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/06/20/idea-cha-jian-apidoc-zi-dong-sheng-cheng-api-wen-dang/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="https://ciwei3.cn-sh2.ufileos.com/217.jpg" class="responsive-img" alt="IDEA插件ApiDoc自动生成Api文档">
+                        
+                        <span class="card-title">IDEA插件ApiDoc自动生成Api文档</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            参考：https://gitee.com/UnlimitedBladeWorks_123/apidoc-plugin-idea/blob/191/README.md
+暂时不支持请求参数List&lt;对象&gt;的解析List 
+但是可以对
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-06-20
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/综合/" class="post-category">
+                                    综合
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/idea/">
+                        <span class="chip bg-color">idea</span>
+                    </a>
+                    
+                    <a href="/tags/apidoc/">
+                        <span class="chip bg-color">apidoc</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+    
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">年份</span>
+            <a href="https://ciweigg2.github.io" target="_blank">Ciwei</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">340.3k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    window.setTimeout("siteTime()", 1000);
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2019";
+                    var startMonth = "6";
+                    var startDate = "28";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <!-- Baidu Analytics -->
+
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+            <!-- 洪卫 shw2018 add 2019.08.28 -->
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+    
+
+    
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i["DaoVoiceObject"] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            a.charset = "utf-8";
+            m.parentNode.insertBefore(a, m)
+        })(window, document, "script", ('https:' == document.location.protocol ? 'https:' : 'http:') +
+            "//widget.daovoice.io/widget/6984b559.js", "daovoice")
+        daovoice('init', {
+            app_id: ""
+        });
+        daovoice('update');
+    </script>
+    
+
+    
+
+    
+
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<!-- 背景雪花飘落特效洪卫 shw2018 add 2019.09.10 -->
+        
+
+</body>
+
+</html>

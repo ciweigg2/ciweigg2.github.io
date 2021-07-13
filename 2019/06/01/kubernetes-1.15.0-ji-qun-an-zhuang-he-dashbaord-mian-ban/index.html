@@ -1,0 +1,1640 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="kubernetes-1.15.0集群安装和dashbaord面板, 如果没有你">
+    <meta name="description" content="初始化环境特别注意的地方：node节点无法加入master日志也看不出什么，因为hostname相同，kubeadm reset里面会还原hostname，多检查hostname，可以使用hostnamectl –static set-ho">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>kubernetes-1.15.0集群安装和dashbaord面板 | 如果没有你</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper head-container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">如果没有你</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/about">
+          
+          <i class="fas fa-user-circle" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>关于</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="https://ciweigg2.github.io/ciwei-resume/">
+          
+          <i class="fas fa-trophy" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>简历</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="" class="waves-effect waves-light">
+
+      
+      <i class="fas fa-list" style="zoom: 0.6;"></i>
+      
+      <span>娱乐</span>
+      <i class="fas fa-chevron-down" aria-hidden="true" style="zoom: 0.6;"></i>
+    </a>
+    <ul class="sub-nav menus_item_child ">
+      
+      <li>
+        <a href="/musics">
+          
+          <i class="fas fa-music" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>音乐</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/movies">
+          
+          <i class="fas fa-film" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>电影</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/books">
+          
+          <i class="fas fa-book" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>图书</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/galleries">
+          
+          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>相册</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="https://ciweigg2.github.io/alicdn/">
+          
+          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>免费图床</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/books">
+          
+          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>书单</span>
+        </a>
+      </li>
+      
+      <li>
+        <a href="/games">
+          
+          <i class="fas fa-image" style="margin-top: -20px; zoom: 0.6;"></i>
+          
+          <span>游戏</span>
+        </a>
+      </li>
+      
+    </ul>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">如果没有你</div>
+        <div class="logo-desc">
+            
+            躺在你学校的操场看星空 教室里的灯还亮着你没走 记得 我写给你的情书 都什么年代了 到现在我还在写着 总有一天总有一年会发现 有人默默的陪在你的身边
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>   
+				
+                  <a href="/about " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-user-circle" style="position: absolute;left:50px" ></i>
+			      
+		          <span>关于</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="https://ciweigg2.github.io/ciwei-resume/ " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-trophy" style="position: absolute;left:50px" ></i>
+			      
+		          <span>简历</span>
+                  </a>
+                </li>
+               
+            </ul>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+				<i class="fas fa-fw fa-link"></i>
+			
+			Contact
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			Friends
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="javascript:;">
+			
+				<i class="fa-fw fas fa-list"></i>
+			
+			娱乐
+			<span class="m-icon"><i class="fas fa-chevron-right"></i></span>
+		</a>
+            <ul  style="background:  ;" >
+              
+                <li>   
+				
+                  <a href="/musics " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-music" style="position: absolute;left:50px" ></i>
+			      
+		          <span>音乐</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="/movies " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-film" style="position: absolute;left:50px" ></i>
+			      
+		          <span>电影</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="/books " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-book" style="position: absolute;left:50px" ></i>
+			      
+		          <span>图书</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="/galleries " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
+			      
+		          <span>相册</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="https://ciweigg2.github.io/alicdn/ " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
+			      
+		          <span>免费图床</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="/books " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
+			      
+		          <span>书单</span>
+                  </a>
+                </li>
+              
+                <li>   
+				
+                  <a href="/games " style="margin-left:75px";>
+				  
+				   <i class="fa fas fa-image" style="position: absolute;left:50px" ></i>
+			      
+		          <span>游戏</span>
+                  </a>
+                </li>
+               
+            </ul>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://ciwei3.cn-sh2.ufileos.com/204.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        kubernetes-1.15.0集群安装和dashbaord面板
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/kubernetes/">
+                                <span class="chip bg-color">kubernetes</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/综合/" class="post-category">
+                                综合
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-06-01
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        3.5k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        19 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="初始化环境"><a href="#初始化环境" class="headerlink" title="初始化环境"></a>初始化环境</h2><p>特别注意的地方：node节点无法加入master日志也看不出什么，因为hostname相同，kubeadm reset里面会还原hostname，多检查hostname，可以使用hostnamectl –static set-hostname k8s-master设置会比较好，hostname也会引起kubernetes-dashbaord无法部署的</p>
+<p>控制台参考：<a href="http://www.linuxwan.com/archives/808.html" target="_blank" rel="noopener">http://www.linuxwan.com/archives/808.html</a></p>
+<p>集群的参考：<a href="http://www.linuxwan.com/archives/802.html" target="_blank" rel="noopener">http://www.linuxwan.com/archives/802.html</a></p>
+<pre><code>systemctl stop firewalld &amp;&amp; systemctl disable firewalld &amp;&amp; setenforce 0
+sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config</code></pre><a id="more"></a>
+
+<h2 id="关闭交换分区"><a href="#关闭交换分区" class="headerlink" title="关闭交换分区"></a>关闭交换分区</h2><pre><code>swapoff -a &amp;&amp; sysctl -w vm.swappiness=0</code></pre><h2 id="修改主机名添加-etc-hosts（所有节点安装）"><a href="#修改主机名添加-etc-hosts（所有节点安装）" class="headerlink" title="修改主机名添加/etc/hosts（所有节点安装）"></a>修改主机名添加/etc/hosts（所有节点安装）</h2><pre><code>hostnamectl --static set-hostname k8s-master
+hostnamectl --static set-hotname k8s-node-1
+hostnamectl --static set-hostname k8s-node-2
+
+cat &gt;&gt; /etc/hosts &lt;&lt;EOF
+172.31.39.141 k8s-master
+172.31.35.214 k8s-node-1
+172.31.38.44 k8s-node-2
+EOF</code></pre><h2 id="添加yum源（所有节点安装）"><a href="#添加yum源（所有节点安装）" class="headerlink" title="添加yum源（所有节点安装）"></a>添加yum源（所有节点安装）</h2><pre><code>cat &lt;&lt; EOF &gt; /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
+EOF
+
+wget https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo -O /etc/yum.repos.d/docker-ce.repo</code></pre><h2 id="安装组件及docker-所有节点安装-如果安装了docker请去掉docker的安装-docker版本18-06-1"><a href="#安装组件及docker-所有节点安装-如果安装了docker请去掉docker的安装-docker版本18-06-1" class="headerlink" title="安装组件及docker (所有节点安装 如果安装了docker请去掉docker的安装 docker版本18.06.1)"></a>安装组件及docker (所有节点安装 如果安装了docker请去掉docker的安装 docker版本18.06.1)</h2><pre><code>yum install -y kubelet-1.15.0 kubeadm-1.15.0 kubectl-1.15.0 docker-ce-18.06.1.ce</code></pre><h2 id="配置路由"><a href="#配置路由" class="headerlink" title="配置路由"></a>配置路由</h2><pre><code>cat  &gt; /etc/sysctl.d/k8s.conf &lt;&lt;EOF
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+
+sysctl --system</code></pre><h2 id="启动docker"><a href="#启动docker" class="headerlink" title="启动docker"></a>启动docker</h2><pre><code>systemctl start docker
+systemctl enable docker</code></pre><h2 id="查看版本"><a href="#查看版本" class="headerlink" title="查看版本"></a>查看版本</h2><pre><code>[root@k8s-master ~]# docker version
+Client:
+ Version:           18.06.1-ce
+ API version:       1.38
+ Go version:        go1.10.3
+ Git commit:        e68fc7a
+ Built:             Tue Aug 21 17:23:03 2018
+ OS/Arch:           linux/amd64
+ Experimental:      false
+
+Server:
+ Engine:
+  Version:          18.06.1-ce
+  API version:      1.38 (minimum version 1.12)
+  Go version:       go1.10.3
+  Git commit:       e68fc7a
+  Built:            Tue Aug 21 17:25:29 2018
+  OS/Arch:          linux/amd64
+  Experimentaltalall
+[root@k8s-master ~]# kubeadm version
+kubeadm versn: &amp;versn: &amp;version.Info{Major:"1", Minor:"14", GitVersion:"v1.15.0", GitCommit:"66049e3b21efe110454d67df4fa62b08ea79a19b", GitTreeState:"clean", BuildDate:"2019-05-16T16:20:34Z", GoVersion:"go1.12.5", Compiler:"gc", Platform:"linux/amd64"}
+[root@k8s-master ~]# kubectl version
+Client Version: version.Info{Major:"1", Minor:"14", GitVersion:"v1.15.0", GitCommit:"66049e3b21efe110454d67df4fa62b08ea79a19b", GitTreeState:"clean", BuildDate:"2019-05-16T16:23:09Z", GoVersion:"go1.12.5", Compiler:"gc", Platform:"linux/amd64"}
+</code></pre><h2 id="使用kubeadm安装master-节点组件"><a href="#使用kubeadm安装master-节点组件" class="headerlink" title="使用kubeadm安装master 节点组件"></a>使用kubeadm安装master 节点组件</h2><p>常用命令：</p>
+<pre><code>kubeadm init 启动一个 Kubernetes 主节点
+kubeadm join 启动一个 Kubernetes 工作节点并且将其加入到集群
+kubeadm upgrade 更新一个 Kubernetes 集群到新版本
+kubeadm config 如果使用 v1.7.x 或者更低版本的 kubeadm 初始化集群，您需要对集群做一些配置以便使用 kubeadm upgrade 命令
+kubeadm token 管理 kubeadm join 使用的令牌
+kubeadm reset 还原 kubeadm init 或者 kubeadm join 对主机所做的任何更改</code></pre><h2 id="1-14版本后不支持外网集群-所以去掉-–apiserver-advertise-address-118-184-218-184-集群需要同一个运营商购买的服务器内网通-外网貌似需要域名和证书很麻烦"><a href="#1-14版本后不支持外网集群-所以去掉-–apiserver-advertise-address-118-184-218-184-集群需要同一个运营商购买的服务器内网通-外网貌似需要域名和证书很麻烦" class="headerlink" title="1.14版本后不支持外网集群 所以去掉 –apiserver-advertise-address 118.184.218.184 集群需要同一个运营商购买的服务器内网通(外网貌似需要域名和证书很麻烦)"></a>1.14版本后不支持外网集群 所以去掉 –apiserver-advertise-address 118.184.218.184 集群需要同一个运营商购买的服务器内网通(外网貌似需要域名和证书很麻烦)</h2><pre><code>kubeadm init --kubernetes-version=v1.15.0 --pod-network-cidr=10.244.0.0/16 --ignore-preflight-errors=swap --image-repository=registry.cn-hangzhou.aliyuncs.com/google_containers  --ignore-preflight-errors=SystemVerification</code></pre><p>输出如下：</p>
+<pre><code>[init] Using Kubernetes version: v1.15.0
+[preflight] Running pre-flight checks
+        [WARNING Service-Docker]: docker service is not enabled, please run 'systemctl enable docker.service'
+        [WARNING IsDockerSystemdCheck]: detected "cgroupfs" as the Docker cgroup driver. The recommended driver is "systemd". Please follow the guide at https://kubernetes.io/docs/setup/cri/
+        [WARNING Hostname]: hostname "jd" could not be reached
+        [WARNING Hostname]: hostname "jd": lookup jd on 103.224.222.222:53: no such host
+        [WARNING Service-Kubelet]: kubelet service is not enabled, please run 'systemctl enable kubelet.service'
+[preflight] Pulling images required for setting up a Kubernetes cluster
+[preflight] This might take a minute or two, depending on the speed of your internet connection
+[preflight] You can also perform this action in beforehand using 'kubeadm config images pull'
+[kubelet-start] Writing kubelet environment file with flagsto file "/var/late and key
+[certs] Generating "etcd/ca" certificcate and key
+[cenfiuration to file "/var/lib/kubelet/config.aml"
+[kubelet-start] AActivating the kubelet service
+[certs] Usiing certificateDir foldeificate and key
+[certs] Generating "front-proxy-client" certificate and key
+[certs] Generating "etcd/ca" certificate and key
+[certs] Generating "etcd/server" certifte and key
+[certs] etcd/server serving cert is signed for DNS n  names [jd localhost] and IPs [192.168.0.3 127.0.0.1 ::1]
+[certs] Generating "apiserver-etcd-client" certificate and key
+[certs] Generating "etcd/peer" certificate and key
+[certs] etcd/peer serving cert is signed for DNS names [jd localhost] and IPs [192.168.0.3 127.0.0.1 ::1]
+[certs] Generating "etcd/healthcheck-client" certificate and key
+[certs] Generating "ca" certificate and key
+[certs] Generating "apiserver-kubelet-client" certificate and key
+[certs] Generating "apiserver" certificate and key
+[certs] apiserver serving cert is signed for DNS names [jd kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.96.0.1 192.168.0.3]
+[certs] Generating "sa" key and public key
+[kubeconfig]fig] Using kubeconfig folder "/etc/kubernetes"
+[kubeconfig] Writ"admin.conf" kubeconfig file
+[kubeconfig] Writing "kubelet.conf" kubeconfig file
+[kubeconfig] Writing "controller-manager.conf" kubeconfig file
+[kubeconfig] Writing "scheduler.conf" kubeconfig file
+[control-plane] Using manifest folder "/etc/kubernetes/manifests"
+[control-plane] Creating static Pod manifest for "kube-apiserver"
+[control-plane] Creatin static Pod manifest for "kube-controller-manager"
+[control-planne] Creating static Pod manifest for "kube-scheduler"
+[etcd] Creating static Pod manifest for local etcd in "/etc/kubernetes/manifests"
+[wait-control-plane] Waiting for the kubelet to boot up the control plane as static Pods from directory "/etc/kubernetes/manifests". This can take up tt for local etcd in "/etc/kubernetes/manifests"
+[wait-control-plr 15.001725 seconds
+[upload-config] storing the configuration used in ConfigMap "kubeadm-config" in the "kube-system" Namespace
+[kubelet] Creating a ConfigMap "kubelet-config-1.14" in namespace kube-system with the configuration for the kubelets in the cluster
+[upload-certs] Skipping phase. Please see --experimental-upload-certs
+[mark-control-plane] Marking the node jd as control-plane by adding the label "node-role.kubernetes.io/master=''"
+[mark-control-plane] Marking the node jd as controltrol-plane by adding the taints [node-role.kubernetes.io/master:hedule]
+[bootstrap-token] Using token: br6a7j.79aimgudzio73jy5
+[bootstrap-token] Configuring bootstrap tokens, cluster-info ConfigMap, RBAC Roles
+[bootstrap-token] configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
+[bootstrap-token] configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
+[bootstrap-token] configured RBAC rules to allow certificate rotation for all node client certificates in the cluster
+[bootstrap-token] creating the "cluster-info" ConfigMap in the "kube-public" namespace
+[addons] Applied essential addon: CoreDNS
+[addons] Applied essential addon: kube-proxy
+
+Your Kubernetes control-plane has initialized successfully!
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 192.168.0.3:6443 --token br6a7j.79aimgudzio73jy5 \
+    --discovery-token-ca-cert-hash sha256:0623e22780c5a25138208fc417f874a0c70ca28543acf52be52ee445ec0c1dd3 </code></pre><h2 id="所有node通过这个命令加入集群-内网需要通"><a href="#所有node通过这个命令加入集群-内网需要通" class="headerlink" title="所有node通过这个命令加入集群(内网需要通)"></a>所有node通过这个命令加入集群(内网需要通)</h2><pre><code>kubeadm join 192.168.0.3:6443 --token br6a7j.79aimgudzio73jy5 \
+    --discovery-token-ca-cert-hn-ca-cert-hhsh sha256:0623e22780c5a25138208fc417f874a0c70ca28543445ec0c1dd3</code></pre><h2 id="如果token过期了-重新生成呀"><a href="#如果token过期了-重新生成呀" class="headerlink" title="如果token过期了 重新生成呀"></a>如果token过期了 重新生成呀</h2><pre><code>kubeadm token generate
+
+kubeadm token create &lt;generated-token&gt;&gt; --print-join-command --ttl=24h</code></pre><p>–ttl=24h 代表这个Token 的有效期为 24 小时，初始化默认生成的 token 有效期也为 24 小时</p>
+<h2 id="添加连接集群config配置"><a href="#添加连接集群config配置" class="headerlink" title="添加连接集群config配置"></a>添加连接集群config配置</h2><pre><code>mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config</code></pre><h2 id="查看组件状态"><a href="#查看组件状态" class="headerlink" title="查看组件状态"></a>查看组件状态</h2><pre><code>[root@k8s-master ~]# kubectl get cs
+NAME                 STATUS    MESSAGE             ERROR
+controller-manager   Healthy   ok                  
+scheduler            Healthy   ok                  
+etcd-0               Healthy   {"health":"true"}   
+[root@k8s-master ~]# kubectl get node
+NAME         STATUS     ROLES    AGE   VERSION
+k8s-master   NotReady   master   31m   v1.15.0</code></pre><h2 id="安装网络插件"><a href="#安装网络插件" class="headerlink" title="安装网络插件"></a>安装网络插件</h2><p>安装网络插件需要注意保证docker register私有仓库中已经有该镜像<br>下载kube-flannel.yaml 配置</p>
+<pre><code>wget https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+
+kubectl apply -f kube-flannel.yml</code></pre><h2 id="查看集群网络状态"><a href="#查看集群网络状态" class="headerlink" title="查看集群网络状态"></a>查看集群网络状态</h2><pre class="line-numbers language-java"><code class="language-java"><span class="token punctuation">[</span>root<span class="token annotation punctuation">@k8s</span><span class="token operator">-</span>master <span class="token operator">~</span><span class="token punctuation">]</span># kubectl get pods <span class="token operator">-</span>o wide <span class="token operator">--</span>all<span class="token operator">-</span>namespaces
+NAMESPACE     NAME                                 READY   STATUS    RESTARTARARRP              NODE         NOMINATED NODE   READISS GATESSS GATES
+kube<span class="token operator">-</span>system   coredns<span class="token operator">-</span>fb8b8dccf<span class="token operator">-</span>nvn2l              <span class="token number">1</span><span class="token operator">/</span><span class="token number">1</span>     Running   <span class="token number">0</span>          34m   <span class="token number">10.244</span><span class="token punctuation">.</span><span class="token number">0.35</span>     k8s<span class="token operator">-</span>master              
+kube<span class="token operator">-</span>system   coredns<span class="token operator">-</span>fb8b8dccf<span class="token operator">-</span>twk52              <span class="token number">1</span><span class="token operator">/</span><span class="token number">1</span>     Running   <span class="token number">0</span>          34m   <span class="token number">10.244</span><span class="token punctuation">.</span><span class="token number">0.34</span>     k8s<span class="token operator">-</span>master              
+kube<span class="token operator">-</span>system   etcd<span class="token operator">-</span>k8s<span class="token operator">-</span>master                      <span class="token number">1</span><span class="token operator">/</span><span class="token number">1</span>     Running   <span class="token number">1</span>          33m   <span class="token number">172.31</span><span class="token punctuation">.</span><span class="token number">39.141</span>   k8s<span class="token operator">-</span>master              
+kube<span class="token operator">-</span>system   kube<span class="token operator">-</span>apiserver<span class="token operator">-</span>k8s<span class="token operator">-</span>master            <span class="token number">1</span><span class="token operator">/</span><span class="token number">1</span>     Running   <span class="token number">1</span>          33m   <span class="token number">172.31</span><span class="token punctuation">.</span><span class="token number">39.141</span>   k8s<span class="token operator">-</span>master              
+kube<span class="token operator">-</span>system   kube<span class="token operator">-</span>controller<span class="token operator">-</span>manager<span class="token operator">-</span>k8s<span class="token operator">-</span>master   <span class="token number">1</span><span class="token operator">/</span><span class="token number">1</span>     Running   <span class="token number">1</span>          33m   <span class="token number">172.31</span><span class="token punctuation">.</span><span class="token number">39.141</span>   k8s<span class="token operator">-</span>master              
+kube<span class="token operator">-</span>system   kube<span class="token operator">-</span>flannel<span class="token operator">-</span>ds<span class="token operator">-</span>amd64<span class="token operator">-</span>j8w25          <span class="token number">1</span><span class="token operator">/</span><span class="token number">1</span>     Running   <span class="token number">1</span>          34m   <span class="token number">172.31</span><span class="token punctuation">.</span><span class="token number">39.141</span>   k8s<span class="token operator">-</span>master              
+kube<span class="token operator">-</span>system     34m   <span class="token number">172.31</span><span class="token punctuation">.</span><span class="token number">39.141</span>   k8s<span class="token operator">-</span>master              
+kube<span class="token operator">-</span>system   kube<span class="token operator">-</span>scheduler<span class="token operator">-</span>k8s<span class="token operator">-</span>master            <span class="token number">1</span><span class="token operator">/</span><span class="token number">1</span>     Running   <span class="token number">1</span>          33m   <span class="token number">172.31</span><span class="token punctuation">.</span><span class="token number">39.141</span>   k8s<span class="token operator">-</span>master              
+
+<span class="token punctuation">[</span>root<span class="token annotation punctuation">@k8s</span><span class="token operator">-</span>master <span class="token operator">~</span><span class="token punctuation">]</span># kubectl get node
+NAME         STATUS   ROLES    AGE   VERSION
+k8s<span class="token operator">-</span>master   Ready    master   34m   v1<span class="token number">.15</span><span class="token punctuation">.</span><span class="token number">0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="如果出现问题重置系统"><a href="#如果出现问题重置系统" class="headerlink" title="如果出现问题重置系统"></a>如果出现问题重置系统</h2><pre><code>kubeadm reset</code></pre><h2 id="node节点"><a href="#node节点" class="headerlink" title="node节点"></a>node节点</h2><p>获取master的join token</p>
+<pre><code>kubeadm token create --print-join-command</code></pre><p>node节点需要重复上面拉取镜像(包含)所有的操作，node节点如果hostname不能和master相同，如果安装出错kubeadm reset重新安装</p>
+<pre><code>kubeadm join 192.168.0.3:64433 --token e6gc7z.t52g39w7mxww18gn \
+    --discovery-token-ca-cert-hash sha256:603fbd109caf000c0cffe286c7b2eeebaf88d0540e1ea226d7f1b239d0695f1e
+
+[preflight] Running pre-flight checks
+[WARNING IsDockerSystemdCheck]: detected "cgroupfs" as the Docker cgroup driver. The recommended driver is "systemd". Please follow the guide at https://kubernetes.io/docs/setup/cri/
+[preflight] Reading configuration from the cluster...
+[preflight] FYI: You can look at this config filewith 'kubectl -n kube-system get cm kubeadm-config -oyaml'
+[kubeelet-start] Downloading configuration for the kubelet from the "kubelet-config-1.14" ConfigMap in the kube-system namespace
+[kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[kubelet-start] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[kubelet-start] Activating the kubelet service
+[kubelet-start] Waiting for the kubelet to perform the TLS Bootstrap...
+
+This node has joined the cluster:
+* Certificate signing request was sent to apiserver and a response was received.
+* The Kubelet was informed of the new secure connection details.
+
+Run 'kubectl get nodes' on the control-plane to see this node join the cluster.</code></pre><h2 id="查看节日日志"><a href="#查看节日日志" class="headerlink" title="查看节日日志"></a>查看节日日志</h2><pre><code>journalctl -f -u kubelet.service</code></pre><h2 id="查看节点状态"><a href="#查看节点状态" class="headerlink" title="查看节点状态"></a>查看节点状态</h2><pre><code>[root@k8s-master ~]# kubectl get node -o wide
+NAME         STATUS   ROLES    AGE     VERSION   INTERNAL-IP     EXTERNAL-IP   OS-IMAGE                KERNEL-VERSION              CONTAINER-RUNTIME
+k8s-master   Ready    master   48m     v1.ux 7(Core)   3.10.0-862.2.3.el7.x86_64   docker://18.6.1
+k8s-no..2.3.el7.x86_64   docker://18.6.1
+k8s-node-1    Ready       2m33s   v1.15.0   172.31.35.214           CentOS Linux 7 (Core)   3.10.0-862.2.3.el7.x86_64   docker://18.6.1
+k8s-node-2   Ready       23s     v1.15.0   172.31.38.44            CentOS Linux 7 (Core)   3.10.0-862.2.3.el7.x86_64   docker://18.6.1
+
+[root@k8s-master ~]# kubectl get pods -o wide --all-namespaces
+NAMESPACE     NAME                                 READY   STATUS    RESTARTS   AGE     IP              NODE         NOMINATED NODE   READINESS GATES
+kube-system   coredns-fb8b8dccb8b8dcc8b8dccb8dcc8dccdcccccn2l              1/1     Running   0.0.35     k8s-master              
+kube-system   coredns-fb8b8dccf-twk52              1/1     Running   0     57m     10.244.0.34     k8s-master              
+kube-system  tem   etcd-k8s-master                      1/1     Running   1          56m     172.31.39.141   k8s-master              
+kube-system   kube-apiserver-k8s-master            1/1     Running   1          56m     172.31.39.141   k8s-master              
+kube-system   kube-controller-manager-k8s-master   1/1     Running   1          56m     172.31.39.141   k8s-master              
+kube-system   kube-flannel-ds-amd64-j8w25          1/1     Running   1          56m     172.31.39.141   k8s-master              
+kube-system   kube-flannel-ds-amd64-pvb74          1/1     Running   0          11m     172.31.35.214   k8s-node-1              
+kube-system   kube-flannel-ds-amd64-vh575          1/1     Running   0          9m44s   172.31.38.44    k8s-node-2              
+kube-system   kube-proxy-cdnrp                     1/1     Running   0          11m     172.31.35.214   k8s-node-1              
+kube-system   kube-proxy-skfbb                     1/1     Running   0          9m44s   172.31.38.44    k8s-node-2              
+kube-system   kube-proxy-z8cb9                     1/1     Running   1          57m     172.31.39.141   k8s-master              
+kube-system   kube-scheduler-k8s-master            1/1     Running   1          56m     172.31.39.141   k8s-master</code></pre><p>集群正常运行，安装完毕</p>
+<p>因为我测试只有一台机器 所以需要部署项目 要执行下面的然后等待几分钟在部署项目就行了</p>
+<h2 id="单机部署没有node节点的情况下-要部署服务需要执行下面的"><a href="#单机部署没有node节点的情况下-要部署服务需要执行下面的" class="headerlink" title="单机部署没有node节点的情况下 要部署服务需要执行下面的"></a>单机部署没有node节点的情况下 要部署服务需要执行下面的</h2><pre><code>报错:0/1 nodes are available: 1 node(s) had taints that the pod didn't tolerate.
+解决:kubectl taint nodes --all node-role.kubernetes.io/master-</code></pre><h2 id="重启kubernets"><a href="#重启kubernets" class="headerlink" title="重启kubernets"></a>重启kubernets</h2><pre><code>systemctl restart kubelet</code></pre><h2 id="重装kubernets"><a href="#重装kubernets" class="headerlink" title="重装kubernets"></a>重装kubernets</h2><pre><code>kubeam reset
+rm -f $HOME/.kube/</code></pre><h2 id="安装kubernetes-dashboard的ui-master机器部署的"><a href="#安装kubernetes-dashboard的ui-master机器部署的" class="headerlink" title="安装kubernetes-dashboard的ui(master机器部署的)"></a>安装kubernetes-dashboard的ui(master机器部署的)</h2><p>安装dashboard</p>
+<p>Kubernetes Dashboard （仪表盘）是一个旨在将通用的基于 Web 的监控和操作界面加入 Kubernetes 的项目</p>
+<p>可以查看当前最新版本：<a href="https://raw.githubusercontent.com/kubernete" target="_blank" rel="noopener">https://raw.githubusercontent.com/kubernete</a></p>
+<p>下载文件</p>
+<pre><code>wget https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml</code></pre><h2 id="查看当前最新版本："><a href="#查看当前最新版本：" class="headerlink" title="查看当前最新版本："></a>查看当前最新版本：</h2><pre><code>egrep "image" kubernetes-dashboard.yaml</code></pre><p>下载镜像</p>
+<pre><code>docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/kubernetes-dashboard-amd64:v1.10.1</code></pre><p>重新打标签</p>
+<pre><code>docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/kubernetes-dashboard-amd64:v1.10.1 k8s.gcr.io/kubernetes-dashboard-amd64:v1.10.1</code></pre><p>如果打标签行不通的话 直接改kubernetes-dashboard.yaml中的镜像改成registry.cn-hangzhou.aliyuncs.com/google_containers/kubernetes-dashboard-amd64:v1.10.1</p>
+<h2 id="加载dashboard配置"><a href="#加载dashboard配置" class="headerlink" title="加载dashboard配置"></a>加载dashboard配置</h2><p>在service 控制器中添加NodePort 类型，实现外网访问</p>
+<p>创建文件挂在目录(所有节点创建)</p>
+<pre><code>mkdir -p /var/share/certs</code></pre><p>实现外网访问(添加 nodePort: 31234 type: NodePort)：</p>
+<p>vi kubernetes-dashboard.yaml</p>
+<pre><code>kiervice
+apiVersion: v1
+metadata:
+  labels:
+    k8s-app: kubeuubernetrrnetes-dashboard
+  name: kubernetes-dashboard
+  namespace: kube-system
+spec:
+  ports:
+    - port: 443
+      targetPort: 8443
+      nodePort: 31234
+  selector:
+    k8s-app: kubernetes-dashboard
+  type: NodePort</code></pre><p>创建kubernetes-dashboard的ui：</p>
+<pre><code>kubectl apply -f kubernetes-dashboard.yaml
+secret/kubernetes-dashboard-certs created
+serviceaccount/kubernetes-dashboard created
+role.rbac.authorization.k8s.io/kubernetes-dashboard-minimal created
+rolebinding.rbac.authorization.k8s.io/kubernetes-dashboard-minimal created
+deployment.apps/kubernetes-dashboard created
+service/kubernetes-dashboard created</code></pre><p>查看dashboard 启动状态和service端口</p>
+<pre><code>kubectl get service -n kube-system
+NAME                   TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                  AGE
+kube-dns               ClusterIP   10.96.0.10               53/UDP,53/TCP,9153/TCP   102m
+kubernetes-dashbs -n kube-system
+READY   STATUS    RESTARTS   AGE
+coredns-fb8b8d     
+
+kubectl get pods -n kube-system
+READY   STATUS    RESTARTS   AGE
+coredns-fb8b8dccf-nvn2l                 1/1     Running   0          102m
+coredns-fb8b8dccf-twk52                 1/1     Running   0          102m
+etcd-k8s-master                         1/1     Running   1          101m
+kube-apiserver-k8s-master               1/1     Running   1          101m
+kube-controller-manager-k8s-master      1/1     Running   1          101m
+kube-flannel-ds-amd64-j8w25             1/1     Running   1          102m
+kube-flannel-ds-amd64-pvb74             1/1     Running   2          57m
+kube-flannel-ds-amd64-vh575             1/1     Running   0          55m
+kube-proxy-cdnrp                        1/1     Running   2          57m
+kube-proxy-skfbb                        1/1     Running   0          55m
+kube-proxy-z8cb9                        1/1     Running   1          102m
+kube-scheduler-k8s-master               1/1     Running   1          101m
+kubernetes-dashboard-5f7b999d65-522p9   1/1     Running   0          31m</code></pre><h2 id="配置https证书"><a href="#配置https证书" class="headerlink" title="配置https证书"></a>配置https证书</h2><p>生成私钥和证书签名</p>
+<pre><code>openssl genrsa -des3 -passout pass:x -out dashboard.pass.key 2048
+openssl rsa -passin pass:x -in dashboard.pass.key -out dashboard.key
+rm dashboard.pass.key
+openssl req -new -key dashboard.key -out dashboard.csr【如遇输入，一路回车即可】</code></pre><p>生成SSL证书</p>
+<pre><code>openssl x509 -req -sha256 -days 365 -in dashboard.csr -signkey dashboard.key -out dashboard.crt</code></pre><p>然后将生成的 dashboard.key 和 dashboard.crt置于路径 下/var/share/certs目录下</p>
+<pre><code>scp dashboard.key dashboard.crt /var/share/certs/</code></pre><p>加载admin-token.yaml 配置</p>
+<p>vi admin-token.yaml</p>
+<pre><code>kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: adm
+  annotations:
+    rbac.authorization.kubernetes.io/autoupdateee: "true"
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io
+subjects:
+- kind: ServiceAccount
+  name: admin
+  namespace: kube-system
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: admin
+  namespace: kube-system
+  labels:
+    kubernetes.io/cluster-service: "true"
+    addonmanager.kubernetes.io/mode: Reconcile</code></pre><p>执行kubectl create -f admin-token.yaml </p>
+<p>查看token</p>
+<pre><code>kubectl get secret $(kubectl get secret -n kube-system|grep admin-token|awk '{print $1}') -n kube-system -o jsonpath={.data.token}|base64 -d |xargs echo</code></pre><p>通过浏览器登录web界面(火狐才能访问)：</p>
+<p><a href="https://ip:31234" target="_blank" rel="noopener">https://ip:31234</a></p>
+<p>输入token：</p>
+<pre><code>eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJhZG1pbi10b2tlbi05dHJncSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJhZG1pbiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjYvc2VydmhY2NvdW50LnVpZCI6IjgzM2JkYzZiLTg2MGEtMTFlOS1iYzg4LTUyNTQwUyNTQwMDEzYjEEzYjI5OSIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDprdWJlLXN5c3RlbTphZG1pbiJ9.mBRp-RZ-9-zV1rTHZdv21h0zXrFhXfhN_B369L65yJHE9KWAkzf_Y8JvQz7Vvutfv3WylaRJcrNOECv1otIbLV75USgjRmz_Ji2Oli3RF8P15qjjxGOViQkVs1HjE5zjThnujc5i81YBM-rkuMHoFX-M5MyJ6fu8WmJMD5VggAguhlzkZILGfqLqHhw74ElSaPOETzmfDac6zVr1uQ5tSYDrZlOTmgKMsjj2SFEM9R1Zdbj5A2cKVC4Nu7yrgk4LXpNj5rlCOmPx8TDH5Rf5us4gL9Hau2L-5bHWLCasZ175VgJWMz1Vr3LHnUbyIUsrLCHYB8KkDLCLXvIV_F051g</code></pre><p><img src="/images/20190601130930.png" alt=""></p>
+<h2 id="踩坑："><a href="#踩坑：" class="headerlink" title="踩坑："></a>踩坑：</h2><blockquote>
+<p>集群不正常也会报错（因为hostname相同造成的 hostnamectl –static set-hostname k8s-master）</p>
+</blockquote>
+<pre><code>network: failed to set bridge addr: "cni0" already has an IP address different from 10.244.2.1/24</code></pre><blockquote>
+<p>集群一切正常 界面也正常安装后部署服务发现网络问题</p>
+</blockquote>
+<pre><code>journalctl -u kubelet
+failed: rpc error: code = Unknown desc = NetworkPlugin cni failed to set up pod "nginx-8586cf59-rm4sh_default" network: failed to set bridge addr: "cni0" already has an IP address different from 10.244.2.1/24
+Error while adding to cni network: failed to set bridge addr: "cni0" already</code></pre><p>在Node上执行如下操作：</p>
+<p>重置kubernetes服务，重置网络。删除网络配置，link</p>
+<pre><code>kubeadm reset
+systemctl stop kubelet
+systemctl stop docker
+rm -rf /var/lib/cni/
+rm -rf /var/lib/kubelet/*
+rm -rf /etc/cni/
+ifconfig cni0 down
+ifconfig flannel.1 down
+ifconfig docker0 down
+ip link delete cni0
+ip link delete flannel.1
+systemctl start docker</code></pre><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://ciweigg2.github.io" rel="external nofollow noreferrer">Ciwei</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://ciweigg2.github.io/2019/06/01/kubernetes-1.15.0-ji-qun-an-zhuang-he-dashbaord-mian-ban/">https://ciweigg2.github.io/2019/06/01/kubernetes-1.15.0-ji-qun-an-zhuang-he-dashbaord-mian-ban/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://ciweigg2.github.io" target="_blank">Ciwei</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/kubernetes/">
+                                    <span class="chip bg-color">kubernetes</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2019/06/01/kubernetes-1.14.2-ji-qun-an-zhuang-he-dashbaord-mian-ban/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="https://ciwei3.cn-sh2.ufileos.com/117.jpg" class="responsive-img" alt="kubernetes-1.14.2集群安装和dashbaord面板">
+                        
+                        <span class="card-title">kubernetes-1.14.2集群安装和dashbaord面板</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            初始化环境特别注意的地方：node节点无法加入master日志也看不出什么，因为hostname相同，kubeadm reset里面会还原hostname，多检查hostname，可以使用hostnamectl –static set-ho
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2019-06-01
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/综合/" class="post-category">
+                                    综合
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/kubernetes/">
+                        <span class="chip bg-color">kubernetes</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/05/24/pinpoint1.8.3-ben-di-bian-yi-dubbo-cha-jian/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="https://ciwei3.cn-sh2.ufileos.com/129.jpg" class="responsive-img" alt="pinpoint1.8.3本地编译dubbo插件">
+                        
+                        <span class="card-title">pinpoint1.8.3本地编译dubbo插件</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            dubbo2.7.1的pinpoint1.8.3的插件pinpoint编译太麻烦了 所以去官网下载编译好的核心类里面有开发插件的核心包的
+
+
+https://github.com/naver/pinpoint/releases/downlo
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-05-24
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/综合/" class="post-category">
+                                    综合
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/pinpoint/">
+                        <span class="chip bg-color">pinpoint</span>
+                    </a>
+                    
+                    <a href="/tags/dubbo/">
+                        <span class="chip bg-color">dubbo</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+    
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+    <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">年份</span>
+            <a href="https://ciweigg2.github.io" target="_blank">Ciwei</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">340.3k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    window.setTimeout("siteTime()", 1000);
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2019";
+                    var startMonth = "6";
+                    var startDate = "28";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <!-- Baidu Analytics -->
+
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+            <!-- 洪卫 shw2018 add 2019.08.28 -->
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+    
+
+    
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i["DaoVoiceObject"] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            a.charset = "utf-8";
+            m.parentNode.insertBefore(a, m)
+        })(window, document, "script", ('https:' == document.location.protocol ? 'https:' : 'http:') +
+            "//widget.daovoice.io/widget/6984b559.js", "daovoice")
+        daovoice('init', {
+            app_id: ""
+        });
+        daovoice('update');
+    </script>
+    
+
+    
+
+    
+
+    
+    
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<!-- 背景雪花飘落特效洪卫 shw2018 add 2019.09.10 -->
+        
+
+</body>
+
+</html>
